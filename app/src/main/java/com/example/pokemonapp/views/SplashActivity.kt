@@ -1,10 +1,11 @@
-package com.example.pokemonapp
+package com.example.pokemonapp.views
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pokemonapp.R
 import kotlinx.android.synthetic.main.activity_splash.*
 
 

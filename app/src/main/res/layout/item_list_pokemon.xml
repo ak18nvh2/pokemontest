@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2"
+        android:id="@+id/gl_rightOfAvatar"
+        ></androidx.constraintlayout.widget.Guideline>
+<ImageView
+    android:layout_width="0dp"
+    android:layout_height="50dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toLeftOf="@id/gl_rightOfAvatar"
+    android:src="@drawable/flying"
+    app:layout_constraintTop_toTopOf="parent"
+    android:id="@+id/img_avt"
+    app:layout_constraintHorizontal_bias="1"
+    ></ImageView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_pokemonName"
+        app:layout_constraintLeft_toRightOf="@id/gl_rightOfAvatar"
+        android:text="Pokemon name"
+        android:textSize="20dp"
+        android:textColor="@color/text_color_name_pokemon"
+        app:layout_constraintTop_toTopOf="@id/img_avt"
+        android:layout_marginLeft="13dp"
+        ></TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/tv_pokemonName"
+        android:id="@+id/tv_pokemonID"
+        app:layout_constraintTop_toBottomOf="@id/tv_pokemonName"
+        app:layout_constraintBottom_toBottomOf="@id/img_avt"
+        android:text="#001"
+        android:textColor="@color/text_color_id_pokemon"
+        ></TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/img_avt"
+        app:layout_constraintBottom_toBottomOf="@id/img_avt"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/rv_listTypePokemon"
+        android:layout_marginRight="10dp"
+         />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/img_avt"
+        app:layout_constraintTop_toBottomOf="@id/img_avt"
+        android:layout_marginTop="16dp"
+        android:background="@color/underline_color"
+        android:layout_marginLeft="15dp"
+        ></TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>

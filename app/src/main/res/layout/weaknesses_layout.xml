@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:background="@drawable/background_custom_two_corner">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_hor1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.16666"></androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_hor2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33332"></androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_hor3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.49998"></androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_hor4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="00.66664"></androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_hor5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8333"></androidx.constraintlayout.widget.Guideline>
+
+
+    <ImageView
+        android:id="@+id/img_electric"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/electric"
+        app:layout_constraintBottom_toBottomOf="@id/gl_hor2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x"
+        app:layout_constraintTop_toTopOf="@id/gl_hor1"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor2"
+        app:layout_constraintLeft_toRightOf="@id/img_bug"
+        app:layout_constraintRight_toLeftOf="@id/img_dark"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor1"></TextView>
+
+    <ImageView
+        android:id="@+id/img_fairy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/fairy"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor2"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x1"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor1"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor2"
+        app:layout_constraintLeft_toRightOf="@id/img_dark"
+        app:layout_constraintRight_toLeftOf="@id/img_dragon"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor1"></TextView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/fight"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor2"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x1"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x2"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor1"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor2"
+        app:layout_constraintLeft_toRightOf="@id/img_dragon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor1"></TextView>
+
+    <ImageView
+        android:id="@+id/img_bug"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/bug"
+        app:layout_constraintBottom_toBottomOf="@id/gl_hor1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+    <TextView
+        android:id="@+id/tv_2x"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="@id/img_bug"
+        app:layout_constraintLeft_toRightOf="@id/img_bug"
+        app:layout_constraintRight_toLeftOf="@id/img_dark"
+        app:layout_constraintTop_toTopOf="@id/img_bug"></TextView>
+
+    <ImageView
+        android:id="@+id/img_dark"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/dark"
+        app:layout_constraintBottom_toBottomOf="@id/img_bug"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x1"
+        app:layout_constraintTop_toTopOf="@id/img_bug"></ImageView>
+
+    <TextView
+        android:id="@+id/tv_2x1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="@id/img_bug"
+        app:layout_constraintLeft_toRightOf="@id/img_dark"
+        app:layout_constraintRight_toLeftOf="@id/img_dragon"
+        app:layout_constraintTop_toTopOf="@id/img_bug"></TextView>
+
+    <ImageView
+        android:id="@+id/img_dragon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/dragon"
+        app:layout_constraintBottom_toBottomOf="@id/img_bug"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x1"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x2"
+        app:layout_constraintTop_toTopOf="@id/img_bug"></ImageView>
+
+    <TextView
+        android:id="@+id/tv_2x2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="@id/img_bug"
+        app:layout_constraintLeft_toRightOf="@id/img_dragon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_bug"></TextView>
+
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/fire"
+        app:layout_constraintBottom_toBottomOf="@id/gl_hor3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x"
+        app:layout_constraintTop_toTopOf="@id/gl_hor2"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor3"
+        app:layout_constraintLeft_toRightOf="@id/img_bug"
+        app:layout_constraintRight_toLeftOf="@id/img_dark"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor2"></TextView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/flying"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor3"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x1"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor2"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor3"
+        app:layout_constraintLeft_toRightOf="@id/img_dark"
+        app:layout_constraintRight_toLeftOf="@id/img_dragon"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor2"></TextView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ghost"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor3"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x1"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x2"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor2"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor3"
+        app:layout_constraintLeft_toRightOf="@id/img_dragon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor2"></TextView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/grass"
+        app:layout_constraintBottom_toBottomOf="@id/gl_hor4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x"
+        app:layout_constraintTop_toTopOf="@id/gl_hor3"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor4"
+        app:layout_constraintLeft_toRightOf="@id/img_bug"
+        app:layout_constraintRight_toLeftOf="@id/img_dark"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor3"></TextView>
+
+    <ImageView
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ground"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor4"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x1"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor3"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor4"
+        app:layout_constraintLeft_toRightOf="@id/img_dark"
+        app:layout_constraintRight_toLeftOf="@id/img_dragon"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor3"></TextView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ice"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor4"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x1"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x2"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor3"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor4"
+        app:layout_constraintLeft_toRightOf="@id/img_dragon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor3"></TextView>
+
+    <ImageView
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/normal"
+        app:layout_constraintBottom_toBottomOf="@id/gl_hor5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x"
+        app:layout_constraintTop_toTopOf="@id/gl_hor4"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor5"
+        app:layout_constraintLeft_toRightOf="@id/img_bug"
+        app:layout_constraintRight_toLeftOf="@id/img_dark"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor4"></TextView>
+
+    <ImageView
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/poison"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor5"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x1"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor4"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor5"
+        app:layout_constraintLeft_toRightOf="@id/img_dark"
+        app:layout_constraintRight_toLeftOf="@id/img_dragon"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor4"></TextView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/psychic"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor5"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x1"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x2"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor4"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_hor5"
+        app:layout_constraintLeft_toRightOf="@id/img_dragon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor4"></TextView>
+
+    <ImageView
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/rock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor5"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/img_bug"
+        app:layout_constraintRight_toLeftOf="@id/img_dark"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor5"></TextView>
+
+    <ImageView
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/steel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x1"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor5"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/img_dark"
+        app:layout_constraintRight_toLeftOf="@id/img_dragon"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor5"></TextView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/water"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tv_2x1"
+        app:layout_constraintRight_toLeftOf="@id/tv_2x2"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor5"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:text="2x"
+        android:textColor="#4f4f4f"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/img_dragon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gl_hor5"></TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>

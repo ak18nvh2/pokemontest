@@ -1,4 +1,4 @@
-package com.example.pokemonapp.views
+package com.example.pokemonapp.views.activitys
 
 import android.content.Intent
 import android.os.Bundle

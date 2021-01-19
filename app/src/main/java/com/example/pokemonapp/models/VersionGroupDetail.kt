@@ -3,11 +3,10 @@ package com.example.pokemonapp.models
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
-
-
-class VersionGroupDetail {
+class VersionGroupDetail : Serializable {
     @SerializedName("level_learned_at")
     @Expose
     var levelLearnedAt: Int? = null

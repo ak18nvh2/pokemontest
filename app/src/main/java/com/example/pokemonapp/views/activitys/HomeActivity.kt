@@ -1,6 +1,7 @@
-package com.example.pokemonapp.views
+package com.example.pokemonapp.views.activitys
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,7 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.example.pokemonapp.adapter.ListPokemonAdapter
 import com.example.pokemonapp.R
-import com.example.pokemonapp.Utility
+import com.example.pokemonapp.commons.Utility
 import com.example.pokemonapp.api.RetrofitClient
 import com.example.pokemonapp.models.InformationPokemon
 import com.example.pokemonapp.models.ListPokemon
@@ -124,7 +125,11 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     }
 
     override fun onItemClick(informationPokemon: InformationPokemon, pos: Int) {
-
+        val intent = Intent(this, DetailPokemonActivity::class.java)
+        val bundle = Bundle()
+        bundle.putSerializable("IP", informationPokemon)
+        intent.putExtras(bundle)
+        startActivity(intent)
     }
 
     override fun onClick(v: View?) {
@@ -140,7 +145,8 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             R.id.img_refresh -> {
                 closeKeyboard()
                 mKeyShowInformationPokemon = Utility.KEY_DISPLAY
-                mListPokemonAdapter.setList(mArrayListInformationPokemon)
+                mArrayListInformationPokemon.clear()
+                getListPokemon(0,20)
                 edt_inputSearch.text.clear()
             }
         }

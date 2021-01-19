@@ -3,11 +3,10 @@ package com.example.pokemonapp.models
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
-
-
-class Silver {
+class Silver : Serializable {
     @SerializedName("back_default")
     @Expose
     var backDefault: String? = null

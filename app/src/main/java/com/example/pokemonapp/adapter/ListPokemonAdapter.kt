@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemonapp.R
-import com.example.pokemonapp.Utility
+import com.example.pokemonapp.commons.Utility
 import com.example.pokemonapp.models.InformationPokemon
 import com.squareup.picasso.Picasso
 
@@ -42,7 +42,6 @@ class ListPokemonAdapter(
     override fun getItemCount(): Int {
         return this.mListPokemon.size
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.pokemonName.text = mListPokemon[position].name?.capitalize()

@@ -11,9 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PokemonApp">
         <activity
-            android:name=".views.HomeActivity"
+            android:name=".views.activitys.HomeActivity"
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
-        <activity android:name=".views.SplashActivity">
+        <activity
+            android:name=".views.activitys.DetailPokemonActivity"
+            ></activity>
+        <activity android:name=".views.activitys.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

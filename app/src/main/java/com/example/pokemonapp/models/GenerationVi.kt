@@ -3,11 +3,10 @@ package com.example.pokemonapp.models
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
-
-
-class GenerationVi {
+class GenerationVi  : Serializable {
     @SerializedName("omegaruby-alphasapphire")
     @Expose
     var omegarubyAlphasapphire: OmegarubyAlphasapphire? = null

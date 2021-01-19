@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_custom_two_corner">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_leftOfNameStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.088"></androidx.constraintlayout.widget.Guideline>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rightOfStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.912"></androidx.constraintlayout.widget.Guideline>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rightOfNameStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.171"></androidx.constraintlayout.widget.Guideline>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_leftOfProcess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.27"></androidx.constraintlayout.widget.Guideline>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_botOfSTATS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.12"></androidx.constraintlayout.widget.Guideline>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rightOfNumberStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.251"></androidx.constraintlayout.widget.Guideline>
+
+            <TextView
+                android:id="@+id/tv_HP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HP"
+                app:layout_constraintBottom_toTopOf="@id/tv_ATK"
+                app:layout_constraintLeft_toRightOf="@id/gl_leftOfNameStats"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <TextView
+                android:id="@+id/tv_ATK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ATK"
+                app:layout_constraintBottom_toTopOf="@id/tv_DEF"
+                app:layout_constraintLeft_toRightOf="@id/gl_leftOfNameStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_HP"></TextView>
+
+            <TextView
+                android:id="@+id/tv_DEF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DEF"
+                app:layout_constraintBottom_toTopOf="@id/tv_SATK"
+                app:layout_constraintLeft_toRightOf="@id/gl_leftOfNameStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_ATK"></TextView>
+
+            <TextView
+                android:id="@+id/tv_SATK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SATK"
+                app:layout_constraintBottom_toTopOf="@id/tv_SDEF"
+                app:layout_constraintLeft_toRightOf="@id/gl_leftOfNameStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_DEF"></TextView>
+
+            <TextView
+                android:id="@+id/tv_SDEF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SDEF"
+                app:layout_constraintBottom_toTopOf="@id/tv_SPD"
+                app:layout_constraintLeft_toRightOf="@id/gl_leftOfNameStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_SATK"></TextView>
+
+            <TextView
+                android:id="@+id/tv_SPD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SPD"
+                app:layout_constraintBottom_toTopOf="@id/gl_botOfSTATS"
+                app:layout_constraintLeft_toRightOf="@id/gl_leftOfNameStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_SDEF"></TextView>
+
+            <TextView
+                android:id="@+id/tv_numberOfHP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfATK"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <TextView
+                android:id="@+id/tv_numberOfATK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfDEF"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfHP"></TextView>
+
+            <TextView
+                android:id="@+id/tv_numberOfDEF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSATK"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfATK"></TextView>
+
+            <TextView
+                android:id="@+id/tv_numberOfSATK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSDEF"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfDEF"></TextView>
+
+            <TextView
+                android:id="@+id/tv_numberOfSDEF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSPD"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfSATK"></TextView>
+
+            <TextView
+                android:id="@+id/tv_numberOfSPD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000"
+                app:layout_constraintBottom_toTopOf="@id/gl_botOfSTATS"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfSDEF"></TextView>
+
+            <ProgressBar
+                android:id="@+id/pb_spd"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="20"
+                android:progressBackgroundTint="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/gl_botOfSTATS"
+                app:layout_constraintLeft_toLeftOf="@id/gl_leftOfProcess"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfSDEF" />
+
+            <ProgressBar
+                android:id="@+id/pb_SDEF"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="45"
+                android:progressBackgroundTint="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSPD"
+                app:layout_constraintLeft_toLeftOf="@id/gl_leftOfProcess"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfSATK" />
+
+            <ProgressBar
+                android:id="@+id/pb_SATK"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="60"
+                android:progressBackgroundTint="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSDEF"
+                app:layout_constraintLeft_toLeftOf="@id/gl_leftOfProcess"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfDEF" />
+
+            <ProgressBar
+                android:id="@+id/pb_DEF"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="20"
+                android:progressBackgroundTint="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSATK"
+                app:layout_constraintLeft_toLeftOf="@id/gl_leftOfProcess"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfATK" />
+
+            <ProgressBar
+                android:id="@+id/pb_ATK"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="25"
+                android:progressBackgroundTint="@color/black"
+                android:progressTint="@color/dark_sky_blue"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfDEF"
+                app:layout_constraintLeft_toLeftOf="@id/gl_leftOfProcess"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfStats"
+                app:layout_constraintTop_toBottomOf="@id/tv_numberOfHP" />
+
+            <ProgressBar
+                android:id="@+id/pb_HP"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="89"
+                android:progressBackgroundTint="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/tv_numberOfATK"
+                app:layout_constraintLeft_toLeftOf="@id/gl_leftOfProcess"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfStats"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_Weaknesses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Weaknesses"
+                android:textColor="@color/dark_sky_blue"
+                android:textSize="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gl_botOfSTATS"></TextView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_weaknesses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="35dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_Weaknesses">
+
+                <include layout="@layout/weaknesses_layout"></include>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_Abilities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Abilities"
+                android:textColor="@color/dark_sky_blue"
+                android:textSize="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_weaknesses"></TextView>
+
+            <TextView
+                android:id="@+id/tv_torrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="32dp"
+                android:text="Torrent"
+                android:textColor="@color/dark_sky_blue"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_Abilities"></TextView>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rightOfContentTorrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96"></androidx.constraintlayout.widget.Guideline>
+
+            <TextView
+                android:id="@+id/tv_torrentContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Powers up Water-type moves when the Pokémon is in trouble."
+                android:textColor="#4f4f4f"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="@id/tv_torrent"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfContentTorrent"
+                app:layout_constraintTop_toBottomOf="@id/tv_torrent"></TextView>
+
+            <TextView
+                android:id="@+id/tv_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="13dp"
+                android:background="#ededed"
+                app:layout_constraintLeft_toLeftOf="@id/tv_torrentContent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_torrentContent"></TextView>
+
+            <TextView
+                android:id="@+id/tv_rainDish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Rain Dish"
+                android:textColor="@color/dark_sky_blue"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="@id/tv_torrent"
+                app:layout_constraintTop_toBottomOf="@id/tv_line"></TextView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/visibility"
+                app:layout_constraintBottom_toBottomOf="@id/tv_rainDish"
+                app:layout_constraintLeft_toRightOf="@id/tv_rainDish"
+                app:layout_constraintTop_toTopOf="@id/tv_rainDish"></ImageView>
+
+            <TextView
+                android:id="@+id/tv_rainDishContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="The Pokémon gradually regains HP in rain."
+                android:textColor="#4f4f4f"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="@id/tv_rainDish"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfContentTorrent"
+                app:layout_constraintTop_toBottomOf="@id/tv_rainDish"></TextView>
+
+            <!--            end abilities-->
+
+
+            <!--//breeding-->
+
+
+            <TextView
+                android:id="@+id/tv_breeding"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center_horizontal"
+                android:text="Breeding"
+                android:textColor="@color/dark_sky_blue"
+                android:textSize="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_rainDishContent"></TextView>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rightOfEggGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.35"></androidx.constraintlayout.widget.Guideline>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rightOfHatchTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.65"></androidx.constraintlayout.widget.Guideline>
+
+            <TextView
+                android:id="@+id/tv_EggGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:paddingTop="3dp"
+                android:text="Egg Group"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintTop_toBottomOf="@id/tv_breeding"></TextView>
+
+            <TextView
+                android:id="@+id/tv_Monster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Monster"
+                android:textColor="#4f4f4f"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintTop_toBottomOf="@id/tv_EggGroup"></TextView>
+
+            <TextView
+                android:id="@+id/tv_WaterI"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:text="Water I"
+                android:textColor="#4f4f4f"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintTop_toBottomOf="@id/tv_Monster"></TextView>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ededed"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_WaterI"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintRight_toRightOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintTop_toTopOf="@id/tv_EggGroup"></TextView>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ededed"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_WaterI"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintRight_toRightOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintTop_toTopOf="@id/tv_EggGroup"></TextView>
+
+            <TextView
+                android:id="@+id/tv_HatchTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:paddingTop="3dp"
+                android:text="Hatch Time"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintTop_toBottomOf="@id/tv_breeding"></TextView>
+
+            <TextView
+                android:id="@+id/tv_Steps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="5000 Steps"
+                android:textColor="#4f4f4f"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintTop_toBottomOf="@id/tv_EggGroup"></TextView>
+
+            <TextView
+                android:id="@+id/tv_Cycles"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:text="20 Cycles"
+                android:textColor="#4f4f4f"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintTop_toBottomOf="@id/tv_Monster"></TextView>
+
+            <TextView
+                android:id="@+id/tv_Gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:paddingTop="3dp"
+                android:text="Gender"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_breeding"></TextView>
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/gender"
+                app:layout_constraintBottom_toBottomOf="@id/pb_Gender"
+                app:layout_constraintLeft_toLeftOf="@id/pb_Gender"
+                app:layout_constraintRight_toRightOf="@id/pb_Gender"
+                app:layout_constraintTop_toTopOf="@id/pb_Gender"></ImageView>
+
+            <ProgressBar
+                android:id="@+id/pb_Gender"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progress="60"
+                android:progressDrawable="@drawable/processbar_circle"
+                app:layout_constraintBottom_toBottomOf="@id/tv_percentFemale"
+                app:layout_constraintLeft_toRightOf="@id/tv_percentMale"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_percentMale" />
+
+            <TextView
+                android:id="@+id/tv_percentMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
+                android:text="12.5%"
+                android:textColor="#ce71e1"
+                app:layout_constraintLeft_toRightOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintRight_toLeftOf="@id/pb_Gender"
+                app:layout_constraintTop_toBottomOf="@id/tv_EggGroup"></TextView>
+
+            <TextView
+                android:id="@+id/tv_percentFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="12.5%"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toLeftOf="@id/tv_percentMale"
+                app:layout_constraintRight_toRightOf="@id/tv_percentMale"
+                app:layout_constraintTop_toBottomOf="@id/tv_Monster"></TextView>
+
+            <!--// end breeing-->
+
+
+            <TextView
+                android:id="@+id/tv_Capture"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center_horizontal"
+                android:text="Capture"
+                android:textColor="@color/dark_sky_blue"
+                android:textSize="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_WaterI"></TextView>
+
+            <TextView
+                android:id="@+id/tv_Habitat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:paddingTop="3dp"
+                android:text="Habitat"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintTop_toBottomOf="@id/tv_Capture"></TextView>
+
+            <TextView
+                android:id="@+id/tv_WatersEdge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingBottom="20dp"
+                android:text="Waters-Edge"
+                android:textColor="#4f4f4f"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintTop_toBottomOf="@id/tv_Habitat"></TextView>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ededed"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_WatersEdge"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintRight_toRightOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintTop_toTopOf="@id/tv_Habitat"></TextView>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ededed"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_WatersEdge"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintRight_toRightOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintTop_toTopOf="@id/tv_Habitat"></TextView>
+
+            <TextView
+                android:id="@+id/tv_Generation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:paddingTop="3dp"
+                android:text="Generation"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintTop_toBottomOf="@id/tv_Capture"></TextView>
+
+            <TextView
+                android:id="@+id/tv_GenerationContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Generation 1"
+                android:textColor="#4f4f4f"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
+                app:layout_constraintRight_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintTop_toTopOf="@id/tv_WatersEdge"></TextView>
+
+            <TextView
+                android:id="@+id/tv_CaptureRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:paddingTop="3dp"
+                android:text="Capture Rate"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toLeftOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_Capture"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_sky_blue"
+                android:text="45%"
+                android:id="@+id/tv_percentCaptureRate"
+                app:layout_constraintLeft_toRightOf="@id/gl_rightOfHatchTime"
+                app:layout_constraintRight_toLeftOf="@id/pb_CaptureRate"
+                app:layout_constraintTop_toTopOf="@id/tv_WatersEdge"
+                ></TextView>
+
+            <ProgressBar
+                android:id="@+id/pb_CaptureRate"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progress="60"
+                android:progressDrawable="@drawable/processbar_circle_capture_rate"
+                app:layout_constraintBottom_toBottomOf="@id/tv_percentCaptureRate"
+                app:layout_constraintLeft_toRightOf="@id/tv_percentCaptureRate"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_percentCaptureRate" />
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:layout_constraintLeft_toLeftOf="@id/pb_CaptureRate"
+                app:layout_constraintRight_toRightOf="@id/pb_CaptureRate"
+                app:layout_constraintTop_toTopOf="@id/pb_CaptureRate"
+                app:layout_constraintBottom_toBottomOf="@id/pb_CaptureRate"
+                android:src="@drawable/capture_rate_pokemon"
+                ></ImageView>
+
+            <!--            end capture-->
+
+            <!--            start sprites-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_percentCaptureRate"
+                android:layout_marginTop="40dp"
+                android:gravity="center_horizontal"
+                android:id="@+id/tv_sprites"
+                android:text="Sprites"
+                android:textColor="@color/dark_sky_blue"
+                android:textSize="20dp"
+                ></TextView>
+            <TextView
+                android:layout_marginTop="32dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_normal"
+                android:text="Normal"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_sprites"
+                app:layout_constraintRight_toLeftOf="@id/tv_Shiny"
+                android:gravity="center_horizontal"
+                ></TextView>
+            <TextView
+                android:layout_marginTop="32dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_Shiny"
+                android:text="Shiny"
+                android:textColor="@color/dark_sky_blue"
+                app:layout_constraintLeft_toRightOf="@id/tv_normal"
+                app:layout_constraintTop_toBottomOf="@id/tv_sprites"
+                app:layout_constraintRight_toRightOf="parent"
+                android:gravity="center_horizontal"
+                ></TextView>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/tv_normal"
+                app:layout_constraintRight_toRightOf="@id/tv_normal"
+                app:layout_constraintTop_toBottomOf="@id/tv_normal"
+                android:id="@+id/img_normal"
+                android:src="@drawable/water"
+                ></ImageView>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/tv_Shiny"
+                app:layout_constraintRight_toRightOf="@id/tv_Shiny"
+                app:layout_constraintTop_toBottomOf="@id/tv_Shiny"
+                android:id="@+id/img_shiny"
+                android:src="@drawable/water"
+                ></ImageView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

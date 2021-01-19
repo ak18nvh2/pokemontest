@@ -1,4 +1,6 @@
-package com.example.pokemonapp
+package com.example.pokemonapp.commons
+
+import com.example.pokemonapp.R
 
 object Utility {
 
@@ -34,7 +36,7 @@ object Utility {
                 return R.drawable.grass
             }
             "ghost" -> {
-                return  R.drawable.ghost
+                return R.drawable.ghost
             }
             "flying" -> {
                 return R.drawable.flying

@@ -52,4 +52,8 @@ dependencies {
     implementation "com.afollestad.material-dialogs:core:$material_dialogs_version"
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    def matieral_dialogs_version = "3.1.0"
+    implementation "com.afollestad.material-dialogs:core:$matieral_dialogs_version"
+
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
 }

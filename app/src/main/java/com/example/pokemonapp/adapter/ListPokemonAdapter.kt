@@ -19,7 +19,7 @@ class ListPokemonAdapter(
 ) : RecyclerView.Adapter<ListPokemonAdapter.ViewHolder>() {
     private var mListPokemon = ArrayList<InformationPokemon>()
     private lateinit var mTypePokemonAdapter: TypePokemonAdapter
-    private val arrImg = ArrayList<Int>()
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val pokemonName: TextView = itemView.findViewById(R.id.tv_pokemonName)
         val pokemonAvatar: ImageView = itemView.findViewById(R.id.img_avt)
@@ -62,18 +62,19 @@ class ListPokemonAdapter(
 
         Picasso.with(mContext)
             .load(mListPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
+            .placeholder(R.drawable.egg)
             .into(holder.pokemonAvatar)
 
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         holder.rvListType.layoutManager = layoutManager
         holder.rvListType.adapter = mTypePokemonAdapter
-        arrImg.clear()
+        val mArrImg = ArrayList<Int>()
         mListPokemon[position].types?.forEach {
             if (it.type?.name != null) {
-                arrImg.add(Utility.nameToImage(it.type?.name!!))
+                mArrImg.add(Utility.nameToImage(it.type?.name!!))
             }
         }
-        mTypePokemonAdapter.setList(arrImg)
+        mTypePokemonAdapter.setList(mArrImg)
         holder.itemView.setOnClickListener() {
             iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
         }

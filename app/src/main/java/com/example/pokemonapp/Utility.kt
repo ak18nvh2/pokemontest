@@ -1,6 +1,9 @@
 package com.example.pokemonapp
 
 object Utility {
+
+    const val KEY_SEARCH = 1
+    const val KEY_DISPLAY = 2
     fun nameToImage(name: String): Int {
         when (name) {
             "water" -> {

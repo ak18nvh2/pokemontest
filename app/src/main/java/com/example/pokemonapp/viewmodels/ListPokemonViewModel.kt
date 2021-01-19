@@ -8,31 +8,29 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListPokemonViewModel: ViewModel() {
+class ListPokemonViewModel : ViewModel() {
     var listPokemon: MutableLiveData<ListPokemon> = MutableLiveData()
-
+    var notification: MutableLiveData<String> = MutableLiveData()
     fun getListPokemon(callGet: Call<ListPokemon>) {
 
         callGet.enqueue(object : Callback<ListPokemon> {
             override fun onFailure(call: Call<ListPokemon>, t: Throwable) {
                 if (callGet.isCanceled) {
-                    // notification.value = "Canceled successful!"
+                    notification.value = "Canceled successful!"
                 } else {
-                    // notification.value = "Can't load data, please try again!"
+                    notification.value = "Can't load list pokemon, please try again!"
                 }
             }
 
             override fun onResponse(call: Call<ListPokemon>, response: Response<ListPokemon>) {
                 if (response.isSuccessful) {
                     listPokemon.value = response.body()
-                    //notification.value = "Load successful!"
                 } else {
-                    // notification.value = "Can't load data, please try again!"
+                    notification.value = "Can't load list pokemon, please try again!"
                 }
             }
         }
         )
-
     }
 
 }

@@ -20,10 +20,9 @@ class SplashActivity : AppCompatActivity() {
             override fun onAnimationEnd(animation: Animation) {
                 changeActivity()
             }
-
             override fun onAnimationRepeat(animation: Animation) {}
         })
-        img_logo.startAnimation(anim)
+        lo_splash.startAnimation(anim)
     }
 
     private fun changeActivity() {

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_sky_blue"
+    android:id="@+id/lo_detailPokemon"
     tools:context=".views.activitys.DetailPokemonActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -26,19 +27,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.27"></androidx.constraintlayout.widget.Guideline>
+        app:layout_constraintGuide_percent="0.26"></androidx.constraintlayout.widget.Guideline>
 
     <TextView
         android:id="@+id/tv_nameOfPokemon"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Squirtle"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/btn_HideOrShowDetail"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:textSize="18dp"
+        android:textSize="22dp"
         app:layout_constraintTop_toTopOf="@id/btn_HideOrShowDetail"></TextView>
 
     <ImageView
@@ -51,15 +52,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 
-    <TextView
-        android:id="@+id/tv_topOfInformation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="100dp"
-        app:layout_constraintBottom_toTopOf="@id/cl_information"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/gl_topOfAvatar"></TextView>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_information"
@@ -70,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_topOfInformation">
+        app:layout_constraintTop_toBottomOf="@id/gl_topOfCardView">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_topOfName"

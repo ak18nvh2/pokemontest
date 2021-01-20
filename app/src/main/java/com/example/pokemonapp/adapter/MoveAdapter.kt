@@ -38,7 +38,7 @@ class MoveAdapter (var mContext: Context) : RecyclerView.Adapter<MoveAdapter.Vie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = list[position].move?.name?.capitalize()
         holder.imgType.setImageResource(this.imgType)
-        holder.level.text = list[position].versionGroupDetails?.get(0)?.levelLearnedAt.toString()
+        holder.level.text = "Level ${list[position].versionGroupDetails?.get(0)?.levelLearnedAt.toString()}"
     }
 
 }

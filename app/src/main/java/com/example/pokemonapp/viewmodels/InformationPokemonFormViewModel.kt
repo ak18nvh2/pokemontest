@@ -2,18 +2,20 @@ package com.example.pokemonapp.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pokemonapp.models.InformationPokemon
+import com.example.pokemonapp.api.RetrofitClient
+import com.example.pokemonapp.models.InformationPokemonForm
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class InformationPokemonViewModel : ViewModel() {
-    var aPokemon: MutableLiveData<InformationPokemon> = MutableLiveData()
-    var amountOfPokemon: MutableLiveData<Int> = MutableLiveData()
+class InformationPokemonFormViewModel : ViewModel() {
+    var aPokemonForm: MutableLiveData<InformationPokemonForm> = MutableLiveData()
     var notification: MutableLiveData<String> = MutableLiveData()
-    fun getAPokemon(callGet: Call<InformationPokemon>) {
-        callGet.enqueue(object : Callback<InformationPokemon> {
-            override fun onFailure(call: Call<InformationPokemon>, t: Throwable) {
+    fun getAPokemonForm(id: String) {
+        val callGet =
+            RetrofitClient.instance.getInformationAPokemonForm(id)
+        callGet.enqueue(object : Callback<InformationPokemonForm> {
+            override fun onFailure(call: Call<InformationPokemonForm>, t: Throwable) {
                 if (callGet.isCanceled) {
                     notification.value = "Canceled successful!"
                 } else {
@@ -22,13 +24,13 @@ class InformationPokemonViewModel : ViewModel() {
             }
 
             override fun onResponse(
-                call: Call<InformationPokemon>,
-                response: Response<InformationPokemon>
+                call: Call<InformationPokemonForm>,
+                response: Response<InformationPokemonForm>
             ) {
                 if (response.isSuccessful) {
-                    aPokemon.value = response.body()
+                    aPokemonForm.value = response.body()
                 } else {
-                    aPokemon.value = null
+                    aPokemonForm.value = null
                 }
             }
         }
@@ -37,10 +39,6 @@ class InformationPokemonViewModel : ViewModel() {
 
     fun noticeGetAllInformationPokemonSuccessful() {
         notification.value = "Load successful!"
-    }
-
-    fun getAPokemonNext() {
-        amountOfPokemon.value = amountOfPokemon.value?.plus(1)
     }
 
 

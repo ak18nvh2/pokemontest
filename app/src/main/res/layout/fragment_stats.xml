@@ -178,7 +178,7 @@
                 android:layout_height="8dp"
                 android:max="100"
                 android:progress="20"
-                android:progressBackgroundTint="@color/black"
+                android:progressBackgroundTint="#f0f0f0"
                 app:layout_constraintBottom_toTopOf="@id/gl_botOfSTATS"
                 app:layout_constraintLeft_toLeftOf="@id/gl_leftOfProcess"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfStats"

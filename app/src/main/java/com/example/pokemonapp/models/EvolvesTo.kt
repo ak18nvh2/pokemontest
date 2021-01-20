@@ -13,7 +13,7 @@ class EvolvesTo: Serializable {
 
     @SerializedName("evolves_to")
     @Expose
-    var evolvesTo: List<EvolvesTo_>? = null
+    var evolvesTo: List<EvolvesTo>? = null
 
     @SerializedName("is_baby")
     @Expose

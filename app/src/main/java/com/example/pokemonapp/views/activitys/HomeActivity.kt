@@ -2,6 +2,7 @@ package com.example.pokemonapp.views.activitys
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,6 +19,7 @@ import com.example.pokemonapp.models.InformationPokemon
 import com.example.pokemonapp.models.ListPokemon
 import com.example.pokemonapp.viewmodels.InformationPokemonViewModel
 import com.example.pokemonapp.viewmodels.ListPokemonViewModel
+import kotlinx.android.synthetic.main.activity_detail_pokemon.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_processbar.*
 
@@ -35,7 +37,6 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         setContentView(R.layout.activity_home)
         init()
         registerLiveDataListener()
-
     }
 
     private fun closeKeyboard() {
@@ -56,11 +57,12 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         img_search.setOnClickListener(this)
         img_refresh.setOnClickListener(this)
         getListPokemon(0, 20)
+
     }
 
     private fun getListPokemon(offset: Int, limit: Int) {
-        val call = RetrofitClient.instance.getListPokemon(offset, limit)
-        mListPokemonViewModel.getListPokemon(call)
+
+        mListPokemonViewModel.getListPokemon(offset, limit)
         mDialog = MaterialDialog(this)
             .noAutoDismiss()
             .customView(R.layout.dialog_processbar)
@@ -68,7 +70,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         mDialog.setCancelable(false)
         mDialog.btn_Cancel.setOnClickListener() {
             mDialog.dismiss()
-            call.cancel()
+            mListPokemonViewModel.callGet?.cancel()
         }
     }
 

@@ -9,7 +9,7 @@ import java.io.Serializable
 class Name: Serializable {
     @SerializedName("language")
     @Expose
-    var language: Language_? = null
+    var language: Language? = null
 
     @SerializedName("name")
     @Expose

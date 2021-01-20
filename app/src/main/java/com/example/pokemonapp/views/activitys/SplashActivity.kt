@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
             }
             override fun onAnimationRepeat(animation: Animation) {}
         })
-        lo_splash.startAnimation(anim)
+        img_logo.startAnimation(anim)
     }
 
     private fun changeActivity() {

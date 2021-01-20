@@ -119,7 +119,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         )
 
         mListFragment.add(EvolutionsFragment(mListInformationPokemon,mArrayListMinLevelEvolutions, mPrimaryColor))
-
         // move 0 stat 1 evo 2
         mFragmentTransaction.add(R.id.fm_content, mListFragment[0])
         mFragmentTransaction.hide(mListFragment[0])

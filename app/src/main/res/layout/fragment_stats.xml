@@ -122,54 +122,54 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"
-                app:layout_constraintBottom_toTopOf="@id/tv_numberOfATK"
+                app:layout_constraintBottom_toBottomOf="@id/tv_HP"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="@id/tv_HP"></TextView>
 
             <TextView
                 android:id="@+id/tv_numberOfATK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"
-                app:layout_constraintBottom_toTopOf="@id/tv_numberOfDEF"
+                app:layout_constraintBottom_toBottomOf="@id/tv_ATK"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
-                app:layout_constraintTop_toBottomOf="@id/tv_numberOfHP"></TextView>
+                app:layout_constraintTop_toTopOf="@id/tv_ATK"></TextView>
 
             <TextView
                 android:id="@+id/tv_numberOfDEF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"
-                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSATK"
+                app:layout_constraintBottom_toBottomOf="@id/tv_DEF"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
-                app:layout_constraintTop_toBottomOf="@id/tv_numberOfATK"></TextView>
+                app:layout_constraintTop_toTopOf="@id/tv_DEF"></TextView>
 
             <TextView
                 android:id="@+id/tv_numberOfSATK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"
-                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSDEF"
+                app:layout_constraintBottom_toBottomOf="@id/tv_SATK"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
-                app:layout_constraintTop_toBottomOf="@id/tv_numberOfDEF"></TextView>
+                app:layout_constraintTop_toTopOf="@id/tv_SATK"></TextView>
 
             <TextView
                 android:id="@+id/tv_numberOfSDEF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"
-                app:layout_constraintBottom_toTopOf="@id/tv_numberOfSPD"
+                app:layout_constraintBottom_toBottomOf="@id/tv_SDEF"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
-                app:layout_constraintTop_toBottomOf="@id/tv_numberOfSATK"></TextView>
+                app:layout_constraintTop_toTopOf="@id/tv_SDEF"></TextView>
 
             <TextView
                 android:id="@+id/tv_numberOfSPD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="000"
-                app:layout_constraintBottom_toTopOf="@id/gl_botOfSTATS"
+                app:layout_constraintBottom_toBottomOf="@id/tv_SPD"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfNumberStats"
-                app:layout_constraintTop_toBottomOf="@id/tv_numberOfSDEF"></TextView>
+                app:layout_constraintTop_toTopOf="@id/tv_SPD"></TextView>
 
             <ProgressBar
                 android:id="@+id/pb_spd"
@@ -288,18 +288,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cl_weaknesses"></TextView>
 
-            <TextView
-                android:id="@+id/tv_torrent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="32dp"
-                android:text="Torrent"
-                android:textColor="@color/dark_sky_blue"
-                android:textSize="16dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_Abilities"></TextView>
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gl_rightOfContentTorrent"
                 android:layout_width="wrap_content"
@@ -307,62 +295,19 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.96"></androidx.constraintlayout.widget.Guideline>
 
-            <TextView
-                android:id="@+id/tv_torrentContent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_Abilities"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Powers up Water-type moves when the Pokémon is in trouble."
-                android:textColor="#4f4f4f"
-                android:textSize="16dp"
-                app:layout_constraintLeft_toLeftOf="@id/tv_torrent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="22dp"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfContentTorrent"
-                app:layout_constraintTop_toBottomOf="@id/tv_torrent"></TextView>
+                app:layout_constraintTop_toBottomOf="@id/tv_Abilities"></androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                android:id="@+id/tv_line"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="13dp"
-                android:background="#ededed"
-                app:layout_constraintLeft_toLeftOf="@id/tv_torrentContent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_torrentContent"></TextView>
-
-            <TextView
-                android:id="@+id/tv_rainDish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Rain Dish"
-                android:textColor="@color/dark_sky_blue"
-                android:textSize="16dp"
-                app:layout_constraintLeft_toLeftOf="@id/tv_torrent"
-                app:layout_constraintTop_toBottomOf="@id/tv_line"></TextView>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:src="@drawable/visibility"
-                app:layout_constraintBottom_toBottomOf="@id/tv_rainDish"
-                app:layout_constraintLeft_toRightOf="@id/tv_rainDish"
-                app:layout_constraintTop_toTopOf="@id/tv_rainDish"></ImageView>
-
-            <TextView
-                android:id="@+id/tv_rainDishContent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="The Pokémon gradually regains HP in rain."
-                android:textColor="#4f4f4f"
-                android:textSize="16dp"
-                app:layout_constraintLeft_toLeftOf="@id/tv_rainDish"
-                app:layout_constraintRight_toLeftOf="@id/gl_rightOfContentTorrent"
-                app:layout_constraintTop_toBottomOf="@id/tv_rainDish"></TextView>
 
             <!--            end abilities-->
-
-
             <!--//breeding-->
-
 
             <TextView
                 android:id="@+id/tv_breeding"
@@ -375,7 +320,7 @@
                 android:textSize="20dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_rainDishContent"></TextView>
+                app:layout_constraintTop_toBottomOf="@id/rv_Abilities"></TextView>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gl_rightOfEggGroup"
@@ -404,33 +349,31 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_breeding"></TextView>
 
             <TextView
-                android:id="@+id/tv_Monster"
+                android:id="@+id/tv_eggGroup1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Monster"
                 android:textColor="#4f4f4f"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfEggGroup"
                 app:layout_constraintTop_toBottomOf="@id/tv_EggGroup"></TextView>
 
             <TextView
-                android:id="@+id/tv_WaterI"
+                android:id="@+id/tv_eggGroup2"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="16dp"
-                android:text="Water I"
                 android:textColor="#4f4f4f"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfEggGroup"
-                app:layout_constraintTop_toBottomOf="@id/tv_Monster"></TextView>
+                app:layout_constraintTop_toBottomOf="@id/tv_eggGroup1"></TextView>
 
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="5dp"
                 android:background="#ededed"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_WaterI"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_eggGroup2"
                 app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
                 app:layout_constraintRight_toRightOf="@id/gl_rightOfEggGroup"
                 app:layout_constraintTop_toTopOf="@id/tv_EggGroup"></TextView>
@@ -440,7 +383,7 @@
                 android:layout_height="0dp"
                 android:layout_marginBottom="5dp"
                 android:background="#ededed"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_WaterI"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_eggGroup2"
                 app:layout_constraintLeft_toLeftOf="@id/gl_rightOfHatchTime"
                 app:layout_constraintRight_toRightOf="@id/gl_rightOfHatchTime"
                 app:layout_constraintTop_toTopOf="@id/tv_EggGroup"></TextView>
@@ -477,7 +420,7 @@
                 android:textColor="#4f4f4f"
                 app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfHatchTime"
-                app:layout_constraintTop_toBottomOf="@id/tv_Monster"></TextView>
+                app:layout_constraintTop_toBottomOf="@id/tv_eggGroup1"></TextView>
 
             <TextView
                 android:id="@+id/tv_Gender"
@@ -506,8 +449,8 @@
                 android:layout_height="70dp"
                 android:indeterminateOnly="false"
                 android:max="100"
-                android:progress="60"
-                android:progressDrawable="@drawable/processbar_circle"
+                android:progress="80"
+                android:progressDrawable="@drawable/progressbar_circle"
                 app:layout_constraintBottom_toBottomOf="@id/tv_percentFemale"
                 app:layout_constraintLeft_toRightOf="@id/tv_percentMale"
                 app:layout_constraintRight_toRightOf="parent"
@@ -534,7 +477,7 @@
                 android:textColor="@color/dark_sky_blue"
                 app:layout_constraintLeft_toLeftOf="@id/tv_percentMale"
                 app:layout_constraintRight_toRightOf="@id/tv_percentMale"
-                app:layout_constraintTop_toBottomOf="@id/tv_Monster"></TextView>
+                app:layout_constraintTop_toBottomOf="@id/tv_eggGroup1"></TextView>
 
             <!--// end breeing-->
 
@@ -550,7 +493,7 @@
                 android:textSize="20dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_WaterI"></TextView>
+                app:layout_constraintTop_toBottomOf="@id/tv_eggGroup2"></TextView>
 
             <TextView
                 android:id="@+id/tv_Habitat"
@@ -565,12 +508,12 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_Capture"></TextView>
 
             <TextView
-                android:id="@+id/tv_WatersEdge"
+                android:id="@+id/tv_habitatContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:paddingBottom="20dp"
-                android:text="Waters-Edge"
+                android:text=""
                 android:textColor="#4f4f4f"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfEggGroup"
@@ -581,7 +524,7 @@
                 android:layout_height="0dp"
                 android:layout_marginBottom="5dp"
                 android:background="#ededed"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_WatersEdge"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_habitatContent"
                 app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
                 app:layout_constraintRight_toRightOf="@id/gl_rightOfEggGroup"
                 app:layout_constraintTop_toTopOf="@id/tv_Habitat"></TextView>
@@ -591,7 +534,7 @@
                 android:layout_height="0dp"
                 android:layout_marginBottom="5dp"
                 android:background="#ededed"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_WatersEdge"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_habitatContent"
                 app:layout_constraintLeft_toLeftOf="@id/gl_rightOfHatchTime"
                 app:layout_constraintRight_toRightOf="@id/gl_rightOfHatchTime"
                 app:layout_constraintTop_toTopOf="@id/tv_Habitat"></TextView>
@@ -612,11 +555,11 @@
                 android:id="@+id/tv_GenerationContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Generation 1"
+                android:text=""
                 android:textColor="#4f4f4f"
                 app:layout_constraintLeft_toLeftOf="@id/gl_rightOfEggGroup"
                 app:layout_constraintRight_toLeftOf="@id/gl_rightOfHatchTime"
-                app:layout_constraintTop_toTopOf="@id/tv_WatersEdge"></TextView>
+                app:layout_constraintTop_toTopOf="@id/tv_habitatContent"></TextView>
 
             <TextView
                 android:id="@+id/tv_CaptureRate"
@@ -631,15 +574,14 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_Capture"></TextView>
 
             <TextView
+                android:id="@+id/tv_percentCaptureRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_sky_blue"
                 android:text="45%"
-                android:id="@+id/tv_percentCaptureRate"
+                android:textColor="@color/dark_sky_blue"
                 app:layout_constraintLeft_toRightOf="@id/gl_rightOfHatchTime"
                 app:layout_constraintRight_toLeftOf="@id/pb_CaptureRate"
-                app:layout_constraintTop_toTopOf="@id/tv_WatersEdge"
-                ></TextView>
+                app:layout_constraintTop_toTopOf="@id/tv_habitatContent"></TextView>
 
             <ProgressBar
                 android:id="@+id/pb_CaptureRate"
@@ -657,72 +599,70 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:src="@drawable/capture_rate_pokemon"
+                app:layout_constraintBottom_toBottomOf="@id/pb_CaptureRate"
                 app:layout_constraintLeft_toLeftOf="@id/pb_CaptureRate"
                 app:layout_constraintRight_toRightOf="@id/pb_CaptureRate"
-                app:layout_constraintTop_toTopOf="@id/pb_CaptureRate"
-                app:layout_constraintBottom_toBottomOf="@id/pb_CaptureRate"
-                android:src="@drawable/capture_rate_pokemon"
-                ></ImageView>
+                app:layout_constraintTop_toTopOf="@id/pb_CaptureRate"></ImageView>
 
             <!--            end capture-->
 
             <!--            start sprites-->
 
             <TextView
+                android:id="@+id/tv_sprites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_percentCaptureRate"
                 android:layout_marginTop="40dp"
                 android:gravity="center_horizontal"
-                android:id="@+id/tv_sprites"
                 android:text="Sprites"
                 android:textColor="@color/dark_sky_blue"
                 android:textSize="20dp"
-                ></TextView>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_percentCaptureRate"></TextView>
+
             <TextView
-                android:layout_marginTop="32dp"
+                android:id="@+id/tv_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_normal"
+                android:layout_marginTop="32dp"
+                android:gravity="center_horizontal"
                 android:text="Normal"
                 android:textColor="@color/dark_sky_blue"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_sprites"
                 app:layout_constraintRight_toLeftOf="@id/tv_Shiny"
-                android:gravity="center_horizontal"
-                ></TextView>
+                app:layout_constraintTop_toBottomOf="@id/tv_sprites"></TextView>
+
             <TextView
-                android:layout_marginTop="32dp"
+                android:id="@+id/tv_Shiny"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_Shiny"
+                android:layout_marginTop="32dp"
+                android:gravity="center_horizontal"
                 android:text="Shiny"
                 android:textColor="@color/dark_sky_blue"
                 app:layout_constraintLeft_toRightOf="@id/tv_normal"
-                app:layout_constraintTop_toBottomOf="@id/tv_sprites"
                 app:layout_constraintRight_toRightOf="parent"
-                android:gravity="center_horizontal"
-                ></TextView>
+                app:layout_constraintTop_toBottomOf="@id/tv_sprites"></TextView>
+
             <ImageView
+                android:id="@+id/img_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:src="@drawable/water"
                 app:layout_constraintLeft_toLeftOf="@id/tv_normal"
                 app:layout_constraintRight_toRightOf="@id/tv_normal"
-                app:layout_constraintTop_toBottomOf="@id/tv_normal"
-                android:id="@+id/img_normal"
-                android:src="@drawable/water"
-                ></ImageView>
+                app:layout_constraintTop_toBottomOf="@id/tv_normal"></ImageView>
+
             <ImageView
+                android:id="@+id/img_shiny"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:src="@drawable/water"
                 app:layout_constraintLeft_toLeftOf="@id/tv_Shiny"
                 app:layout_constraintRight_toRightOf="@id/tv_Shiny"
-                app:layout_constraintTop_toBottomOf="@id/tv_Shiny"
-                android:id="@+id/img_shiny"
-                android:src="@drawable/water"
-                ></ImageView>
+                app:layout_constraintTop_toBottomOf="@id/tv_Shiny"></ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

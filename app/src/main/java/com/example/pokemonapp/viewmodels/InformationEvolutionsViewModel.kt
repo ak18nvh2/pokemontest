@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokemonapp.api.RetrofitClient
 import com.example.pokemonapp.models.InformationEvolutions
-import com.example.pokemonapp.models.InformationPokemon
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,7 +15,6 @@ class InformationEvolutionsViewModel : ViewModel() {
     var listPokemonLevelEvolution: MutableLiveData<ArrayList<Int>> = MutableLiveData()
     fun getListEvolution(linkEvolution: String) {
         var id = ""
-
         for (i in linkEvolution.length - 2 downTo 0) {
             if (linkEvolution[i] == '/') {
                 id = linkEvolution.substring(i + 1, linkEvolution.length - 1)
@@ -63,7 +61,7 @@ class InformationEvolutionsViewModel : ViewModel() {
             if (eTo[0].evolutionDetails?.get(0)?.minLevel != null) {
                 arrLv.add(eTo[0].evolutionDetails?.get(0)?.minLevel!!)
             } else {
-                arrLv.add(-1)
+                arrLv.add(0)
             }
             eTo = eTo[0].evolvesTo
         }

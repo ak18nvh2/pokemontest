@@ -1,9 +1,6 @@
 package com.example.pokemonapp.views.activitys
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -118,7 +115,13 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
             )
         )
 
-        mListFragment.add(EvolutionsFragment(mListInformationPokemon,mArrayListMinLevelEvolutions, mPrimaryColor))
+        mListFragment.add(
+            EvolutionsFragment(
+                mListInformationPokemon,
+                mArrayListMinLevelEvolutions,
+                mPrimaryColor
+            )
+        )
         // move 0 stat 1 evo 2
         mFragmentTransaction.add(R.id.fm_content, mListFragment[0])
         mFragmentTransaction.hide(mListFragment[0])

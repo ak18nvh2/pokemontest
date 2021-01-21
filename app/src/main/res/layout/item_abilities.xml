@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_nameOfAbilities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Torrent"
+        android:textColor="@color/dark_sky_blue"
+        android:textSize="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/tv_AbilitiesContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Powers up Water-type moves when the Pokémon is in trouble."
+        android:textColor="#4f4f4f"
+        android:textSize="16dp"
+        app:layout_constraintLeft_toLeftOf="@id/tv_nameOfAbilities"
+        app:layout_constraintTop_toBottomOf="@id/tv_nameOfAbilities"></TextView>
+
+    <TextView
+        android:id="@+id/tv_line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="13dp"
+        android:background="#ededed"
+        app:layout_constraintLeft_toLeftOf="@id/tv_AbilitiesContent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_AbilitiesContent"></TextView>
+
+    <ImageView
+        android:id="@+id/img_visibility"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_nameOfAbilities"
+        app:layout_constraintLeft_toRightOf="@id/tv_nameOfAbilities"
+        app:layout_constraintTop_toTopOf="@id/tv_nameOfAbilities"></ImageView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

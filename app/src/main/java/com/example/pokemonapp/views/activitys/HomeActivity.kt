@@ -2,7 +2,6 @@ package com.example.pokemonapp.views.activitys
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,7 +18,6 @@ import com.example.pokemonapp.models.InformationPokemon
 import com.example.pokemonapp.models.ListPokemon
 import com.example.pokemonapp.viewmodels.InformationPokemonViewModel
 import com.example.pokemonapp.viewmodels.ListPokemonViewModel
-import kotlinx.android.synthetic.main.activity_detail_pokemon.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_processbar.*
 
@@ -85,8 +83,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                 mArrayListInformationPokemon.add(it)
                 mInformationPokemonViewModel.getAPokemonNext()
 
-            }
-            else if (mKeyShowInformationPokemon == Utility.KEY_SEARCH) {
+            } else if (mKeyShowInformationPokemon == Utility.KEY_SEARCH) {
                 mDialog.dismiss()
                 if (it == null) {
                     val arrayListSearchPokemon = arrayListOf<InformationPokemon>()
@@ -138,17 +135,25 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         when (v?.id) {
             R.id.img_search -> {
                 closeKeyboard()
-                mKeyShowInformationPokemon = Utility.KEY_SEARCH
-                val call =
-                    RetrofitClient.instance.getInformationAPokemon(edt_inputSearch.text.toString().toLowerCase())
-                mInformationPokemonViewModel.getAPokemon(call)
-                mDialog.show()
+                if (edt_inputSearch.text.toString() == "") {
+                    Toast.makeText(this, "Please type name or id of Pokemon!", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    mKeyShowInformationPokemon = Utility.KEY_SEARCH
+                    val call =
+                        RetrofitClient.instance.getInformationAPokemon(
+                            edt_inputSearch.text.toString().toLowerCase()
+                        )
+                    mInformationPokemonViewModel.getAPokemon(call)
+                    mDialog.show()
+                }
+
             }
             R.id.img_refresh -> {
                 closeKeyboard()
                 mKeyShowInformationPokemon = Utility.KEY_DISPLAY
                 mArrayListInformationPokemon.clear()
-                getListPokemon(0,20)
+                getListPokemon(0, 20)
                 edt_inputSearch.text.clear()
             }
         }

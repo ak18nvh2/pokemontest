@@ -1,82 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp">
 
     <ImageView
+        android:id="@+id/img_pokemonBefore"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:id="@+id/img_pokemonBefore"
         android:src="@drawable/water"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@id/img_arrow"
-        ></ImageView>
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
     <TextView
+        android:id="@+id/tv_NameOfPokemonBefore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Squirtle"
         android:textColor="#666666"
-        android:id="@+id/tv_NameOfPokemonBefore"
-        app:layout_constraintTop_toBottomOf="@id/img_pokemonBefore"
         app:layout_constraintLeft_toLeftOf="@id/img_pokemonBefore"
         app:layout_constraintRight_toRightOf="@id/img_pokemonBefore"
-        ></TextView>
+        app:layout_constraintTop_toBottomOf="@id/img_pokemonBefore"></TextView>
+
     <ImageView
         android:id="@+id/img_arrow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/arrow_evolutions"
-        app:layout_constraintTop_toTopOf="@id/img_pokemonBefore"
         app:layout_constraintBottom_toBottomOf="@id/tv_NameOfPokemonBefore"
         app:layout_constraintLeft_toRightOf="@id/img_pokemonBefore"
         app:layout_constraintRight_toLeftOf="@id/img_afterPokemon"
-        ></ImageView>
+        app:layout_constraintTop_toTopOf="@id/img_pokemonBefore"></ImageView>
+
     <TextView
+        android:id="@+id/tv_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/img_arrow"
-        app:layout_constraintRight_toRightOf="@id/img_arrow"
         android:text="Lv.16"
         android:textColor="@color/dark_sky_blue"
-        android:id="@+id/tv_level"
         app:layout_constraintBottom_toTopOf="@id/img_arrow"
+        app:layout_constraintLeft_toLeftOf="@id/img_arrow"
+        app:layout_constraintRight_toRightOf="@id/img_arrow"
         app:layout_constraintTop_toTopOf="@id/img_afterPokemon"
-        app:layout_constraintVertical_bias="1"
-        ></TextView>
+        app:layout_constraintVertical_bias="1"></TextView>
 
     <ImageView
+        android:id="@+id/img_afterPokemon"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/flying"
-        android:id="@+id/img_afterPokemon"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/img_arrow"
-        app:layout_constraintTop_toTopOf="@id/img_pokemonBefore"
         app:layout_constraintBottom_toBottomOf="@id/img_pokemonBefore"
-        ></ImageView>
+        app:layout_constraintLeft_toRightOf="@id/img_arrow"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_pokemonBefore"></ImageView>
+
     <TextView
+        android:id="@+id/tv_afterPokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_afterPokemon"
-        app:layout_constraintLeft_toLeftOf="@id/img_afterPokemon"
-        app:layout_constraintRight_toRightOf="@id/img_afterPokemon"
-        app:layout_constraintTop_toBottomOf="@id/img_afterPokemon"
+        android:paddingBottom="10dp"
         android:text="Wartortle"
         android:textColor="#666666"
-        android:paddingBottom="10dp"
-        ></TextView>
+        app:layout_constraintLeft_toLeftOf="@id/img_afterPokemon"
+        app:layout_constraintRight_toRightOf="@id/img_afterPokemon"
+        app:layout_constraintTop_toBottomOf="@id/img_afterPokemon"></TextView>
+
     <TextView
         android:layout_width="0dp"
         android:layout_height="1dp"
-        app:layout_constraintLeft_toLeftOf="@id/img_pokemonBefore"
-        app:layout_constraintRight_toRightOf="@id/img_afterPokemon"
-        app:layout_constraintTop_toBottomOf="@id/tv_afterPokemon"
         android:layout_margin="10dp"
         android:background="#ededed"
         android:paddingTop="16dp"
+        app:layout_constraintLeft_toLeftOf="@id/img_pokemonBefore"
+        app:layout_constraintRight_toRightOf="@id/img_afterPokemon"
+        app:layout_constraintTop_toBottomOf="@id/tv_afterPokemon"
 
         ></TextView>
 

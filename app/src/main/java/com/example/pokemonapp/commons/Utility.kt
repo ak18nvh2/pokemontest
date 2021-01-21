@@ -63,8 +63,9 @@ object Utility {
                 return R.drawable.bug
             }
         }
-        return  -1
+        return -1
     }
+
     fun nameToTag(name: String): Int {
         when (name) {
             "water" -> {
@@ -122,8 +123,9 @@ object Utility {
                 return R.drawable.tag_bug
             }
         }
-        return  -1
+        return -1
     }
+
     fun nameToColor(name: String): Int {
         when (name) {
             "water" -> {
@@ -181,6 +183,6 @@ object Utility {
                 return R.color.colorBug
             }
         }
-        return  -1
+        return -1
     }
 }

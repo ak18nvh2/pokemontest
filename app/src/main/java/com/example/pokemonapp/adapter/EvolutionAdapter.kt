@@ -11,11 +11,13 @@ import com.example.pokemonapp.R
 import com.example.pokemonapp.models.InformationPokemon
 import com.squareup.picasso.Picasso
 
-class EvolutionAdapter(var mContext: Context) : RecyclerView.Adapter<EvolutionAdapter.ViewHolder>() {
+class EvolutionAdapter(var mContext: Context) :
+    RecyclerView.Adapter<EvolutionAdapter.ViewHolder>() {
 
     private var mArrayListInformationPokemon = ArrayList<InformationPokemon>()
     private var mArrayListLv = ArrayList<Int>()
     private var mPrimaryColor = -1
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val avtAfter: ImageView = itemView.findViewById(R.id.img_afterPokemon)
         val nameAfter: TextView = itemView.findViewById(R.id.tv_afterPokemon)
@@ -23,12 +25,14 @@ class EvolutionAdapter(var mContext: Context) : RecyclerView.Adapter<EvolutionAd
         val nameBefore: TextView = itemView.findViewById(R.id.tv_NameOfPokemonBefore)
         val level: TextView = itemView.findViewById(R.id.tv_level)
     }
-    fun  setList(list : ArrayList<InformationPokemon>,listLv: ArrayList<Int>, primaryColor: Int){
+
+    fun setList(list: ArrayList<InformationPokemon>, listLv: ArrayList<Int>, primaryColor: Int) {
         this.mArrayListInformationPokemon = list
         this.mPrimaryColor = primaryColor
         this.mArrayListLv = listLv
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(mContext)
         val homeView: View = layoutInflater.inflate(R.layout.item_evolutions, parent, false)
@@ -53,11 +57,13 @@ class EvolutionAdapter(var mContext: Context) : RecyclerView.Adapter<EvolutionAd
         holder.nameAfter.text = mArrayListInformationPokemon[position + 1].name?.capitalize()
         holder.nameBefore.text = mArrayListInformationPokemon[position].name?.capitalize()
         holder.level.text = "Lv.${mArrayListLv[position]}"
-        if (this.mPrimaryColor != -1 ) {
-            holder.level.setTextColor( mContext.resources.getColor(
-                mPrimaryColor,
-                mContext.theme
-            ))
+        if (this.mPrimaryColor != -1) {
+            holder.level.setTextColor(
+                mContext.resources.getColor(
+                    mPrimaryColor,
+                    mContext.theme
+                )
+            )
         }
     }
 

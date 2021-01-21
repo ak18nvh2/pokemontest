@@ -41,7 +41,7 @@ class MovesFragment() : Fragment() {
         view.rv_Moves.layoutManager = LinearLayoutManager(activity)
         view.rv_Moves.adapter = mAdapter
         mList.sortedWith(compareBy { it.versionGroupDetails?.get(0)?.levelLearnedAt })
-        mAdapter?.setList(mList,mImgType)
+        mAdapter?.setList(mList, mImgType)
     }
 
 }

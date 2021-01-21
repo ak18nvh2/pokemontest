@@ -32,4 +32,9 @@ interface Api {
     fun getInformationEvolution(
         @Path("id") pokemonID: String
     ): Call<InformationEvolutions>
+
+    @GET("ability/{id}")
+    fun getInformationAbilities(
+        @Path("id") abilityID: String
+    ): Call<InformationAbilities>
 }

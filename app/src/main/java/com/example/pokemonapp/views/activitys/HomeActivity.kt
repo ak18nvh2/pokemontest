@@ -135,19 +135,18 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         when (v?.id) {
             R.id.img_search -> {
                 closeKeyboard()
-                if (edt_inputSearch.text.toString() == "") {
+                if (edt_inputSearch.text.toString().trim() == "") {
                     Toast.makeText(this, "Please type name or id of Pokemon!", Toast.LENGTH_SHORT)
                         .show()
                 } else {
                     mKeyShowInformationPokemon = Utility.KEY_SEARCH
                     val call =
                         RetrofitClient.instance.getInformationAPokemon(
-                            edt_inputSearch.text.toString().toLowerCase()
+                            edt_inputSearch.text.toString().toLowerCase().trim()
                         )
                     mInformationPokemonViewModel.getAPokemon(call)
                     mDialog.show()
                 }
-
             }
             R.id.img_refresh -> {
                 closeKeyboard()

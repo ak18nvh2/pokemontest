@@ -74,4 +74,6 @@ class InformationPokemon : Serializable {
     @SerializedName("weight")
     @Expose
     var weight: Int? = null
+
+    var isLoad: Boolean = false
 }

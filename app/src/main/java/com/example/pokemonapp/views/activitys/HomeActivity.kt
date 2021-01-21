@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.example.pokemonapp.adapter.ListPokemonAdapter
@@ -30,6 +31,8 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     private var mArrayListInformationPokemon = ArrayList<InformationPokemon>()
     private var mKeyShowInformationPokemon = 2
     private lateinit var mDialog: MaterialDialog
+    private lateinit var mLinearLayoutManager: LinearLayoutManager
+    private var notLoading = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -50,12 +53,33 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         mInformationPokemonViewModel = InformationPokemonViewModel()
         mListPokemon = ListPokemon()
         mListPokemonAdapter = ListPokemonAdapter(this, this)
-        rv_listPokemon.layoutManager = LinearLayoutManager(this)
+        mLinearLayoutManager = LinearLayoutManager(this)
+        rv_listPokemon.layoutManager = mLinearLayoutManager
         rv_listPokemon.adapter = mListPokemonAdapter
+        loadMore()
         img_search.setOnClickListener(this)
         img_refresh.setOnClickListener(this)
         getListPokemon(0, 20)
 
+    }
+
+    private fun loadMore() {
+        rv_listPokemon.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (notLoading && mLinearLayoutManager.findLastCompletelyVisibleItemPosition() == mArrayListInformationPokemon.size - 1) {
+                    if (mKeyShowInformationPokemon == Utility.KEY_DISPLAY) {
+                        val informationPokemon = InformationPokemon()
+                        informationPokemon.isLoad = true
+                        mArrayListInformationPokemon.add(informationPokemon)
+                        mListPokemonAdapter.setList(mArrayListInformationPokemon)
+                        notLoading = false
+                        if (mListPokemon.next != null) {
+                            mListPokemonViewModel.getNextListPokemon(mListPokemon.next!!)
+                        }
+                    }
+                }
+            }
+        })
     }
 
     private fun getListPokemon(offset: Int, limit: Int) {
@@ -103,8 +127,12 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
 
         mInformationPokemonViewModel.amountOfPokemon.observe(this, {
             if (mListPokemon.results?.size != null && it == mListPokemon.results?.size!!) {
+                if (mArrayListInformationPokemon.size > 20) {
+                    mArrayListInformationPokemon.removeAt(mArrayListInformationPokemon.size - 21)
+                }
                 mListPokemonAdapter.setList(mArrayListInformationPokemon)
-                mInformationPokemonViewModel.noticeGetAllInformationPokemonSuccessful()
+                notLoading = true
+                mDialog.dismiss()
             } else {
                 val call =
                     RetrofitClient.instance.getInformationAPokemon(mListPokemon.results?.get(it)?.name!!)

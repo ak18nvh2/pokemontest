@@ -6,6 +6,8 @@ object Utility {
 
     const val KEY_SEARCH = 1
     const val KEY_DISPLAY = 2
+    const val KEY_SHOW_DATA = 3
+    const val KEY_SHOW_PROGRESSBAR = 4
     fun nameToImage(name: String): Int {
         when (name) {
             "water" -> {
@@ -63,7 +65,7 @@ object Utility {
                 return R.drawable.bug
             }
         }
-        return -1
+        return R.drawable.normal
     }
 
     fun nameToTag(name: String): Int {
@@ -123,7 +125,7 @@ object Utility {
                 return R.drawable.tag_bug
             }
         }
-        return -1
+        return R.drawable.tag_normal
     }
 
     fun nameToColor(name: String): Int {
@@ -183,6 +185,6 @@ object Utility {
                 return R.color.colorBug
             }
         }
-        return -1
+        return R.color.colorNormal
     }
 }

@@ -34,4 +34,35 @@ class ListPokemonViewModel : ViewModel() {
         )
     }
 
+    fun getNextListPokemon(link: String) {
+        var limit = 0
+        var offset = 0
+        var idRightOfNumberOffset = -1
+        var idLeftOfNumberOffset = -1
+        for (i in link.length - 1 downTo 0) {
+            if (link[i] == '=') {
+                limit = link.substring(i + 1).toInt()
+                break
+            }
+        }
+        for (i in link.length - 1 downTo 0) {
+            if (link[i] == '&') {
+                idRightOfNumberOffset = i
+                break
+            }
+        }
+        var countEqual = 0
+        for (i in link.length - 1 downTo 0) {
+            if (link[i] == '=') {
+                countEqual++
+                if (countEqual == 2) {
+                    idLeftOfNumberOffset = i + 1
+                    break
+                }
+            }
+        }
+        offset = link.substring(idLeftOfNumberOffset, idRightOfNumberOffset).toInt()
+        getListPokemon(offset, limit)
+    }
+
 }

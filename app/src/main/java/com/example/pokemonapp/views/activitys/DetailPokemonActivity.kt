@@ -85,8 +85,11 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         if (mInformationPokemon.name != null) {
             tv_nameOfPokemon.text = mInformationPokemon.name?.capitalize()
             tv_Name.text = mInformationPokemon.name?.capitalize()
-            mInformationPokemonFormViewModel.getAPokemonForm(mInformationPokemon.name!!)
-            mInformationPokemonSpeciesViewModel.getInformationPokemonSpecies(mInformationPokemon.name!!)
+
+        }
+        mInformationPokemon.id?.let {
+            mInformationPokemonFormViewModel.getAPokemonForm("$it")
+            mInformationPokemonSpeciesViewModel.getInformationPokemonSpecies("$it")
         }
         tv_nameOfPokemon.visibility = View.INVISIBLE
         btn_HideOrShowDetail.setOnClickListener(this)

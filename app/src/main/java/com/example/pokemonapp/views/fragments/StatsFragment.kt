@@ -223,7 +223,7 @@ class StatsFragment() : Fragment() {
                 if (mInformationPokemonSpecies.eggGroups?.get(0)?.name != null) {
                     tvEgg1.text = mInformationPokemonSpecies.eggGroups?.get(0)?.name?.capitalize()
                 }
-            } else {
+            } else if (mInformationPokemonSpecies.eggGroups?.size!! > 1) {
                 if (mInformationPokemonSpecies.eggGroups?.get(0)?.name != null) {
                     tvEgg1.text = mInformationPokemonSpecies.eggGroups?.get(0)?.name?.capitalize()
                 }

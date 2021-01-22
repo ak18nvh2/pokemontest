@@ -33,7 +33,6 @@ class ListPokemonAdapter(
 
     fun setList(list: ArrayList<InformationPokemon>) {
         this.mListPokemon = list
-        Log.d("hieu", "$list")
         notifyDataSetChanged()
     }
 

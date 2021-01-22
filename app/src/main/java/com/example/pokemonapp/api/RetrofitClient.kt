@@ -24,7 +24,7 @@ object RetrofitClient {
         .connectTimeout(5000, TimeUnit.MILLISECONDS)
         .retryOnConnectionFailure(true)
         .addInterceptor(headerInterceptor)
-        .addInterceptor(logger)
+       // .addInterceptor(logger)
         .build()
     val instance: Api by lazy {
         val retrofit = Retrofit.Builder()

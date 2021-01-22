@@ -56,7 +56,7 @@ class StatsFragment() : Fragment() {
 
         mInformationAbilityViewModel.aPokemonAbility.observe(this, {
 
-            if (mInformationAbilityViewModel.amountOfAbilities.value != null && mArrayListAbility[mInformationAbilityViewModel.amountOfAbilities.value!!].ability?.name != null && it.flavorTextEntries?.get(
+            if (mInformationAbilityViewModel.amountOfAbilities.value != null && mArrayListAbility[mInformationAbilityViewModel.amountOfAbilities.value!!].ability?.name != null && it?.flavorTextEntries?.get(
                     0
                 )?.flavorText != null && mArrayListAbility[mInformationAbilityViewModel.amountOfAbilities.value!!].isHidden != null
             ) {
@@ -208,7 +208,6 @@ class StatsFragment() : Fragment() {
         val tvCycle = t.findViewById<TextView>(R.id.tv_Cycles)
         val tvEgg1 = t.findViewById<TextView>(R.id.tv_eggGroup1)
         val tvEgg2 = t.findViewById<TextView>(R.id.tv_eggGroup2)
-        val percentRate = (0..100).random()
         val percentMale = (0..100).random()
         val steps = (0..5000).random()
         val cycles = (0..1000).random()
@@ -248,6 +247,13 @@ class StatsFragment() : Fragment() {
             tvRate.text = "${mInformationPokemonSpecies.captureRate}%"
             pbRate.progress = mInformationPokemonSpecies.captureRate!!
         }
+
+        pbGender.indeterminateDrawable.setColorFilter(
+            requireContext().resources.getColor(
+                mPrimaryColor,
+                requireContext().theme
+            ), android.graphics.PorterDuff.Mode.MULTIPLY
+        )
 
 
         //-------------------------sprites------------------------------------

@@ -28,7 +28,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     private val mFragmentManager: FragmentManager = supportFragmentManager
     private val mFragmentTransaction = mFragmentManager.beginTransaction()
     private var mArrayListMove = ArrayList<Move>()
-    private lateinit var mInformationPokemon: InformationPokemon
+    private var mInformationPokemon: InformationPokemon = InformationPokemon()
     private val mDetailPokemonViewModel = DetailPokemonViewModel()
     private val mInformationPokemonFormViewModel = InformationPokemonFormViewModel()
     private val mInformationPokemonSpeciesViewModel = InformationPokemonSpeciesViewModel()
@@ -65,20 +65,23 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         val intent = intent
         val bundle = intent.extras
         if (bundle != null) {
-            mInformationPokemon = bundle.getSerializable("IP") as InformationPokemon
+            mInformationPokemon =
+                bundle.getSerializable(Utility.KEY_BUNDLE_INFORMATION_POKEMON) as InformationPokemon
         }
-        mArrayListMove = mInformationPokemon.moves as ArrayList<Move>
-        if (mInformationPokemon.sprites?.other?.officialArtwork?.frontDefault != null) {
-            Picasso.with(this)
-                .load(mInformationPokemon.sprites?.other?.officialArtwork?.frontDefault)
-                .placeholder(R.drawable.egg)
-                .into(img_avatar)
+        if (mInformationPokemon.moves != null) {
+            mArrayListMove = mInformationPokemon.moves as ArrayList<Move>
         }
+
+        Picasso.with(this)
+            .load(mInformationPokemon.sprites?.other?.officialArtwork?.frontDefault)
+            .placeholder(R.drawable.egg)
+            .into(img_avatar)
+
         if (mInformationPokemon.types?.get(0)?.type?.name != null) {
             img_tag.setImageResource(Utility.nameToTag(mInformationPokemon.types?.get(0)?.type?.name!!))
             mPrimaryColor = Utility.nameToColor(mInformationPokemon.types?.get(0)?.type?.name!!)
         }
-        setColor()
+        setFirstStateColor()
         if (mInformationPokemon.name != null) {
             tv_nameOfPokemon.text = mInformationPokemon.name?.capitalize()
             tv_Name.text = mInformationPokemon.name?.capitalize()
@@ -93,123 +96,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun initFragment() {
-        if (mInformationPokemon.types?.get(0)?.type?.name != null) {
-            mPrimaryColor = Utility.nameToColor(mInformationPokemon.types?.get(0)?.type?.name!!)
-            mListFragment.add(
-                MovesFragment(
-                    mArrayListMove,
-                    Utility.nameToImage(mInformationPokemon.types?.get(0)?.type?.name!!)
-                )
-            )
-        } else {
-            mListFragment.add(MovesFragment(mArrayListMove))
-        }
-
-        mListFragment.add(
-            StatsFragment(
-                mInformationPokemon,
-                mInformationPokemonSpecies,
-                mInformationPokemonForm,
-                mPrimaryColor
-            )
-        )
-
-        mListFragment.add(
-            EvolutionsFragment(
-                mListInformationPokemon,
-                mArrayListMinLevelEvolutions,
-                mPrimaryColor
-            )
-        )
-        // move 0 stat 1 evo 2
-        mFragmentTransaction.add(R.id.fm_content, mListFragment[0])
-        mFragmentTransaction.hide(mListFragment[0])
-
-        mFragmentTransaction.add(R.id.fm_content, mListFragment[1])
-        mFragmentTransaction.hide(mListFragment[1])
-
-        mFragmentTransaction.add(R.id.fm_content, mListFragment[2])
-        mFragmentTransaction.hide(mListFragment[2])
-
-        mFragmentTransaction.show(mListFragment[1])
-        mFragmentTransaction.commit()
-
-
-    }
-
-    private fun registerLiveDataListenerOfInformationPokemonViewModel() {
-        mInformationPokemonViewModel.amountOfPokemon.observe(this, {
-            if (mListNamePokemon.size == it) {
-                initFragment()
-                mDialog.dismiss()
-            } else {
-                val call =
-                    RetrofitClient.instance.getInformationAPokemon(mListNamePokemon[it])
-                mInformationPokemonViewModel.getAPokemon(call)
-            }
-        })
-        mInformationPokemonViewModel.aPokemon.observe(this, {
-            mListInformationPokemon.add(it)
-            mInformationPokemonViewModel.getAPokemonNext()
-        })
-    }
-
-    private fun registerLiveDataListenerOfDetailPokemonViewModel() {
-        mDetailPokemonViewModel.hide.observe(this, {
-            img_avatar.visibility = View.GONE
-            img_tag.visibility = View.GONE
-            tv_Name.visibility = View.GONE
-            tv_description.visibility = View.GONE
-            tv_nameOfPokemon.visibility = View.VISIBLE
-            gl_topOfCardView.setGuidelinePercent(0.1F)
-        })
-
-        mDetailPokemonViewModel.show.observe(this, {
-            img_avatar.visibility = View.VISIBLE
-            img_tag.visibility = View.VISIBLE
-            tv_Name.visibility = View.VISIBLE
-            tv_description.visibility = View.VISIBLE
-            tv_nameOfPokemon.visibility = View.GONE
-            gl_topOfCardView.setGuidelinePercent(0.26F)
-        })
-    }
-
-    private fun registerLiveDataListenerOfInformationPokemonFormViewModel() {
-
-        mInformationPokemonFormViewModel.aPokemonForm.observe(this, {
-            mInformationPokemonForm = it
-        })
-    }
-
-    private fun registerLiveDataListenerOfInformationPokemonSpeciesViewModel() {
-        mInformationPokemonSpeciesViewModel.aPokemonSpecies.observe(this, {
-            mInformationPokemonSpecies = it
-            if (mInformationPokemonSpecies.evolutionChain?.url != null) {
-                mEvolutionsViewModel.getListEvolution(mInformationPokemonSpecies.evolutionChain?.url!!)
-            }
-            if (mInformationPokemonSpecies.flavorTextEntries?.get(0)?.flavorText != null) {
-                tv_description.text =
-                    mInformationPokemonSpecies.flavorTextEntries?.get(0)?.flavorText
-            }
-        })
-    }
-
-    private fun registerLiveDataListenerOfEvolutionViewModel() {
-        mEvolutionsViewModel.aPokemonEvolutions.observe(this, {
-            mEvolutionsViewModel.getListPokemonEvolution(it)
-
-        })
-        mEvolutionsViewModel.listPokemonName.observe(this, {
-            mListNamePokemon = it
-            mInformationPokemonViewModel.amountOfPokemon.value = 0
-        })
-        mEvolutionsViewModel.listPokemonLevelEvolution.observe(this, {
-            mArrayListMinLevelEvolutions = it
-        })
-    }
-
-    private fun setColor() {
+    private fun setFirstStateColor() {
         lo_detailPokemon.setBackgroundColor(
             applicationContext.resources.getColor(
                 mPrimaryColor,
@@ -260,6 +147,130 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
             )
         )
 
+    }
+
+    private fun registerLiveDataListenerOfDetailPokemonViewModel() {
+        mDetailPokemonViewModel.hideState.observe(this, {
+            img_avatar.visibility = View.GONE
+            img_tag.visibility = View.GONE
+            tv_Name.visibility = View.GONE
+            tv_description.visibility = View.GONE
+            tv_nameOfPokemon.visibility = View.VISIBLE
+            gl_topOfCardView.setGuidelinePercent(0.1F)
+        })
+
+        mDetailPokemonViewModel.showState.observe(this, {
+            img_avatar.visibility = View.VISIBLE
+            img_tag.visibility = View.VISIBLE
+            tv_Name.visibility = View.VISIBLE
+            tv_description.visibility = View.VISIBLE
+            tv_nameOfPokemon.visibility = View.GONE
+            gl_topOfCardView.setGuidelinePercent(0.26F)
+        })
+    }
+
+    private fun registerLiveDataListenerOfInformationPokemonFormViewModel() {
+
+        mInformationPokemonFormViewModel.aPokemonForm.observe(this, {
+            it?.let {
+                mInformationPokemonForm = it
+            }
+        })
+    }
+
+    private fun registerLiveDataListenerOfInformationPokemonSpeciesViewModel() {
+        mInformationPokemonSpeciesViewModel.aPokemonSpecies.observe(this, {
+            it?.let {
+                mInformationPokemonSpecies = it
+                if (mInformationPokemonSpecies.evolutionChain?.url != null) {
+                    mEvolutionsViewModel.getListEvolution(mInformationPokemonSpecies.evolutionChain?.url!!)
+                }
+                if (mInformationPokemonSpecies.flavorTextEntries?.get(0)?.flavorText != null) {
+                    tv_description.text =
+                        mInformationPokemonSpecies.flavorTextEntries?.get(0)?.flavorText
+                }
+            }
+        })
+    }
+
+    private fun registerLiveDataListenerOfEvolutionViewModel() {
+        mEvolutionsViewModel.aPokemonEvolutions.observe(this, {
+            it?.let {
+                mEvolutionsViewModel.getListPokemonEvolution(it)
+            }
+        })
+        mEvolutionsViewModel.listPokemonName.observe(this, {
+            it?.let {
+                mListNamePokemon = it
+                mInformationPokemonViewModel.amountOfPokemon.value = 0
+            }
+        })
+        mEvolutionsViewModel.listPokemonLevelEvolution.observe(this, {
+            it?.let { mArrayListMinLevelEvolutions = it }
+        })
+    }
+
+    private fun registerLiveDataListenerOfInformationPokemonViewModel() {
+        mInformationPokemonViewModel.amountOfPokemon.observe(this, {
+            if (mListNamePokemon.size == it) {
+                initFragment()
+            } else {
+                val call =
+                    RetrofitClient.instance.getInformationAPokemon(mListNamePokemon[it])
+                mInformationPokemonViewModel.getAPokemon(call)
+            }
+        })
+        mInformationPokemonViewModel.aPokemon.observe(this, {
+            if (it != null) {
+                mListInformationPokemon.add(it)
+                mInformationPokemonViewModel.getAPokemonNext()
+            } else {
+                initFragment()
+            }
+        })
+    }
+
+    private fun initFragment() {
+
+        if (mArrayListMove != null) {
+            if (mInformationPokemon.types?.get(0)?.type?.name != null) {
+                mListFragment.add(
+                    MovesFragment(
+                        mArrayListMove,
+                        Utility.nameToImage(mInformationPokemon.types?.get(0)?.type?.name!!)
+                    )
+                )
+            } else {
+                mListFragment.add(MovesFragment(mArrayListMove))
+            }
+        } else {
+            mListFragment.add(MovesFragment())
+        }
+
+        mListFragment.add(
+            StatsFragment(
+                mInformationPokemon,
+                mInformationPokemonSpecies,
+                mInformationPokemonForm,
+                mPrimaryColor
+            )
+        )
+
+        mListFragment.add(
+            EvolutionsFragment(
+                mListInformationPokemon,
+                mArrayListMinLevelEvolutions,
+                mPrimaryColor
+            )
+        )
+        // move 0 stat 1 evo 2
+        mListFragment.forEach {
+            mFragmentTransaction.add(R.id.fm_content, it)
+            mFragmentTransaction.hide(it)
+        }
+        mFragmentTransaction.show(mListFragment[1])
+        mFragmentTransaction.commit()
+        mDialog.dismiss()
     }
 
     override fun onClick(v: View?) {

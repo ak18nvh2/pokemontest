@@ -4,15 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class DetailPokemonViewModel : ViewModel() {
-    var hide: MutableLiveData<Int> = MutableLiveData()
-    var show: MutableLiveData<Int> = MutableLiveData()
-    var countNumberClickButtonHideShowInformation = 0
+    var hideState: MutableLiveData<Int> = MutableLiveData()
+    var showState: MutableLiveData<Int> = MutableLiveData()
+    var numberOfTimesClickButtonHideShowInformation = 0
     fun showOrHideInformation() {
-        countNumberClickButtonHideShowInformation++
-        if (countNumberClickButtonHideShowInformation % 2 == 1) {
-            hide.value = hide.value?.plus(1)
+        numberOfTimesClickButtonHideShowInformation++
+        if (numberOfTimesClickButtonHideShowInformation % 2 == 1) {
+            hideState.value = hideState.value?.plus(1)
         } else {
-            show.value = show.value?.plus(1)
+            showState.value = showState.value?.plus(1)
         }
     }
 

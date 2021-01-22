@@ -8,6 +8,8 @@ object Utility {
     const val KEY_DISPLAY = 2
     const val KEY_SHOW_DATA = 3
     const val KEY_SHOW_PROGRESSBAR = 4
+    const val KEY_BUNDLE_INFORMATION_POKEMON = "1"
+
     fun nameToImage(name: String): Int {
         when (name) {
             "water" -> {

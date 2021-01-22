@@ -41,29 +41,56 @@ class EvolutionAdapter(var mContext: Context) :
     }
 
     override fun getItemCount(): Int {
-        return mArrayListInformationPokemon.size - 1
+        return if (mArrayListInformationPokemon.size > 1)
+            mArrayListInformationPokemon.size - 1
+        else mArrayListInformationPokemon.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Picasso.with(mContext)
-            .load(mArrayListInformationPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
-            .placeholder(R.drawable.egg)
-            .into(holder.avtBefore)
-        Picasso.with(mContext)
-            .load(mArrayListInformationPokemon[position + 1].sprites?.other?.officialArtwork?.frontDefault)
-            .placeholder(R.drawable.egg)
-            .into(holder.avtAfter)
+        if (mArrayListInformationPokemon.size > 1) {
+            Picasso.with(mContext)
+                .load(mArrayListInformationPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
+                .placeholder(R.drawable.egg)
+                .into(holder.avtBefore)
+            Picasso.with(mContext)
+                .load(mArrayListInformationPokemon[position + 1].sprites?.other?.officialArtwork?.frontDefault)
+                .placeholder(R.drawable.egg)
+                .into(holder.avtAfter)
 
-        holder.nameAfter.text = mArrayListInformationPokemon[position + 1].name?.capitalize()
-        holder.nameBefore.text = mArrayListInformationPokemon[position].name?.capitalize()
-        holder.level.text = "Lv.${mArrayListLv[position]}"
-        if (this.mPrimaryColor != -1) {
-            holder.level.setTextColor(
-                mContext.resources.getColor(
-                    mPrimaryColor,
-                    mContext.theme
+            holder.nameAfter.text = mArrayListInformationPokemon[position + 1].name?.capitalize()
+            holder.nameBefore.text = mArrayListInformationPokemon[position].name?.capitalize()
+            if (mArrayListLv[position] > 0) {
+                holder.level.text = "Lv.${mArrayListLv[position]}"
+            }
+            if (this.mPrimaryColor != -1) {
+                holder.level.setTextColor(
+                    mContext.resources.getColor(
+                        mPrimaryColor,
+                        mContext.theme
+                    )
                 )
-            )
+            }
+        } else {
+            Picasso.with(mContext)
+                .load(mArrayListInformationPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
+                .placeholder(R.drawable.egg)
+                .into(holder.avtBefore)
+            Picasso.with(mContext)
+                .load("")
+                .placeholder(R.drawable.egg)
+                .into(holder.avtAfter)
+
+            holder.nameAfter.text = mArrayListInformationPokemon[position].name?.capitalize()
+            holder.nameBefore.text = mArrayListInformationPokemon[position].name?.capitalize()
+
+            if (this.mPrimaryColor != -1) {
+                holder.level.setTextColor(
+                    mContext.resources.getColor(
+                        mPrimaryColor,
+                        mContext.theme
+                    )
+                )
+            }
         }
     }
 

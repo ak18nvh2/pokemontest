@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class InformationPokemonSpeciesViewModel : ViewModel() {
-    var aPokemonSpecies: MutableLiveData<InformationPokemonSpecies> = MutableLiveData()
+    var aPokemonSpecies: MutableLiveData<InformationPokemonSpecies?> = MutableLiveData()
     var notification: MutableLiveData<String> = MutableLiveData()
     fun getInformationPokemonSpecies(id: String) {
         val callGet =
@@ -21,6 +21,7 @@ class InformationPokemonSpeciesViewModel : ViewModel() {
                 } else {
                     notification.value = "Can't load data, please try again!"
                 }
+                aPokemonSpecies.value = null
             }
 
             override fun onResponse(

@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class InformationAbilityViewModel : ViewModel() {
-    var aPokemonAbility: MutableLiveData<InformationAbilities> = MutableLiveData()
+    var aPokemonAbility: MutableLiveData<InformationAbilities?> = MutableLiveData()
     var notification: MutableLiveData<String> = MutableLiveData()
     var amountOfAbilities: MutableLiveData<Int> = MutableLiveData()
     fun getAPokemonAbilities(link: String) {
@@ -25,8 +25,10 @@ class InformationAbilityViewModel : ViewModel() {
         callGet.enqueue(object : Callback<InformationAbilities> {
             override fun onFailure(call: Call<InformationAbilities>, t: Throwable) {
                 if (callGet.isCanceled) {
+                    aPokemonAbility.value = null
                     notification.value = "Canceled successful!"
                 } else {
+                    aPokemonAbility.value = null
                     notification.value = "Can't load data, please try again!"
                 }
             }

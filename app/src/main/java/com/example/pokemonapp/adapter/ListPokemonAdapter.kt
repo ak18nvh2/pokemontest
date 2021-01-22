@@ -1,6 +1,7 @@
 package com.example.pokemonapp.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class ListPokemonAdapter(
     var mContext: Context,
     var iListPokemonWithActivity: IListPokemonWithActivity
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var layoutManager: LinearLayoutManager? = null
     private var mListPokemon = ArrayList<InformationPokemon>()
     private lateinit var mTypePokemonAdapter: TypePokemonAdapter
 
@@ -31,11 +33,13 @@ class ListPokemonAdapter(
 
     fun setList(list: ArrayList<InformationPokemon>) {
         this.mListPokemon = list
+        Log.d("hieu", "$list")
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         mTypePokemonAdapter = TypePokemonAdapter(mContext)
+        layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         return when (viewType) {
             Utility.KEY_SHOW_DATA -> {
                 DataViewHolder(
@@ -55,41 +59,43 @@ class ListPokemonAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is DataViewHolder) {
-            holder.pokemonName.text = mListPokemon[position].name?.capitalize()
-            if (mListPokemon[position].id != null) {
-                when {
-                    mListPokemon[position].id!! < 10 -> {
-                        holder.pokemonID.text = "#00${mListPokemon.get(position).id}"
-                    }
-                    mListPokemon[position].id!! < 100 -> {
-                        holder.pokemonID.text = "#0${mListPokemon.get(position).id}"
-                    }
-                    else -> {
-                        holder.pokemonID.text = "#${mListPokemon.get(position).id}"
+        holder.setIsRecyclable(false)
+        if (getItemViewType(position) == Utility.KEY_SHOW_DATA) {
+            if (holder is DataViewHolder) {
+                holder.pokemonName.text = mListPokemon[position].name?.capitalize()
+                if (mListPokemon[position].id != null) {
+                    when {
+                        mListPokemon[position].id!! < 10 -> {
+                            holder.pokemonID.text = "#00${mListPokemon.get(position).id}"
+                        }
+                        mListPokemon[position].id!! < 100 -> {
+                            holder.pokemonID.text = "#0${mListPokemon.get(position).id}"
+                        }
+                        else -> {
+                            holder.pokemonID.text = "#${mListPokemon.get(position).id}"
+                        }
                     }
                 }
-            }
 
-            Picasso.with(mContext)
-                .load(mListPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
-                .placeholder(R.drawable.egg)
-                .into(holder.pokemonAvatar)
-
-            val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-            holder.rvListType.layoutManager = layoutManager
-            holder.rvListType.adapter = mTypePokemonAdapter
-            val mArrImg = ArrayList<Int>()
-            mListPokemon[position].types?.forEach {
-                if (it.type?.name != null) {
-                    mArrImg.add(Utility.nameToImage(it.type?.name!!))
+                Picasso.with(mContext)
+                    .load(mListPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
+                    .placeholder(R.drawable.egg)
+                    .into(holder.pokemonAvatar)
+                holder.rvListType.layoutManager = layoutManager
+                holder.rvListType.adapter = mTypePokemonAdapter
+                val mArrImg = ArrayList<Int>()
+                mListPokemon[position].types?.forEach {
+                    if (it.type?.name != null) {
+                        mArrImg.add(Utility.nameToImage(it.type?.name!!))
+                    }
                 }
-            }
-            mTypePokemonAdapter.setList(mArrImg)
-            holder.itemView.setOnClickListener() {
-                iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
+                mTypePokemonAdapter.setList(mArrImg)
+                holder.itemView.setOnClickListener() {
+                    iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
+                }
             }
         }
+
     }
 
     override fun getItemViewType(position: Int): Int {

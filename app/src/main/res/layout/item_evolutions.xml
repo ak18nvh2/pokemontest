@@ -38,7 +38,7 @@
         android:id="@+id/tv_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lv.16"
+        android:text="Updating..."
         android:textColor="@color/dark_sky_blue"
         app:layout_constraintBottom_toTopOf="@id/img_arrow"
         app:layout_constraintLeft_toLeftOf="@id/img_arrow"

@@ -9,10 +9,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class InformationEvolutionsViewModel : ViewModel() {
-    var aPokemonEvolutions: MutableLiveData<InformationEvolutions> = MutableLiveData()
+    var aPokemonEvolutions: MutableLiveData<InformationEvolutions?> = MutableLiveData()
     var notification: MutableLiveData<String> = MutableLiveData()
-    var listPokemonName: MutableLiveData<ArrayList<String>> = MutableLiveData()
-    var listPokemonLevelEvolution: MutableLiveData<ArrayList<Int>> = MutableLiveData()
+    var listPokemonName: MutableLiveData<ArrayList<String>?> = MutableLiveData()
+    var listPokemonLevelEvolution: MutableLiveData<ArrayList<Int>?> = MutableLiveData()
     fun getListEvolution(linkEvolution: String) {
         var id = ""
         for (i in linkEvolution.length - 2 downTo 0) {
@@ -29,6 +29,7 @@ class InformationEvolutionsViewModel : ViewModel() {
                 } else {
                     notification.value = "Can't load data, please try again!"
                 }
+                aPokemonEvolutions.value = null
             }
 
             override fun onResponse(
@@ -61,7 +62,7 @@ class InformationEvolutionsViewModel : ViewModel() {
             if (eTo[0].evolutionDetails?.get(0)?.minLevel != null) {
                 arrLv.add(eTo[0].evolutionDetails?.get(0)?.minLevel!!)
             } else {
-                arrLv.add(0)
+                arrLv.add(-1)
             }
             eTo = eTo[0].evolvesTo
         }

@@ -60,7 +60,6 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         img_search.setOnClickListener(this)
         img_refresh.setOnClickListener(this)
         getListPokemon(0, 20)
-
     }
 
     private fun loadMore() {
@@ -68,13 +67,19 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (notLoading && mLinearLayoutManager.findLastCompletelyVisibleItemPosition() == mArrayListInformationPokemon.size - 1) {
                     if (mKeyShowInformationPokemon == Utility.KEY_DISPLAY) {
-                        val informationPokemon = InformationPokemon()
-                        informationPokemon.isLoad = true
-                        mArrayListInformationPokemon.add(informationPokemon)
-                        mListPokemonAdapter.setList(mArrayListInformationPokemon)
-                        notLoading = false
                         if (mListPokemon.next != null) {
                             mListPokemonViewModel.getNextListPokemon(mListPokemon.next!!)
+                            val informationPokemon = InformationPokemon()
+                            informationPokemon.isLoad = true
+                            mArrayListInformationPokemon.add(informationPokemon)
+                            mListPokemonAdapter.setList(mArrayListInformationPokemon)
+                            notLoading = false
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                "This is end of list Pokemon",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
                 }
@@ -83,7 +88,6 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     }
 
     private fun getListPokemon(offset: Int, limit: Int) {
-
         mListPokemonViewModel.getListPokemon(offset, limit)
         mDialog = MaterialDialog(this)
             .noAutoDismiss()
@@ -98,14 +102,42 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
 
     private fun registerLiveDataListener() {
         mListPokemonViewModel.listPokemon.observe(this, {
-            mListPokemon = it
-            mInformationPokemonViewModel.amountOfPokemon.value = 0
+            if (it != null) {
+                mListPokemon = it
+                mInformationPokemonViewModel.amountOfPokemon.value = 0
+            } else {
+                mDialog.dismiss()
+            }
+        })
+
+        mInformationPokemonViewModel.amountOfPokemon.observe(this, {
+            if (mListPokemon.results?.size != null && it == mListPokemon.results?.size!!) {
+                if (mArrayListInformationPokemon.size > 20) {
+                    mArrayListInformationPokemon.removeAt(mArrayListInformationPokemon.size - 21)
+                }
+                mListPokemonAdapter.setList(mArrayListInformationPokemon)
+                notLoading = true
+                mDialog.dismiss()
+            } else {
+                val call =
+                    RetrofitClient.instance.getInformationAPokemon(mListPokemon.results?.get(it)?.name!!)
+                mInformationPokemonViewModel.getAPokemon(call)
+            }
         })
 
         mInformationPokemonViewModel.aPokemon.observe(this, {
             if (mKeyShowInformationPokemon == Utility.KEY_DISPLAY) {
-                mArrayListInformationPokemon.add(it)
-                mInformationPokemonViewModel.getAPokemonNext()
+                if (it != null) {
+                    mArrayListInformationPokemon.add(it)
+                    mInformationPokemonViewModel.getAPokemonNext()
+                } else {
+                    mDialog.dismiss()
+                    if (mArrayListInformationPokemon.size > 20) {
+                        mArrayListInformationPokemon.removeAt(mArrayListInformationPokemon.size - mInformationPokemonViewModel.amountOfPokemon.value!! - 2)
+                    }
+                    mListPokemonAdapter.setList(mArrayListInformationPokemon)
+                    notLoading = true
+                }
 
             } else if (mKeyShowInformationPokemon == Utility.KEY_SEARCH) {
                 mDialog.dismiss()
@@ -125,20 +157,6 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             }
         })
 
-        mInformationPokemonViewModel.amountOfPokemon.observe(this, {
-            if (mListPokemon.results?.size != null && it == mListPokemon.results?.size!!) {
-                if (mArrayListInformationPokemon.size > 20) {
-                    mArrayListInformationPokemon.removeAt(mArrayListInformationPokemon.size - 21)
-                }
-                mListPokemonAdapter.setList(mArrayListInformationPokemon)
-                notLoading = true
-                mDialog.dismiss()
-            } else {
-                val call =
-                    RetrofitClient.instance.getInformationAPokemon(mListPokemon.results?.get(it)?.name!!)
-                mInformationPokemonViewModel.getAPokemon(call)
-            }
-        })
 
         mInformationPokemonViewModel.notification.observe(this, {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
@@ -149,12 +167,18 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             mDialog.dismiss()
         })
+        mInformationPokemonViewModel.isSearching.observe(this, {
+            mKeyShowInformationPokemon = Utility.KEY_SEARCH
+            mDialog.show()
+            closeKeyboard()
+
+        })
     }
 
     override fun onItemClick(informationPokemon: InformationPokemon, pos: Int) {
         val intent = Intent(this, DetailPokemonActivity::class.java)
         val bundle = Bundle()
-        bundle.putSerializable("IP", informationPokemon)
+        bundle.putSerializable(Utility.KEY_BUNDLE_INFORMATION_POKEMON, informationPokemon)
         intent.putExtras(bundle)
         startActivity(intent)
     }
@@ -162,19 +186,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.img_search -> {
-                closeKeyboard()
-                if (edt_inputSearch.text.toString().trim() == "") {
-                    Toast.makeText(this, "Please type name or id of Pokemon!", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    mKeyShowInformationPokemon = Utility.KEY_SEARCH
-                    val call =
-                        RetrofitClient.instance.getInformationAPokemon(
-                            edt_inputSearch.text.toString().toLowerCase().trim()
-                        )
-                    mInformationPokemonViewModel.getAPokemon(call)
-                    mDialog.show()
-                }
+                mInformationPokemonViewModel.searchAPokemon(edt_inputSearch.text.toString())
             }
             R.id.img_refresh -> {
                 closeKeyboard()

@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     private var mKeyShowInformationPokemon = 2
     private lateinit var mDialog: MaterialDialog
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-    private var notLoading = false
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -65,15 +65,11 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     private fun loadMore() {
         rv_listPokemon.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (notLoading && mLinearLayoutManager.findLastCompletelyVisibleItemPosition() == mArrayListInformationPokemon.size - 1) {
+                if (!recyclerView.canScrollVertically(1) && !mListPokemonAdapter.mIsLoadMore) {
                     if (mKeyShowInformationPokemon == Utility.KEY_DISPLAY) {
                         if (mListPokemon.next != null) {
                             mListPokemonViewModel.getNextListPokemon(mListPokemon.next!!)
-                            val informationPokemon = InformationPokemon()
-                            informationPokemon.isLoad = true
-                            mArrayListInformationPokemon.add(informationPokemon)
-                            mListPokemonAdapter.setList(mArrayListInformationPokemon)
-                            notLoading = false
+                            mListPokemonAdapter.setLoadMoreItem(true)
                         } else {
                             Toast.makeText(
                                 applicationContext,
@@ -112,11 +108,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
 
         mInformationPokemonViewModel.amountOfPokemon.observe(this, {
             if (mListPokemon.results?.size != null && it == mListPokemon.results?.size!!) {
-                if (mArrayListInformationPokemon.size > 20) {
-                    mArrayListInformationPokemon.removeAt(mArrayListInformationPokemon.size - 21)
-                }
                 mListPokemonAdapter.setList(mArrayListInformationPokemon)
-                notLoading = true
                 mDialog.dismiss()
             } else {
                 val call =
@@ -132,11 +124,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                     mInformationPokemonViewModel.getAPokemonNext()
                 } else {
                     mDialog.dismiss()
-                    if (mArrayListInformationPokemon.size > 20) {
-                        mArrayListInformationPokemon.removeAt(mArrayListInformationPokemon.size - mInformationPokemonViewModel.amountOfPokemon.value!! - 2)
-                    }
                     mListPokemonAdapter.setList(mArrayListInformationPokemon)
-                    notLoading = true
                 }
 
             } else if (mKeyShowInformationPokemon == Utility.KEY_SEARCH) {

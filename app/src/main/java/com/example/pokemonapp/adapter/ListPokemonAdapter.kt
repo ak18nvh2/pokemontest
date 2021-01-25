@@ -1,110 +1,94 @@
 package com.example.pokemonapp.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemonapp.R
 import com.example.pokemonapp.commons.Utility
 import com.example.pokemonapp.models.InformationPokemon
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_list_pokemon.view.*
+import kotlinx.android.synthetic.main.item_progressbar.view.*
 
 class ListPokemonAdapter(
     var mContext: Context,
     var iListPokemonWithActivity: IListPokemonWithActivity
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var layoutManager: LinearLayoutManager? = null
+
     private var mListPokemon = ArrayList<InformationPokemon>()
-    private lateinit var mTypePokemonAdapter: TypePokemonAdapter
+    var mIsLoadMore = false
 
-    class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val pokemonName: TextView = itemView.findViewById(R.id.tv_pokemonName)
-        val pokemonAvatar: ImageView = itemView.findViewById(R.id.img_avt)
-        val pokemonID: TextView = itemView.findViewById(R.id.tv_pokemonID)
-        val rvListType: RecyclerView = itemView.findViewById(R.id.rv_listTypePokemon)
-    }
-
-    class ProgressBarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class ListPokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     fun setList(list: ArrayList<InformationPokemon>) {
         this.mListPokemon = list
+        setLoadMoreItem(false)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        mTypePokemonAdapter = TypePokemonAdapter(mContext)
-        layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-        return when (viewType) {
-            Utility.KEY_SHOW_DATA -> {
-                DataViewHolder(
-                    LayoutInflater.from(mContext).inflate(R.layout.item_list_pokemon, parent, false)
-                )
-            }
-            else -> ProgressBarViewHolder(
-                LayoutInflater.from(mContext).inflate(R.layout.item_progressbar, parent, false)
-            )
+    fun setLoadMoreItem(isLoadMore: Boolean) {
+        mIsLoadMore = isLoadMore
+        if (isLoadMore) {
+            mListPokemon.add(InformationPokemon(itemViewType = Utility.KEY_SHOW_PROGRESSBAR))
+        } else {
+            mListPokemon.removeAll { it.itemViewType == Utility.KEY_SHOW_PROGRESSBAR }
         }
-
+        notifyItemChanged(mListPokemon.lastIndex)
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return ListPokemonViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(
+                    if (viewType == Utility.KEY_SHOW_DATA) R.layout.item_list_pokemon else R.layout.item_progressbar,
+                    parent,
+                    false
+                )
+        )
+    }
 
     override fun getItemCount(): Int {
         return this.mListPokemon.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder.setIsRecyclable(false)
         if (getItemViewType(position) == Utility.KEY_SHOW_DATA) {
-            if (holder is DataViewHolder) {
-                holder.pokemonName.text = mListPokemon[position].name?.capitalize()
-                if (mListPokemon[position].id != null) {
-                    when {
-                        mListPokemon[position].id!! < 10 -> {
-                            holder.pokemonID.text = "#00${mListPokemon.get(position).id}"
-                        }
-                        mListPokemon[position].id!! < 100 -> {
-                            holder.pokemonID.text = "#0${mListPokemon.get(position).id}"
-                        }
-                        else -> {
-                            holder.pokemonID.text = "#${mListPokemon.get(position).id}"
-                        }
+            holder.itemView.tv_pokemonName.text = mListPokemon[position].name?.capitalize()
+            if (mListPokemon[position].id != null) {
+                when {
+                    mListPokemon[position].id!! < 10 -> {
+                        holder.itemView.tv_pokemonID.text = "#00${mListPokemon.get(position).id}"
                     }
-                }
-
-                Picasso.with(mContext)
-                    .load(mListPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
-                    .placeholder(R.drawable.egg)
-                    .into(holder.pokemonAvatar)
-                holder.rvListType.layoutManager = layoutManager
-                holder.rvListType.adapter = mTypePokemonAdapter
-                val mArrImg = ArrayList<Int>()
-                mListPokemon[position].types?.forEach {
-                    if (it.type?.name != null) {
-                        mArrImg.add(Utility.nameToImage(it.type?.name!!))
+                    mListPokemon[position].id!! < 100 -> {
+                        holder.itemView.tv_pokemonID.text = "#0${mListPokemon.get(position).id}"
                     }
-                }
-                mTypePokemonAdapter.setList(mArrImg)
-                holder.itemView.setOnClickListener() {
-                    iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
+                    else -> {
+                        holder.itemView.tv_pokemonID.text = "#${mListPokemon.get(position).id}"
+                    }
                 }
             }
-        }
-
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        val viewType = mListPokemon[position].isLoad
-        return if (viewType) {
-            Utility.KEY_SHOW_PROGRESSBAR
+            Picasso.with(mContext)
+                .load(mListPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
+                .placeholder(R.drawable.egg)
+                .into(holder.itemView.img_avt)
+            val mArrImg = ArrayList<Int>()
+            mListPokemon[position].types?.forEach {
+                if (it.type?.name != null) {
+                    mArrImg.add(Utility.nameToImage(it.type?.name!!))
+                }
+            }
+            holder.itemView.setOnClickListener() {
+                iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
+            }
         } else {
-            Utility.KEY_SHOW_DATA
+            holder.itemView.pb_itemOfListPokemon.visibility = View.VISIBLE
         }
     }
+
+    override fun getItemViewType(position: Int) = mListPokemon[position].itemViewType
 
     interface IListPokemonWithActivity {
         fun onItemClick(informationPokemon: InformationPokemon, pos: Int)

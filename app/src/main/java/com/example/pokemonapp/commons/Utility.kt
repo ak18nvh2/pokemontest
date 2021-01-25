@@ -9,6 +9,8 @@ object Utility {
     const val KEY_SHOW_DATA = 3
     const val KEY_SHOW_PROGRESSBAR = 4
     const val KEY_BUNDLE_INFORMATION_POKEMON = "1"
+    const val KEY_LIST_BEFORE = 5
+    const val KEY_LIST_AFTER = 6
 
     fun nameToImage(name: String): Int {
         when (name) {
@@ -188,5 +190,16 @@ object Utility {
             }
         }
         return R.color.colorNormal
+    }
+
+    fun linkToID(url: String): String {
+        var id = ""
+        for (i in url.length - 2 downTo 0) {
+            if (url[i] == '/') {
+                id = url.substring(i + 1, url.length - 1)
+                break
+            }
+        }
+        return id
     }
 }

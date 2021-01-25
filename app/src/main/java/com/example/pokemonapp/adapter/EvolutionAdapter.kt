@@ -14,7 +14,8 @@ import com.squareup.picasso.Picasso
 class EvolutionAdapter(var mContext: Context) :
     RecyclerView.Adapter<EvolutionAdapter.ViewHolder>() {
 
-    private var mArrayListInformationPokemon = ArrayList<InformationPokemon>()
+    private var mArrayListInformationPokemonBefore = ArrayList<InformationPokemon>()
+    private var mArrayListInformationPokemonAfter = ArrayList<InformationPokemon>()
     private var mArrayListLv = ArrayList<Int>()
     private var mPrimaryColor = -1
 
@@ -26,8 +27,14 @@ class EvolutionAdapter(var mContext: Context) :
         val level: TextView = itemView.findViewById(R.id.tv_level)
     }
 
-    fun setList(list: ArrayList<InformationPokemon>, listLv: ArrayList<Int>, primaryColor: Int) {
-        this.mArrayListInformationPokemon = list
+    fun setList(
+        listBefore: ArrayList<InformationPokemon>,
+        listAfter: ArrayList<InformationPokemon>,
+        listLv: ArrayList<Int>,
+        primaryColor: Int
+    ) {
+        this.mArrayListInformationPokemonBefore = listBefore
+        this.mArrayListInformationPokemonAfter = listAfter
         this.mPrimaryColor = primaryColor
         this.mArrayListLv = listLv
         notifyDataSetChanged()
@@ -41,57 +48,35 @@ class EvolutionAdapter(var mContext: Context) :
     }
 
     override fun getItemCount(): Int {
-        return if (mArrayListInformationPokemon.size > 1)
-            mArrayListInformationPokemon.size - 1
-        else mArrayListInformationPokemon.size
+        return mArrayListInformationPokemonAfter.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (mArrayListInformationPokemon.size > 1) {
-            Picasso.with(mContext)
-                .load(mArrayListInformationPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
-                .placeholder(R.drawable.egg)
-                .into(holder.avtBefore)
-            Picasso.with(mContext)
-                .load(mArrayListInformationPokemon[position + 1].sprites?.other?.officialArtwork?.frontDefault)
-                .placeholder(R.drawable.egg)
-                .into(holder.avtAfter)
 
-            holder.nameAfter.text = mArrayListInformationPokemon[position + 1].name?.capitalize()
-            holder.nameBefore.text = mArrayListInformationPokemon[position].name?.capitalize()
-            if (mArrayListLv[position] > 0) {
-                holder.level.text = "Lv.${mArrayListLv[position]}"
-            }
-            if (this.mPrimaryColor != -1) {
-                holder.level.setTextColor(
-                    mContext.resources.getColor(
-                        mPrimaryColor,
-                        mContext.theme
-                    )
-                )
-            }
-        } else {
-            Picasso.with(mContext)
-                .load(mArrayListInformationPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
-                .placeholder(R.drawable.egg)
-                .into(holder.avtBefore)
-            Picasso.with(mContext)
-                .load("")
-                .placeholder(R.drawable.egg)
-                .into(holder.avtAfter)
+        Picasso.with(mContext)
+            .load(mArrayListInformationPokemonBefore[position].sprites?.other?.officialArtwork?.frontDefault)
+            .placeholder(R.drawable.egg)
+            .into(holder.avtBefore)
+        Picasso.with(mContext)
+            .load(mArrayListInformationPokemonAfter[position].sprites?.other?.officialArtwork?.frontDefault)
+            .placeholder(R.drawable.egg)
+            .into(holder.avtAfter)
 
-            holder.nameAfter.text = mArrayListInformationPokemon[position].name?.capitalize()
-            holder.nameBefore.text = mArrayListInformationPokemon[position].name?.capitalize()
-
-            if (this.mPrimaryColor != -1) {
-                holder.level.setTextColor(
-                    mContext.resources.getColor(
-                        mPrimaryColor,
-                        mContext.theme
-                    )
-                )
-            }
+        holder.nameAfter.text = mArrayListInformationPokemonAfter[position].name?.capitalize()
+        holder.nameBefore.text = mArrayListInformationPokemonBefore[position].name?.capitalize()
+        if (mArrayListLv[position] > 0) {
+            holder.level.text = "Lv.${mArrayListLv[position]}"
         }
+        if (this.mPrimaryColor != -1) {
+            holder.level.setTextColor(
+                mContext.resources.getColor(
+                    mPrimaryColor,
+                    mContext.theme
+                )
+            )
+        }
+
     }
+
 
 }

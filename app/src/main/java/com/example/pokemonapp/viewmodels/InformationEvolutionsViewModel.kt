@@ -3,6 +3,8 @@ package com.example.pokemonapp.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokemonapp.api.RetrofitClient
+import com.example.pokemonapp.commons.Utility
+import com.example.pokemonapp.models.EvolvesTo
 import com.example.pokemonapp.models.InformationEvolutions
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,15 +15,18 @@ class InformationEvolutionsViewModel : ViewModel() {
     var notification: MutableLiveData<String> = MutableLiveData()
     var listPokemonName: MutableLiveData<ArrayList<String>?> = MutableLiveData()
     var listPokemonLevelEvolution: MutableLiveData<ArrayList<Int>?> = MutableLiveData()
+    var listNameBefore: MutableLiveData<ArrayList<String>> = MutableLiveData()
+    var listNameAfter: MutableLiveData<ArrayList<String>> = MutableLiveData()
+    var listLevel: MutableLiveData<ArrayList<Int>> = MutableLiveData()
+    private val mMapInformationEvolution = mutableMapOf<String, ArrayList<String>>()
+    private val mMapInformationAgeEvolution = mutableMapOf<String, ArrayList<Int>>()
+    private val mArrayListNamePokemon = ArrayList<String>()
+    private val arrNameBefore = ArrayList<String>()
+    private val arrNameAfter = ArrayList<String>()
+    private val arrLvMin = ArrayList<Int>()
     fun getListEvolution(linkEvolution: String) {
-        var id = ""
-        for (i in linkEvolution.length - 2 downTo 0) {
-            if (linkEvolution[i] == '/') {
-                id = linkEvolution.substring(i + 1, linkEvolution.length - 1)
-                break
-            }
-        }
-        val callGet = RetrofitClient.instance.getInformationEvolution(id)
+        val callGet =
+            RetrofitClient.instance.getInformationEvolution(Utility.linkToID(linkEvolution))
         callGet.enqueue(object : Callback<InformationEvolutions> {
             override fun onFailure(call: Call<InformationEvolutions>, t: Throwable) {
                 if (callGet.isCanceled) {
@@ -47,28 +52,49 @@ class InformationEvolutionsViewModel : ViewModel() {
     }
 
     fun getListPokemonEvolution(evolutions: InformationEvolutions) {
-        var eTo = evolutions.chain?.evolvesTo
-        val arrName = ArrayList<String>()
-        val arrLv = ArrayList<Int>()
-        if (evolutions.chain?.species?.name != null) {
-            arrName.add(evolutions.chain?.species?.name!!)
+        val eTo = evolutions.chain?.evolvesTo
+        evolutions.chain?.species?.url?.let {
+            getNameAndLevelEvolution(
+                eTo as ArrayList<EvolvesTo>,
+                it
+            )
         }
-        while (eTo != null && eTo.isNotEmpty()) {
-            if (eTo[0].species?.name != null) {
-                arrName.add(eTo[0].species?.name!!)
-            } else {
-                arrName.add("")
+        for (i in mArrayListNamePokemon.lastIndex downTo 0) {
+            val arrName = mMapInformationEvolution[mArrayListNamePokemon[i]]
+            val arrLv = mMapInformationAgeEvolution[mArrayListNamePokemon[i]]
+            arrName?.forEachIndexed { index, s ->
+                arrNameBefore.add(Utility.linkToID(mArrayListNamePokemon[i]))
+                arrNameAfter.add(Utility.linkToID(s))
+                arrLvMin.add(arrLv?.get(index)!!)
             }
-            if (eTo[0].evolutionDetails?.get(0)?.minLevel != null) {
-                arrLv.add(eTo[0].evolutionDetails?.get(0)?.minLevel!!)
-            } else {
-                arrLv.add(-1)
-            }
-            eTo = eTo[0].evolvesTo
         }
-        listPokemonLevelEvolution.value = arrLv
-        listPokemonName.value = arrName
+        listNameBefore.value = arrNameBefore
+        listNameAfter.value = arrNameAfter
+        listLevel.value = arrLvMin
     }
+
+    private fun getNameAndLevelEvolution(eTo: ArrayList<EvolvesTo>, url: String) {
+        val mArrayListName = ArrayList<String>()
+        val mArrayListAge = ArrayList<Int>()
+        eTo.forEachIndexed { _, evolvesTo ->
+            evolvesTo.species?.url?.let {
+                getNameAndLevelEvolution(
+                    evolvesTo.evolvesTo as ArrayList<EvolvesTo>,
+                    it
+                )
+                mArrayListName.add(it)
+            }
+            if (evolvesTo.evolutionDetails?.get(0)?.minLevel != null) {
+                mArrayListAge.add(evolvesTo.evolutionDetails?.get(0)?.minLevel!!)
+            } else {
+                mArrayListAge.add(-1)
+            }
+        }
+        mArrayListNamePokemon.add(url)
+        mMapInformationEvolution[url] = mArrayListName
+        mMapInformationAgeEvolution[url] = mArrayListAge
+    }
+
 
     fun noticeGetSuccessful() {
         notification.value = "Load successful!"

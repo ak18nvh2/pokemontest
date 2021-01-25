@@ -13,16 +13,19 @@ import kotlinx.android.synthetic.main.fragment_evolutions.view.*
 
 class EvolutionsFragment() : Fragment() {
 
-    private var mListInformationPokemon: ArrayList<InformationPokemon> = ArrayList()
+    private var mListInformationPokemonBefore: ArrayList<InformationPokemon> = ArrayList()
+    private var mListInformationPokemonAfter: ArrayList<InformationPokemon> = ArrayList()
     private var mListMinLevel: ArrayList<Int> = ArrayList()
     private var mPrimaryColor = -1
 
     constructor(
-        arrayListInformationPokemon: ArrayList<InformationPokemon>,
+        arrayListInformationPokemonBefore: ArrayList<InformationPokemon>,
+        arrayListInformationPokemonAfter: ArrayList<InformationPokemon>,
         arrayListLv: ArrayList<Int>,
         primaryColor: Int
     ) : this() {
-        this.mListInformationPokemon = arrayListInformationPokemon
+        this.mListInformationPokemonBefore = arrayListInformationPokemonBefore
+        this.mListInformationPokemonAfter = arrayListInformationPokemonAfter
         this.mPrimaryColor = primaryColor
         this.mListMinLevel = arrayListLv
     }
@@ -44,7 +47,12 @@ class EvolutionsFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.rv_Evolutions.layoutManager = LinearLayoutManager(activity)
         view.rv_Evolutions.adapter = mAdapter
-        mAdapter?.setList(mListInformationPokemon, mListMinLevel, mPrimaryColor)
+        mAdapter?.setList(
+            this.mListInformationPokemonBefore,
+            this.mListInformationPokemonAfter,
+            mListMinLevel,
+            mPrimaryColor
+        )
     }
 
 }

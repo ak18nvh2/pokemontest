@@ -38,14 +38,19 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     private var mInformationPokemonForm = InformationPokemonForm()
     private lateinit var mDialog: MaterialDialog
     private var mPrimaryColor: Int = -1
-    private var mListInformationPokemon: ArrayList<InformationPokemon> = ArrayList()
-    private var mListNamePokemon = ArrayList<String>()
+    private var mListInformationPokemonCurrent: ArrayList<InformationPokemon> = ArrayList()
+    private var mListNamePokemonBefore = ArrayList<String>()
+    private var mListNamePokemonAfter = ArrayList<String>()
+    private var mListInformationPokemonBefore: ArrayList<InformationPokemon> = ArrayList()
+    private var mListInformationPokemonAfter: ArrayList<InformationPokemon> = ArrayList()
     private var mArrayListMinLevelEvolutions = ArrayList<Int>()
+    private var mListCurrentLoad = ArrayList<String>()
+    private var mKeyLoad = Utility.KEY_LIST_BEFORE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_pokemon)
-        init()
+        initView()
         registerLiveDataListenerOfDetailPokemonViewModel()
         registerLiveDataListenerOfEvolutionViewModel()
         registerLiveDataListenerOfInformationPokemonFormViewModel()
@@ -53,7 +58,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         registerLiveDataListenerOfInformationPokemonViewModel()
     }
 
-    private fun init() {
+    private fun initView() {
         mDialog = MaterialDialog(this)
             .noAutoDismiss()
             .customView(R.layout.dialog_processbar)
@@ -185,9 +190,12 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         mInformationPokemonSpeciesViewModel.aPokemonSpecies.observe(this, {
             it?.let {
                 mInformationPokemonSpecies = it
-                if (mInformationPokemonSpecies.evolutionChain?.url != null) {
-                    mEvolutionsViewModel.getListEvolution(mInformationPokemonSpecies.evolutionChain?.url!!)
+                mInformationPokemonSpecies.evolutionChain?.url?.let { url ->
+                    mEvolutionsViewModel.getListEvolution(
+                        url
+                    )
                 }
+
                 if (mInformationPokemonSpecies.flavorTextEntries?.get(0)?.flavorText != null) {
                     tv_description.text =
                         mInformationPokemonSpecies.flavorTextEntries?.get(0)?.flavorText
@@ -202,31 +210,51 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 mEvolutionsViewModel.getListPokemonEvolution(it)
             }
         })
-        mEvolutionsViewModel.listPokemonName.observe(this, {
-            it?.let {
-                mListNamePokemon = it
-                mInformationPokemonViewModel.amountOfPokemon.value = 0
-            }
+        mEvolutionsViewModel.listLevel.observe(this, {
+            this.mArrayListMinLevelEvolutions = it
+            mInformationPokemonViewModel.amountOfPokemon.value = 0
         })
-        mEvolutionsViewModel.listPokemonLevelEvolution.observe(this, {
-            it?.let { mArrayListMinLevelEvolutions = it }
+        mEvolutionsViewModel.listNameAfter.observe(this, {
+            this.mListNamePokemonAfter = it
+        })
+        mEvolutionsViewModel.listNameBefore.observe(this, {
+            this.mListNamePokemonBefore = it
+
         })
     }
 
     private fun registerLiveDataListenerOfInformationPokemonViewModel() {
         mInformationPokemonViewModel.amountOfPokemon.observe(this, {
-            if (mListNamePokemon.size == it) {
-                initFragment()
+            if (mListNamePokemonAfter.size == it) {
+                if (mKeyLoad == Utility.KEY_LIST_BEFORE) {
+                    mKeyLoad = Utility.KEY_LIST_AFTER
+                    mInformationPokemonViewModel.amountOfPokemon.value = 0
+                } else {
+                    initFragment()
+                }
             } else {
-                val call =
-                    RetrofitClient.instance.getInformationAPokemon(mListNamePokemon[it])
-                mInformationPokemonViewModel.getAPokemon(call)
+                if (mKeyLoad == Utility.KEY_LIST_BEFORE) {
+                    val call =
+                        RetrofitClient.instance.getInformationAPokemon(mListNamePokemonBefore[it])
+                    mInformationPokemonViewModel.getAPokemon(call)
+                } else {
+                    val call =
+                        RetrofitClient.instance.getInformationAPokemon(mListNamePokemonAfter[it])
+                    mInformationPokemonViewModel.getAPokemon(call)
+                }
+
             }
         })
         mInformationPokemonViewModel.aPokemon.observe(this, {
             if (it != null) {
-                mListInformationPokemon.add(it)
-                mInformationPokemonViewModel.getAPokemonNext()
+                if (mKeyLoad == Utility.KEY_LIST_BEFORE) {
+                    mListInformationPokemonBefore.add(it)
+                    mInformationPokemonViewModel.getAPokemonNext()
+                } else {
+                    mListInformationPokemonAfter.add(it)
+                    mInformationPokemonViewModel.getAPokemonNext()
+                }
+
             } else {
                 initFragment()
             }
@@ -261,7 +289,8 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
 
         mListFragment.add(
             EvolutionsFragment(
-                mListInformationPokemon,
+                mListInformationPokemonBefore,
+                mListInformationPokemonAfter,
                 mArrayListMinLevelEvolutions,
                 mPrimaryColor
             )

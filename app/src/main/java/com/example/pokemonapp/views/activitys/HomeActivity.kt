@@ -18,26 +18,25 @@ import com.example.pokemonapp.api.RetrofitClient
 import com.example.pokemonapp.models.InformationPokemon
 import com.example.pokemonapp.models.ListPokemon
 import com.example.pokemonapp.viewmodels.InformationPokemonViewModel
-import com.example.pokemonapp.viewmodels.ListPokemonViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_processbar.*
 
 class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithActivity,
     View.OnClickListener {
-    private lateinit var mListPokemonViewModel: ListPokemonViewModel
     private lateinit var mInformationPokemonViewModel: InformationPokemonViewModel
-    private lateinit var mListPokemon: ListPokemon
+    private var mListPokemon: ListPokemon = ListPokemon()
     private lateinit var mListPokemonAdapter: ListPokemonAdapter
     private var mArrayListInformationPokemon = ArrayList<InformationPokemon>()
-    private var mKeyShowInformationPokemon = 2
+    private var mKeyShowInformationPokemon = Utility.KEY_DISPLAY
     private lateinit var mDialog: MaterialDialog
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        init()
+        initRecyclerViewPokemon()
         registerLiveDataListener()
+        initView()
     }
 
     private fun closeKeyboard() {
@@ -48,27 +47,23 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         }
     }
 
-    private fun init() {
-        mListPokemonViewModel = ListPokemonViewModel()
-        mInformationPokemonViewModel = InformationPokemonViewModel()
-        mListPokemon = ListPokemon()
+    private fun initView() {
+        img_search.setOnClickListener(this)
+        img_refresh.setOnClickListener(this)
+        getFirstListPokemon()
+    }
+
+    private fun initRecyclerViewPokemon() {
         mListPokemonAdapter = ListPokemonAdapter(this, this)
         mLinearLayoutManager = LinearLayoutManager(this)
         rv_listPokemon.layoutManager = mLinearLayoutManager
         rv_listPokemon.adapter = mListPokemonAdapter
-        loadMore()
-        img_search.setOnClickListener(this)
-        img_refresh.setOnClickListener(this)
-        getListPokemon(0, 20)
-    }
-
-    private fun loadMore() {
         rv_listPokemon.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (!recyclerView.canScrollVertically(1) && !mListPokemonAdapter.mIsLoadMore) {
                     if (mKeyShowInformationPokemon == Utility.KEY_DISPLAY) {
                         if (mListPokemon.next != null) {
-                            mListPokemonViewModel.getNextListPokemon(mListPokemon.next!!)
+                            mInformationPokemonViewModel.getNextListPokemon(mListPokemon.next!!)
                             mListPokemonAdapter.setLoadMoreItem(true)
                         } else {
                             Toast.makeText(
@@ -83,8 +78,8 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         })
     }
 
-    private fun getListPokemon(offset: Int, limit: Int) {
-        mListPokemonViewModel.getListPokemon(offset, limit)
+    private fun getFirstListPokemon() {
+        mInformationPokemonViewModel.getListPokemon(0, 20)
         mDialog = MaterialDialog(this)
             .noAutoDismiss()
             .customView(R.layout.dialog_processbar)
@@ -92,12 +87,12 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         mDialog.setCancelable(false)
         mDialog.btn_Cancel.setOnClickListener() {
             mDialog.dismiss()
-            mListPokemonViewModel.callGet?.cancel()
         }
     }
 
     private fun registerLiveDataListener() {
-        mListPokemonViewModel.listPokemon.observe(this, {
+        mInformationPokemonViewModel = InformationPokemonViewModel()
+        mInformationPokemonViewModel.listPokemon.observe(this, {
             if (it != null) {
                 mListPokemon = it
                 mInformationPokemonViewModel.amountOfPokemon.value = 0
@@ -151,15 +146,10 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             mDialog.dismiss()
         })
 
-        mListPokemonViewModel.notification.observe(this, {
-            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-            mDialog.dismiss()
-        })
         mInformationPokemonViewModel.isSearching.observe(this, {
             mKeyShowInformationPokemon = Utility.KEY_SEARCH
             mDialog.show()
             closeKeyboard()
-
         })
     }
 
@@ -180,7 +170,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                 closeKeyboard()
                 mKeyShowInformationPokemon = Utility.KEY_DISPLAY
                 mArrayListInformationPokemon.clear()
-                getListPokemon(0, 20)
+                getFirstListPokemon()
                 edt_inputSearch.text.clear()
             }
         }

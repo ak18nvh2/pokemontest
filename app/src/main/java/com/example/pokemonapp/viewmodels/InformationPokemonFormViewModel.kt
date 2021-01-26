@@ -3,6 +3,8 @@ package com.example.pokemonapp.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokemonapp.api.RetrofitClient
+import com.example.pokemonapp.commons.Utility
+import com.example.pokemonapp.commons.Utility.Call_API
 import com.example.pokemonapp.models.InformationPokemonForm
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,7 +15,7 @@ class InformationPokemonFormViewModel : ViewModel() {
     var notification: MutableLiveData<String> = MutableLiveData()
     fun getAPokemonForm(id: String) {
         val callGet =
-            RetrofitClient.instance.getInformationAPokemonForm(id)
+            Call_API.getInformationAPokemonForm(id)
         callGet.enqueue(object : Callback<InformationPokemonForm> {
             override fun onFailure(call: Call<InformationPokemonForm>, t: Throwable) {
                 if (callGet.isCanceled) {

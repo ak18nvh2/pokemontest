@@ -3,6 +3,7 @@ package com.example.pokemonapp.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokemonapp.api.RetrofitClient
+import com.example.pokemonapp.commons.Utility.Call_API
 import com.example.pokemonapp.models.InformationPokemonSpecies
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,7 +14,7 @@ class InformationPokemonSpeciesViewModel : ViewModel() {
     var notification: MutableLiveData<String> = MutableLiveData()
     fun getInformationPokemonSpecies(id: String) {
         val callGet =
-            RetrofitClient.instance.getInformationAPokemonSpecies(id)
+            Call_API.getInformationAPokemonSpecies(id)
         callGet.enqueue(object : Callback<InformationPokemonSpecies> {
             override fun onFailure(call: Call<InformationPokemonSpecies>, t: Throwable) {
                 if (callGet.isCanceled) {

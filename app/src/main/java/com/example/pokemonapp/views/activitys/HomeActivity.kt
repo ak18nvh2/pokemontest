@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -14,12 +16,13 @@ import com.afollestad.materialdialogs.customview.customView
 import com.example.pokemonapp.adapter.ListPokemonAdapter
 import com.example.pokemonapp.R
 import com.example.pokemonapp.commons.Utility
-import com.example.pokemonapp.api.RetrofitClient
+import com.example.pokemonapp.commons.Utility.Call_API
 import com.example.pokemonapp.models.InformationPokemon
 import com.example.pokemonapp.models.ListPokemon
 import com.example.pokemonapp.viewmodels.InformationPokemonViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_processbar.*
+import retrofit2.Call
 
 class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithActivity,
     View.OnClickListener {
@@ -30,7 +33,8 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     private var mKeyShowInformationPokemon = Utility.KEY_DISPLAY
     private lateinit var mDialog: MaterialDialog
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-
+    private lateinit var callGetAPokemon: Call<InformationPokemon>
+    private lateinit var callGetListPokemon: Call<ListPokemon>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -48,9 +52,24 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     }
 
     private fun initView() {
+        mDialog = MaterialDialog(this)
+            .noAutoDismiss()
+            .customView(R.layout.dialog_processbar)
+        mDialog.window?.setDimAmount(0F)
+        mDialog.setCancelable(false)
+        mDialog.btn_Cancel.setOnClickListener() {
+            callGetAPokemon.cancel()
+            callGetListPokemon.cancel()
+            mDialog.dismiss()
+        }
         img_search.setOnClickListener(this)
         img_refresh.setOnClickListener(this)
         getFirstListPokemon()
+    }
+
+    private fun dismissDialog() {
+        mDialog.dismiss()
+        lo_home.alpha = 1F
     }
 
     private fun initRecyclerViewPokemon() {
@@ -79,15 +98,10 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     }
 
     private fun getFirstListPokemon() {
-        mInformationPokemonViewModel.getListPokemon(0, 20)
-        mDialog = MaterialDialog(this)
-            .noAutoDismiss()
-            .customView(R.layout.dialog_processbar)
+        callGetListPokemon = Call_API.getListPokemon(0, 20)
+        mInformationPokemonViewModel.getListPokemon(callGetListPokemon)
+        lo_home.alpha = 0.2F
         mDialog.show()
-        mDialog.setCancelable(false)
-        mDialog.btn_Cancel.setOnClickListener() {
-            mDialog.dismiss()
-        }
     }
 
     private fun registerLiveDataListener() {
@@ -97,19 +111,23 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                 mListPokemon = it
                 mInformationPokemonViewModel.amountOfPokemon.value = 0
             } else {
-                mDialog.dismiss()
+                dismissDialog()
             }
         })
 
         mInformationPokemonViewModel.amountOfPokemon.observe(this, {
             if (mListPokemon.results?.size != null && it == mListPokemon.results?.size!!) {
                 mListPokemonAdapter.setList(mArrayListInformationPokemon)
-                mDialog.dismiss()
-            } else {
-                val call =
-                    RetrofitClient.instance.getInformationAPokemon(mListPokemon.results?.get(it)?.name!!)
-                mInformationPokemonViewModel.getAPokemon(call)
+                dismissDialog()
+            } else if (it <= -1) {
+                mArrayListInformationPokemon.clear()
+                mListPokemonAdapter.setList(mArrayListInformationPokemon)
+            } else if (it < mListPokemon.results?.size!!) {
+                callGetAPokemon =
+                    Call_API.getInformationAPokemon(mListPokemon.results?.get(it)?.name!!)
+                mInformationPokemonViewModel.getAPokemon(callGetAPokemon)
             }
+        Log.d("hieu2", "${it}-${mArrayListInformationPokemon.size}-${mListPokemon.results?.size}")
         })
 
         mInformationPokemonViewModel.aPokemon.observe(this, {
@@ -118,12 +136,10 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                     mArrayListInformationPokemon.add(it)
                     mInformationPokemonViewModel.getAPokemonNext()
                 } else {
-                    mDialog.dismiss()
-                    mListPokemonAdapter.setList(mArrayListInformationPokemon)
+                    dismissDialog()
                 }
-
             } else if (mKeyShowInformationPokemon == Utility.KEY_SEARCH) {
-                mDialog.dismiss()
+                dismissDialog()
                 if (it == null) {
                     val arrayListSearchPokemon = arrayListOf<InformationPokemon>()
                     mListPokemonAdapter.setList(arrayListSearchPokemon)
@@ -143,12 +159,12 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
 
         mInformationPokemonViewModel.notification.observe(this, {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-            mDialog.dismiss()
+            dismissDialog()
         })
 
         mInformationPokemonViewModel.isSearching.observe(this, {
             mKeyShowInformationPokemon = Utility.KEY_SEARCH
-            mDialog.show()
+            dismissDialog()
             closeKeyboard()
         })
     }
@@ -168,9 +184,11 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             }
             R.id.img_refresh -> {
                 closeKeyboard()
+                mInformationPokemonViewModel.amountOfPokemon.value = -1
                 mKeyShowInformationPokemon = Utility.KEY_DISPLAY
-                mArrayListInformationPokemon.clear()
-                getFirstListPokemon()
+                Handler().postDelayed({
+                    getFirstListPokemon()
+                }, 1000)
                 edt_inputSearch.text.clear()
             }
         }

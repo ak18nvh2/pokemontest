@@ -1,6 +1,8 @@
 package com.example.pokemonapp.commons
 
 import com.example.pokemonapp.R
+import com.example.pokemonapp.api.RetrofitClient
+import kotlinx.android.synthetic.main.item_list_pokemon.view.*
 
 object Utility {
 
@@ -11,7 +13,8 @@ object Utility {
     const val KEY_BUNDLE_INFORMATION_POKEMON = "1"
     const val KEY_LIST_BEFORE = 5
     const val KEY_LIST_AFTER = 6
-
+    const val TIME_OUT_REQUEST_API = 5000L
+    val Call_API = RetrofitClient.instance
     fun nameToImage(name: String): Int {
         when (name) {
             "water" -> {
@@ -201,5 +204,19 @@ object Utility {
             }
         }
         return id
+    }
+
+    fun Int.format() : String {
+        return when {
+            this < 10 -> {
+                "#00$this"
+            }
+            this < 100 -> {
+                "#0$this"
+            }
+            else -> {
+                "#$this"
+            }
+        }
     }
 }

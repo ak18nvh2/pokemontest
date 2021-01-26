@@ -2,6 +2,7 @@ package com.example.pokemonapp.views.activitys
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -14,21 +15,15 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.splash)
-        anim.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation) {}
-            override fun onAnimationEnd(animation: Animation) {
-                changeActivity()
-            }
+        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.anim_alpha_out)
+        Handler().postDelayed({
+            this.startActivity(Intent(this, HomeActivity::class.java))
+            this.overridePendingTransition(0, 0);
+            finish()
+        }, 3000)
 
-            override fun onAnimationRepeat(animation: Animation) {}
-        })
-        img_logo.startAnimation(anim)
+        lo_splash.startAnimation(anim)
+
     }
 
-    private fun changeActivity() {
-        val intent = Intent(this@SplashActivity, HomeActivity::class.java)
-        startActivity(intent)
-        this.finish()
-    }
 }

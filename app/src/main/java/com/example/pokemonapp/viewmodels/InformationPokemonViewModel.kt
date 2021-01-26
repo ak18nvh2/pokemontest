@@ -1,13 +1,10 @@
 package com.example.pokemonapp.viewmodels
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pokemonapp.api.RetrofitClient
-import com.example.pokemonapp.commons.Utility
+import com.example.pokemonapp.commons.Utility.Call_API
 import com.example.pokemonapp.models.InformationPokemon
 import com.example.pokemonapp.models.ListPokemon
-import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,21 +14,17 @@ class InformationPokemonViewModel : ViewModel() {
     var amountOfPokemon: MutableLiveData<Int> = MutableLiveData()
     var notification: MutableLiveData<String> = MutableLiveData()
     var isSearching: MutableLiveData<Boolean> = MutableLiveData()
-
     var listPokemon: MutableLiveData<ListPokemon?> = MutableLiveData()
 
-
-    fun getListPokemon(offset: Int, limit: Int) {
-        val callGet = RetrofitClient.instance.getListPokemon(offset, limit)
+    fun getListPokemon(callGet: Call<ListPokemon>) {
         callGet.enqueue(object : Callback<ListPokemon> {
             override fun onFailure(call: Call<ListPokemon>, t: Throwable) {
                 if (callGet.isCanceled) {
                     notification.value = "Canceled successful!"
-                    listPokemon.value = null
                 } else {
                     notification.value = "Can't load list pokemon, please try again!"
-                    listPokemon.value = null
                 }
+                listPokemon.value = null
             }
 
             override fun onResponse(call: Call<ListPokemon>, response: Response<ListPokemon>) {
@@ -63,28 +56,25 @@ class InformationPokemonViewModel : ViewModel() {
                 break
             }
         }
-        var countEqual = 0
+        var numberOfCountEqual = 0
         for (i in link.length - 1 downTo 0) {
             if (link[i] == '=') {
-                countEqual++
-                if (countEqual == 2) {
+                numberOfCountEqual++
+                if (numberOfCountEqual == 2) {
                     idLeftOfNumberOffset = i + 1
                     break
                 }
             }
         }
         offset = link.substring(idLeftOfNumberOffset, idRightOfNumberOffset).toInt()
-        getListPokemon(offset, limit)
+        val callGet = Call_API.getListPokemon(offset, limit)
+        getListPokemon(callGet)
     }
 
     fun getAPokemon(callGet: Call<InformationPokemon>) {
         callGet.enqueue(object : Callback<InformationPokemon> {
             override fun onFailure(call: Call<InformationPokemon>, t: Throwable) {
-                if (callGet.isCanceled) {
-                    aPokemon.value = null
-                } else {
-                    aPokemon.value = null
-                }
+                aPokemon.value = null
             }
 
             override fun onResponse(
@@ -95,6 +85,7 @@ class InformationPokemonViewModel : ViewModel() {
                     aPokemon.value = response.body()
                 } else {
                     aPokemon.value = null
+                    notification.value = "Can't load data, please try again!"
                 }
             }
         }
@@ -116,12 +107,10 @@ class InformationPokemonViewModel : ViewModel() {
         } else {
             isSearching.value = true
             val call =
-                RetrofitClient.instance.getInformationAPokemon(
+                Call_API.getInformationAPokemon(
                     informationSearch
                 )
             getAPokemon(call)
         }
     }
-
-
 }

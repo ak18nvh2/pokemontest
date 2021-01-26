@@ -1,6 +1,7 @@
 package com.example.pokemonapp.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemonapp.R
 import com.example.pokemonapp.commons.Utility
+import com.example.pokemonapp.commons.Utility.format
 import com.example.pokemonapp.models.InformationPokemon
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_list_pokemon.view.*
@@ -24,7 +26,7 @@ class ListPokemonAdapter(
     class ListPokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     fun setList(list: ArrayList<InformationPokemon>) {
-        this.mListPokemon = list
+        this.mListPokemon = ArrayList(list)
         setLoadMoreItem(false)
         notifyDataSetChanged()
     }
@@ -56,30 +58,16 @@ class ListPokemonAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == Utility.KEY_SHOW_DATA) {
+
             holder.itemView.tv_pokemonName.text = mListPokemon[position].name?.capitalize()
             if (mListPokemon[position].id != null) {
-                when {
-                    mListPokemon[position].id!! < 10 -> {
-                        holder.itemView.tv_pokemonID.text = "#00${mListPokemon.get(position).id}"
-                    }
-                    mListPokemon[position].id!! < 100 -> {
-                        holder.itemView.tv_pokemonID.text = "#0${mListPokemon.get(position).id}"
-                    }
-                    else -> {
-                        holder.itemView.tv_pokemonID.text = "#${mListPokemon.get(position).id}"
-                    }
-                }
+                holder.itemView.tv_pokemonID.text = mListPokemon[position].id!!.format()
             }
             Picasso.with(mContext)
                 .load(mListPokemon[position].sprites?.other?.officialArtwork?.frontDefault)
                 .placeholder(R.drawable.egg)
                 .into(holder.itemView.img_avt)
-            val mArrImg = ArrayList<Int>()
-            mListPokemon[position].types?.forEach {
-                if (it.type?.name != null) {
-                    mArrImg.add(Utility.nameToImage(it.type?.name!!))
-                }
-            }
+
             holder.itemView.setOnClickListener() {
                 iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
             }

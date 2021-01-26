@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.customview.customView
 import com.example.pokemonapp.R
 import com.example.pokemonapp.api.RetrofitClient
 import com.example.pokemonapp.commons.Utility
+import com.example.pokemonapp.commons.Utility.Call_API
 import com.example.pokemonapp.models.*
 import com.example.pokemonapp.viewmodels.*
 import com.example.pokemonapp.views.fragments.EvolutionsFragment
@@ -20,6 +21,7 @@ import com.example.pokemonapp.views.fragments.MovesFragment
 import com.example.pokemonapp.views.fragments.StatsFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_pokemon.*
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_processbar.*
 
 class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
@@ -38,13 +40,11 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     private var mInformationPokemonForm = InformationPokemonForm()
     private lateinit var mDialog: MaterialDialog
     private var mPrimaryColor: Int = -1
-    private var mListInformationPokemonCurrent: ArrayList<InformationPokemon> = ArrayList()
     private var mListNamePokemonBefore = ArrayList<String>()
     private var mListNamePokemonAfter = ArrayList<String>()
     private var mListInformationPokemonBefore: ArrayList<InformationPokemon> = ArrayList()
     private var mListInformationPokemonAfter: ArrayList<InformationPokemon> = ArrayList()
     private var mArrayListMinLevelEvolutions = ArrayList<Int>()
-    private var mListCurrentLoad = ArrayList<String>()
     private var mKeyLoad = Utility.KEY_LIST_BEFORE
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,14 +58,21 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         registerLiveDataListenerOfInformationPokemonViewModel()
     }
 
+    private fun dismissDialog() {
+        mDialog.dismiss()
+        lo_detailPokemon.alpha = 1F
+    }
+
     private fun initView() {
         mDialog = MaterialDialog(this)
             .noAutoDismiss()
             .customView(R.layout.dialog_processbar)
+        mDialog.window?.setDimAmount(0F)
+        lo_detailPokemon.alpha = 0.2F
         mDialog.show()
         mDialog.setCancelable(false)
         mDialog.btn_Cancel.setOnClickListener() {
-            mDialog.dismiss()
+            dismissDialog()
         }
         val intent = intent
         val bundle = intent.extras
@@ -90,7 +97,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         if (mInformationPokemon.name != null) {
             tv_nameOfPokemon.text = mInformationPokemon.name?.capitalize()
             tv_Name.text = mInformationPokemon.name?.capitalize()
-
         }
         mInformationPokemon.id?.let {
             mInformationPokemonFormViewModel.getAPokemonForm("$it")
@@ -101,7 +107,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         cv_Moves.setOnClickListener(this)
         cv_Evolutions.setOnClickListener(this)
         cv_Stats.setOnClickListener(this)
-
     }
 
     private fun setFirstStateColor() {
@@ -195,7 +200,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                         url
                     )
                 }
-
                 if (mInformationPokemonSpecies.flavorTextEntries?.get(0)?.flavorText != null) {
                     tv_description.text =
                         mInformationPokemonSpecies.flavorTextEntries?.get(0)?.flavorText
@@ -219,7 +223,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         })
         mEvolutionsViewModel.listNameBefore.observe(this, {
             this.mListNamePokemonBefore = it
-
         })
     }
 
@@ -235,11 +238,11 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
             } else {
                 if (mKeyLoad == Utility.KEY_LIST_BEFORE) {
                     val call =
-                        RetrofitClient.instance.getInformationAPokemon(mListNamePokemonBefore[it])
+                        Call_API.getInformationAPokemon(mListNamePokemonBefore[it])
                     mInformationPokemonViewModel.getAPokemon(call)
                 } else {
                     val call =
-                        RetrofitClient.instance.getInformationAPokemon(mListNamePokemonAfter[it])
+                        Call_API.getInformationAPokemon(mListNamePokemonAfter[it])
                     mInformationPokemonViewModel.getAPokemon(call)
                 }
 
@@ -254,7 +257,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                     mListInformationPokemonAfter.add(it)
                     mInformationPokemonViewModel.getAPokemonNext()
                 }
-
             } else {
                 initFragment()
             }
@@ -262,7 +264,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initFragment() {
-
         if (mArrayListMove != null) {
             if (mInformationPokemon.types?.get(0)?.type?.name != null) {
                 mListFragment.add(
@@ -277,7 +278,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             mListFragment.add(MovesFragment())
         }
-
         mListFragment.add(
             StatsFragment(
                 mInformationPokemon,
@@ -286,7 +286,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 mPrimaryColor
             )
         )
-
         mListFragment.add(
             EvolutionsFragment(
                 mListInformationPokemonBefore,
@@ -302,7 +301,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         }
         mFragmentTransaction.show(mListFragment[1])
         mFragmentTransaction.commit()
-        mDialog.dismiss()
+        dismissDialog()
     }
 
     override fun onClick(v: View?) {

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemonapp.R
 import com.example.pokemonapp.adapter.AbilitiesAdapter
 import com.example.pokemonapp.models.*
-import com.example.pokemonapp.viewmodels.InformationAbilityViewModel
+import com.example.pokemonapp.viewmodels.InformationPokemonViewModel
 import com.squareup.picasso.Picasso
 
 class StatsFragment() : Fragment() {
@@ -25,7 +25,7 @@ class StatsFragment() : Fragment() {
     private var mPrimaryColor = -1
     private var mArrayListAbility = ArrayList<Abilities>()
     private var mArrayListItemAbilities = ArrayList<InformationItemAbilities>()
-    private var mInformationAbilityViewModel = InformationAbilityViewModel()
+    private var mInformationPokemonViewModel = InformationPokemonViewModel()
     private lateinit var mAbilityAdapter: AbilitiesAdapter
     private val mArrayListTextViewOfInformationStats = ArrayList<TextView>()
     private val mArrayListProgressbarStats = ArrayList<ProgressBar>()
@@ -46,29 +46,29 @@ class StatsFragment() : Fragment() {
     }
 
     private fun registerLiveDataListener() {
-        mInformationAbilityViewModel.amountOfAbilities.observe(this, {
+        mInformationPokemonViewModel.amountOfAbilities.observe(this, {
             if (it == mArrayListAbility.size) {
                 mAbilityAdapter.setList(mArrayListItemAbilities, this.mPrimaryColor)
             } else
                 if (mArrayListAbility[it].ability?.url != null)
-                    mInformationAbilityViewModel.getAPokemonAbilities(mArrayListAbility[it].ability?.url!!)
+                    mInformationPokemonViewModel.getAPokemonAbilities(mArrayListAbility[it].ability?.url!!)
         })
 
-        mInformationAbilityViewModel.aPokemonAbility.observe(this, {
+        mInformationPokemonViewModel.aPokemonAbility.observe(this, {
 
-            if (mInformationAbilityViewModel.amountOfAbilities.value != null && mArrayListAbility[mInformationAbilityViewModel.amountOfAbilities.value!!].ability?.name != null && it?.flavorTextEntries?.get(
+            if (mInformationPokemonViewModel.amountOfAbilities.value != null && mArrayListAbility[mInformationPokemonViewModel.amountOfAbilities.value!!].ability?.name != null && it?.flavorTextEntries?.get(
                     0
-                )?.flavorText != null && mArrayListAbility[mInformationAbilityViewModel.amountOfAbilities.value!!].isHidden != null
+                )?.flavorText != null && mArrayListAbility[mInformationPokemonViewModel.amountOfAbilities.value!!].isHidden != null
             ) {
                 mArrayListItemAbilities.add(
                     InformationItemAbilities(
-                        mArrayListAbility[mInformationAbilityViewModel.amountOfAbilities.value!!].ability?.name!!,
+                        mArrayListAbility[mInformationPokemonViewModel.amountOfAbilities.value!!].ability?.name!!,
                         it.flavorTextEntries?.get(0)?.flavorText!!,
-                        mArrayListAbility[mInformationAbilityViewModel.amountOfAbilities.value!!].isHidden!!
+                        mArrayListAbility[mInformationPokemonViewModel.amountOfAbilities.value!!].isHidden!!
                     )
                 )
             }
-            mInformationAbilityViewModel.getAPokemonAbilitiesNext()
+            mInformationPokemonViewModel.getAPokemonAbilitiesNext()
 
         })
     }
@@ -198,7 +198,7 @@ class StatsFragment() : Fragment() {
         rvAbility.adapter = mAbilityAdapter
         if ((this.mInformationPokemon.abilities as ArrayList<Abilities>?) != null) {
             this.mArrayListAbility = (this.mInformationPokemon.abilities as ArrayList<Abilities>?)!!
-            mInformationAbilityViewModel.amountOfAbilities.value = 0
+            mInformationPokemonViewModel.amountOfAbilities.value = 0
         }
         //--------breeding---------------------------------------------------------------
         val tvPercentMale = t.findViewById<TextView>(R.id.tv_percentMale)

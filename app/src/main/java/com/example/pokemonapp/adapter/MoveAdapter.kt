@@ -22,7 +22,8 @@ class MoveAdapter(var mContext: Context) : RecyclerView.Adapter<MoveAdapter.View
     }
 
     fun setList(list: ArrayList<Move>, imgType: Int) {
-        this.list = list
+        this.list =
+            ArrayList(list.sortedWith(compareBy { it.versionGroupDetails?.get(0)?.levelLearnedAt }))
         this.imgType = imgType
         notifyDataSetChanged()
     }

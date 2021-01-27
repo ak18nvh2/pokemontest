@@ -2,7 +2,6 @@ package com.example.pokemonapp.commons
 
 import com.example.pokemonapp.R
 import com.example.pokemonapp.api.RetrofitClient
-import kotlinx.android.synthetic.main.item_list_pokemon.view.*
 
 object Utility {
 
@@ -206,7 +205,7 @@ object Utility {
         return id
     }
 
-    fun Int.format() : String {
+    fun Int.format(): String {
         return when {
             this < 10 -> {
                 "#00$this"

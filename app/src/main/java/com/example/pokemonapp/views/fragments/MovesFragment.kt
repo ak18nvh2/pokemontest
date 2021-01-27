@@ -25,6 +25,7 @@ class MovesFragment() : Fragment() {
     constructor(arrayListMove: ArrayList<Move>) : this() {
         this.mList = arrayListMove
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

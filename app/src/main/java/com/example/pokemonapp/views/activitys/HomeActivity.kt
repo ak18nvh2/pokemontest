@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -70,6 +69,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     private fun dismissDialog() {
         mDialog.dismiss()
         lo_home.alpha = 1F
+        img_refresh.isEnabled = true
     }
 
     private fun initRecyclerViewPokemon() {

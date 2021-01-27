@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.example.pokemonapp.R
-import com.example.pokemonapp.api.RetrofitClient
 import com.example.pokemonapp.commons.Utility
 import com.example.pokemonapp.commons.Utility.Call_API
 import com.example.pokemonapp.models.*
@@ -21,7 +20,6 @@ import com.example.pokemonapp.views.fragments.MovesFragment
 import com.example.pokemonapp.views.fragments.StatsFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_pokemon.*
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_processbar.*
 
 class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
@@ -32,10 +30,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     private var mArrayListMove = ArrayList<Move>()
     private var mInformationPokemon: InformationPokemon = InformationPokemon()
     private val mDetailPokemonViewModel = DetailPokemonViewModel()
-    private val mInformationPokemonFormViewModel = InformationPokemonFormViewModel()
-    private val mInformationPokemonSpeciesViewModel = InformationPokemonSpeciesViewModel()
     private val mInformationPokemonViewModel = InformationPokemonViewModel()
-    private val mEvolutionsViewModel = InformationEvolutionsViewModel()
     private var mInformationPokemonSpecies = InformationPokemonSpecies()
     private var mInformationPokemonForm = InformationPokemonForm()
     private lateinit var mDialog: MaterialDialog
@@ -99,8 +94,8 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
             tv_Name.text = mInformationPokemon.name?.capitalize()
         }
         mInformationPokemon.id?.let {
-            mInformationPokemonFormViewModel.getAPokemonForm("$it")
-            mInformationPokemonSpeciesViewModel.getInformationPokemonSpecies("$it")
+            this.mInformationPokemonViewModel.getAPokemonForm("$it")
+            this.mInformationPokemonViewModel.getInformationPokemonSpecies("$it")
         }
         tv_nameOfPokemon.visibility = View.INVISIBLE
         btn_HideOrShowDetail.setOnClickListener(this)
@@ -184,7 +179,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun registerLiveDataListenerOfInformationPokemonFormViewModel() {
 
-        mInformationPokemonFormViewModel.aPokemonForm.observe(this, {
+        this.mInformationPokemonViewModel.aPokemonForm.observe(this, {
             it?.let {
                 mInformationPokemonForm = it
             }
@@ -192,11 +187,11 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun registerLiveDataListenerOfInformationPokemonSpeciesViewModel() {
-        mInformationPokemonSpeciesViewModel.aPokemonSpecies.observe(this, {
+        this.mInformationPokemonViewModel.aPokemonSpecies.observe(this, {
             it?.let {
                 mInformationPokemonSpecies = it
                 mInformationPokemonSpecies.evolutionChain?.url?.let { url ->
-                    mEvolutionsViewModel.getListEvolution(
+                    this.mInformationPokemonViewModel.getListEvolution(
                         url
                     )
                 }
@@ -209,29 +204,29 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun registerLiveDataListenerOfEvolutionViewModel() {
-        mEvolutionsViewModel.aPokemonEvolutions.observe(this, {
+        this.mInformationPokemonViewModel.aPokemonEvolutions.observe(this, {
             it?.let {
-                mEvolutionsViewModel.getListPokemonEvolution(it)
+                this.mInformationPokemonViewModel.getListPokemonEvolution(it)
             }
         })
-        mEvolutionsViewModel.listLevel.observe(this, {
+        this.mInformationPokemonViewModel.listLevel.observe(this, {
             this.mArrayListMinLevelEvolutions = it
-            mInformationPokemonViewModel.amountOfPokemon.value = 0
+            this.mInformationPokemonViewModel.amountOfPokemon.value = 0
         })
-        mEvolutionsViewModel.listNameAfter.observe(this, {
+        this.mInformationPokemonViewModel.listNameAfter.observe(this, {
             this.mListNamePokemonAfter = it
         })
-        mEvolutionsViewModel.listNameBefore.observe(this, {
+        this.mInformationPokemonViewModel.listNameBefore.observe(this, {
             this.mListNamePokemonBefore = it
         })
     }
 
     private fun registerLiveDataListenerOfInformationPokemonViewModel() {
-        mInformationPokemonViewModel.amountOfPokemon.observe(this, {
+        this.mInformationPokemonViewModel.amountOfPokemon.observe(this, {
             if (mListNamePokemonAfter.size == it) {
                 if (mKeyLoad == Utility.KEY_LIST_BEFORE) {
                     mKeyLoad = Utility.KEY_LIST_AFTER
-                    mInformationPokemonViewModel.amountOfPokemon.value = 0
+                    this.mInformationPokemonViewModel.amountOfPokemon.value = 0
                 } else {
                     initFragment()
                 }
@@ -239,23 +234,23 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 if (mKeyLoad == Utility.KEY_LIST_BEFORE) {
                     val call =
                         Call_API.getInformationAPokemon(mListNamePokemonBefore[it])
-                    mInformationPokemonViewModel.getAPokemon(call)
+                    this.mInformationPokemonViewModel.getAPokemon(call)
                 } else {
                     val call =
                         Call_API.getInformationAPokemon(mListNamePokemonAfter[it])
-                    mInformationPokemonViewModel.getAPokemon(call)
+                    this.mInformationPokemonViewModel.getAPokemon(call)
                 }
 
             }
         })
-        mInformationPokemonViewModel.aPokemon.observe(this, {
+        this.mInformationPokemonViewModel.aPokemon.observe(this, {
             if (it != null) {
                 if (mKeyLoad == Utility.KEY_LIST_BEFORE) {
                     mListInformationPokemonBefore.add(it)
-                    mInformationPokemonViewModel.getAPokemonNext()
+                    this.mInformationPokemonViewModel.getAPokemonNext()
                 } else {
                     mListInformationPokemonAfter.add(it)
-                    mInformationPokemonViewModel.getAPokemonNext()
+                    this.mInformationPokemonViewModel.getAPokemonNext()
                 }
             } else {
                 initFragment()

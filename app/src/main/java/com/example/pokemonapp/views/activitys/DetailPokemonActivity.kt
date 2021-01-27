@@ -72,7 +72,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
         mDialog.show()
         mDialog.setCancelable(false)
         mDialog.btn_Cancel.setOnClickListener() {
-            dismissDialog()
+            this.finish()
         }
         val intent = intent
         val bundle = intent.extras

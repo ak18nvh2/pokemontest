@@ -44,14 +44,30 @@
         app:layout_constraintLeft_toLeftOf="@id/tv_pokemonName"
         app:layout_constraintTop_toBottomOf="@id/tv_pokemonName"></TextView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_listTypePokemon"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_marginRight="8dp"
+        android:id="@+id/img_typeRight"
+        android:layout_width="50dp"
         android:layout_height="0dp"
-        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="@id/img_avt"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/img_avt" />
+        app:layout_constraintTop_toTopOf="@id/img_avt"></ImageView>
+
+    <ImageView
+        android:id="@+id/img_typeMid"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/img_avt"
+        app:layout_constraintRight_toLeftOf="@id/img_typeRight"
+        app:layout_constraintTop_toTopOf="@id/img_avt"></ImageView>
+
+    <ImageView
+        android:id="@+id/img_typeLeft"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/img_avt"
+        app:layout_constraintRight_toLeftOf="@id/img_typeMid"
+        app:layout_constraintTop_toTopOf="@id/img_avt"></ImageView>
 
     <TextView
         android:layout_width="0dp"

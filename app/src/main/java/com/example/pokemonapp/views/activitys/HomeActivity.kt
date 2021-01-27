@@ -84,12 +84,6 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                         if (mListPokemon.next != null) {
                             mInformationPokemonViewModel.getNextListPokemon(mListPokemon.next!!)
                             mListPokemonAdapter.setLoadMoreItem(true)
-                        } else {
-                            Toast.makeText(
-                                applicationContext,
-                                "This is end of list Pokemon",
-                                Toast.LENGTH_LONG
-                            ).show()
                         }
                     }
                 }
@@ -108,7 +102,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         mInformationPokemonViewModel = InformationPokemonViewModel()
         mInformationPokemonViewModel.listPokemon.observe(this, {
             if (it != null) {
-                mListPokemon = it
+                mListPokemon = ListPokemon(it)
                 mInformationPokemonViewModel.amountOfPokemon.value = 0
             } else {
                 dismissDialog()
@@ -119,6 +113,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             if (mListPokemon.results?.size != null && it == mListPokemon.results?.size!!) {
                 mListPokemonAdapter.setList(mArrayListInformationPokemon)
                 dismissDialog()
+                img_refresh.isEnabled = true
             } else if (it <= -1) {
                 mArrayListInformationPokemon.clear()
                 mListPokemonAdapter.setList(mArrayListInformationPokemon)
@@ -127,7 +122,6 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                     Call_API.getInformationAPokemon(mListPokemon.results?.get(it)?.name!!)
                 mInformationPokemonViewModel.getAPokemon(callGetAPokemon)
             }
-        Log.d("hieu2", "${it}-${mArrayListInformationPokemon.size}-${mListPokemon.results?.size}")
         })
 
         mInformationPokemonViewModel.aPokemon.observe(this, {
@@ -156,7 +150,6 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             }
         })
 
-
         mInformationPokemonViewModel.notification.observe(this, {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             dismissDialog()
@@ -174,6 +167,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         val bundle = Bundle()
         bundle.putSerializable(Utility.KEY_BUNDLE_INFORMATION_POKEMON, informationPokemon)
         intent.putExtras(bundle)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
     }
 
@@ -183,12 +177,16 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                 mInformationPokemonViewModel.searchAPokemon(edt_inputSearch.text.toString())
             }
             R.id.img_refresh -> {
+                img_refresh.isEnabled = false
+                callGetListPokemon.cancel()
+                callGetAPokemon.cancel()
                 closeKeyboard()
+                mListPokemon = ListPokemon()
                 mInformationPokemonViewModel.amountOfPokemon.value = -1
                 mKeyShowInformationPokemon = Utility.KEY_DISPLAY
                 Handler().postDelayed({
                     getFirstListPokemon()
-                }, 1000)
+                }, 100)
                 edt_inputSearch.text.clear()
             }
         }

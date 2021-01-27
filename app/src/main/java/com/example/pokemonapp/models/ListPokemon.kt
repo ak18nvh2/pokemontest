@@ -7,7 +7,13 @@ import com.google.gson.annotations.SerializedName
 
 
 
-class ListPokemon {
+class ListPokemon() {
+    constructor(listPokemon: ListPokemon): this() {
+        this.results = listPokemon.results
+        this.count = listPokemon.count
+        this.next = listPokemon.next
+        this.previous = listPokemon.previous
+    }
     @SerializedName("count")
     @Expose
     var count: Int? = null

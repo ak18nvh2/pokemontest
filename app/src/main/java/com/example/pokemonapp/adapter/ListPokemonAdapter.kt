@@ -58,7 +58,7 @@ class ListPokemonAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == Utility.KEY_SHOW_DATA) {
-
+            holder.setIsRecyclable(false)
             holder.itemView.tv_pokemonName.text = mListPokemon[position].name?.capitalize()
             if (mListPokemon[position].id != null) {
                 holder.itemView.tv_pokemonID.text = mListPokemon[position].id!!.format()
@@ -71,6 +71,50 @@ class ListPokemonAdapter(
             holder.itemView.setOnClickListener() {
                 iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
             }
+
+            mListPokemon[position].types?.size?.let {
+                when {
+                    it == 1 -> {
+                        mListPokemon[position].types?.get(0)?.type?.name?.let { it2 ->
+                            holder.itemView.img_typeRight.setImageResource(
+                                Utility.nameToImage(it2)
+                            )
+                        }
+                    }
+                    it == 2 -> {
+                        mListPokemon[position].types?.get(0)?.type?.name?.let { it2 ->
+                            holder.itemView.img_typeMid.setImageResource(
+                                Utility.nameToImage(it2)
+                            )
+                        }
+                        mListPokemon[position].types?.get(1)?.type?.name?.let { it2 ->
+                            holder.itemView.img_typeRight.setImageResource(
+                                Utility.nameToImage(it2)
+                            )
+                        }
+                    }
+                    it > 2 -> {
+                        mListPokemon[position].types?.get(0)?.type?.name?.let { it2 ->
+                            holder.itemView.img_typeLeft.setImageResource(
+                                Utility.nameToImage(it2)
+                            )
+                        }
+                        mListPokemon[position].types?.get(1)?.type?.name?.let { it2 ->
+                            holder.itemView.img_typeMid.setImageResource(
+                                Utility.nameToImage(it2)
+                            )
+                        }
+                        holder.itemView.img_typeRight.setImageResource(
+                            R.drawable.ic_baseline_more_horiz_24
+                        )
+                    }
+                    else -> {
+
+                    }
+                }
+
+            }
+
         } else {
             holder.itemView.pb_itemOfListPokemon.visibility = View.VISIBLE
         }

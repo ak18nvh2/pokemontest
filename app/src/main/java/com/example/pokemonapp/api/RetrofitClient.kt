@@ -24,7 +24,6 @@ object RetrofitClient {
         .readTimeout(TIME_OUT_REQUEST_API, TimeUnit.MILLISECONDS)
         .writeTimeout(TIME_OUT_REQUEST_API, TimeUnit.MILLISECONDS)
         .connectTimeout(TIME_OUT_REQUEST_API, TimeUnit.MILLISECONDS)
-        .retryOnConnectionFailure(true)
         .addInterceptor(headerInterceptor)
        // .addInterceptor(logger)
         .build()

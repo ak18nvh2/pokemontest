@@ -36,8 +36,6 @@ class SplashActivity : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.white_two)
         this.startActivity(Intent(this, HomeActivity::class.java))
         this.overridePendingTransition(0, 0)
-
-
     }
 
 }

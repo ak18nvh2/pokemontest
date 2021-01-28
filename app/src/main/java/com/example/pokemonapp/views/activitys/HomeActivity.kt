@@ -50,6 +50,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
+        edt_inputSearch.isCursorVisible = false
     }
 
     private fun initView() {
@@ -66,6 +67,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         srf_RecycleViewPokemon.setOnRefreshListener(this)
         img_search.setOnClickListener(this)
         img_goToTopRv.setOnClickListener(this)
+        edt_inputSearch.setOnClickListener(this)
         getFirstListPokemon()
     }
 
@@ -183,6 +185,9 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             }
             R.id.img_goToTopRv -> {
                 rv_listPokemon.layoutManager?.scrollToPosition(0)
+            }
+            R.id.edt_inputSearch -> {
+                edt_inputSearch.isCursorVisible = true
             }
         }
     }

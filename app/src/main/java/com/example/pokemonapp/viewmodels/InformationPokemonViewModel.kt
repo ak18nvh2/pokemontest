@@ -209,7 +209,6 @@ class InformationPokemonViewModel : ViewModel() {
 
     fun getNextListPokemon(link: String) {
         var limit = 0
-        var offset = 0
         var idRightOfNumberOffset = -1
         var idLeftOfNumberOffset = -1
         for (i in link.length - 1 downTo 0) {
@@ -234,7 +233,7 @@ class InformationPokemonViewModel : ViewModel() {
                 }
             }
         }
-        offset = link.substring(idLeftOfNumberOffset, idRightOfNumberOffset).toInt()
+        var offset = link.substring(idLeftOfNumberOffset, idRightOfNumberOffset).toInt()
         val callGet = Call_API.getListPokemon(offset, limit)
         getListPokemon(callGet)
     }
@@ -244,7 +243,6 @@ class InformationPokemonViewModel : ViewModel() {
             override fun onFailure(call: Call<InformationPokemon>, t: Throwable) {
                 aPokemon.value = null
             }
-
             override fun onResponse(
                 call: Call<InformationPokemon>,
                 response: Response<InformationPokemon>

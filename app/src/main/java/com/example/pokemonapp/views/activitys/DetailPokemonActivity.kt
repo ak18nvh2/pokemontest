@@ -88,6 +88,8 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
             img_tag.setImageResource(Utility.nameToTag(mInformationPokemon.types?.get(0)?.type?.name!!))
             mPrimaryColor = Utility.nameToColor(mInformationPokemon.types?.get(0)?.type?.name!!)
         }
+        window.statusBarColor = ContextCompat.getColor(this, mPrimaryColor)
+
         setFirstStateColor()
         if (mInformationPokemon.name != null) {
             tv_nameOfPokemon.text = mInformationPokemon.name?.capitalize()

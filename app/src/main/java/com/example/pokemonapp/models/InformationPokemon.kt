@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 
-data class InformationPokemon  (
+data class InformationPokemon(
     @SerializedName("abilities")
     @Expose
     var abilities: List<Abilities>? = null,
@@ -76,5 +76,7 @@ data class InformationPokemon  (
     @Expose
     var weight: Int? = null,
 
-    var itemViewType: Int = Utility.KEY_SHOW_DATA
+    var itemViewType: Int = Utility.KEY_SHOW_DATA,
+
+    var searchResult: String = ""
 ) : Serializable

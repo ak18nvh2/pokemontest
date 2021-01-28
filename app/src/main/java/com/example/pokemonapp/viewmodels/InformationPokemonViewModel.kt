@@ -200,7 +200,6 @@ class InformationPokemonViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     listPokemon.value = response.body()
                 } else {
-                    notification.value = "Can't load list pokemon, please try again!"
                     listPokemon.value = null
                 }
             }
@@ -254,7 +253,6 @@ class InformationPokemonViewModel : ViewModel() {
                     aPokemon.value = response.body()
                 } else {
                     aPokemon.value = null
-                    notification.value = "Can't load data, please try again!"
                 }
             }
         }

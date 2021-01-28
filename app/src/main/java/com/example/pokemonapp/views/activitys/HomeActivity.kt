@@ -1,5 +1,6 @@
 package com.example.pokemonapp.views.activitys
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +9,10 @@ import android.os.Handler
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.example.pokemonapp.adapter.ListPokemonAdapter
@@ -24,7 +27,7 @@ import kotlinx.android.synthetic.main.dialog_processbar.*
 import retrofit2.Call
 
 class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithActivity,
-    View.OnClickListener {
+    View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private lateinit var mInformationPokemonViewModel: InformationPokemonViewModel
     private var mListPokemon: ListPokemon = ListPokemon()
     private lateinit var mListPokemonAdapter: ListPokemonAdapter
@@ -34,6 +37,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var callGetAPokemon: Call<InformationPokemon>
     private lateinit var callGetListPokemon: Call<ListPokemon>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -61,6 +65,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             callGetListPokemon.cancel()
             mDialog.dismiss()
         }
+        srf_RecycleViewPokemon.setOnRefreshListener(this)
         img_search.setOnClickListener(this)
         img_refresh.setOnClickListener(this)
         getFirstListPokemon()
@@ -113,7 +118,6 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             if (mListPokemon.results?.size != null && it == mListPokemon.results?.size!!) {
                 mListPokemonAdapter.setList(mArrayListInformationPokemon)
                 dismissDialog()
-                img_refresh.isEnabled = true
             } else if (it <= -1) {
                 mArrayListInformationPokemon.clear()
                 mListPokemonAdapter.setList(mArrayListInformationPokemon)
@@ -135,16 +139,15 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             } else if (mKeyShowInformationPokemon == Utility.KEY_SEARCH) {
                 dismissDialog()
                 if (it == null) {
-                    val arrayListSearchPokemon = arrayListOf<InformationPokemon>()
-                    mListPokemonAdapter.setList(arrayListSearchPokemon)
-                    Toast.makeText(
-                        this,
-                        "Can't find a pokemon has id or name is " + edt_inputSearch.text,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    mListPokemonAdapter.setList(
+                        arrayListOf(
+                            InformationPokemon(
+                                searchResult = "Can't find a pokemon has id or name is\n${edt_inputSearch.text}"
+                            )
+                        )
+                    )
                 } else {
-                    val arrayListSearchPokemon = arrayListOf(it)
-                    mListPokemonAdapter.setList(arrayListSearchPokemon)
+                    mListPokemonAdapter.setList(arrayListOf(it))
                     mInformationPokemonViewModel.noticeGetAllInformationPokemonSuccessful()
                 }
             }
@@ -163,12 +166,16 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     }
 
     override fun onItemClick(informationPokemon: InformationPokemon, pos: Int) {
-        val intent = Intent(this, DetailPokemonActivity::class.java)
-        val bundle = Bundle()
-        bundle.putSerializable(Utility.KEY_BUNDLE_INFORMATION_POKEMON, informationPokemon)
-        intent.putExtras(bundle)
-        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        startActivity(intent)
+        if (informationPokemon.id != null) {
+            val intent = Intent(this, DetailPokemonActivity::class.java)
+            val bundle = Bundle()
+            bundle.putSerializable(Utility.KEY_BUNDLE_INFORMATION_POKEMON, informationPokemon)
+            intent.putExtras(bundle)
+            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Can't see detail of this pokemon!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -176,19 +183,20 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             R.id.img_search -> {
                 mInformationPokemonViewModel.searchAPokemon(edt_inputSearch.text.toString())
             }
-            R.id.img_refresh -> {
-                img_refresh.isEnabled = false
-                callGetListPokemon.cancel()
-                callGetAPokemon.cancel()
-                closeKeyboard()
-                mListPokemon = ListPokemon()
-                mInformationPokemonViewModel.amountOfPokemon.value = -1
-                mKeyShowInformationPokemon = Utility.KEY_DISPLAY
-                Handler().postDelayed({
-                    getFirstListPokemon()
-                }, 100)
-                edt_inputSearch.text.clear()
-            }
         }
+    }
+
+    override fun onRefresh() {
+        callGetListPokemon.cancel()
+        callGetAPokemon.cancel()
+        closeKeyboard()
+        mListPokemon = ListPokemon()
+        mInformationPokemonViewModel.amountOfPokemon.value = -1
+        mKeyShowInformationPokemon = Utility.KEY_DISPLAY
+        Handler().postDelayed({
+            getFirstListPokemon()
+        }, 100)
+        edt_inputSearch.text.clear()
+        srf_RecycleViewPokemon.isRefreshing = false
     }
 }

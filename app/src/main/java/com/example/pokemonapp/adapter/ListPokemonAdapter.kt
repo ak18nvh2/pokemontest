@@ -66,9 +66,7 @@ class ListPokemonAdapter(
                 .placeholder(R.drawable.egg)
                 .into(holder.itemView.img_avt)
 
-            holder.itemView.setOnClickListener() {
-                iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
-            }
+            holder.itemView.tv_searchState.text = mListPokemon[position].searchResult
 
             mListPokemon[position].types?.size?.let {
                 when {
@@ -111,6 +109,10 @@ class ListPokemonAdapter(
                     }
                 }
 
+            }
+
+            holder.itemView.setOnClickListener() {
+                iListPokemonWithActivity.onItemClick(mListPokemon[position], position)
             }
 
         } else {

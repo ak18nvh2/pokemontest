@@ -32,10 +32,12 @@ class SplashActivity : AppCompatActivity() {
         lo_splash.startAnimation(anim)
     }
     override fun finish() {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.white_two)
         super.finish()
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white_two)
         this.startActivity(Intent(this, HomeActivity::class.java))
-        this.overridePendingTransition(0, 0);
+        this.overridePendingTransition(0, 0)
+
+
     }
 
 }

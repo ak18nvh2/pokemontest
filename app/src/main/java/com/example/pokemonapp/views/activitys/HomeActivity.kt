@@ -1,6 +1,5 @@
 package com.example.pokemonapp.views.activitys
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,6 @@ import android.os.Handler
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -67,14 +65,14 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         }
         srf_RecycleViewPokemon.setOnRefreshListener(this)
         img_search.setOnClickListener(this)
-        img_refresh.setOnClickListener(this)
+        img_goToTopRv.setOnClickListener(this)
         getFirstListPokemon()
     }
 
     private fun dismissDialog() {
         mDialog.dismiss()
         lo_home.alpha = 1F
-        img_refresh.isEnabled = true
+        img_goToTopRv.isEnabled = true
     }
 
     private fun initRecyclerViewPokemon() {
@@ -166,7 +164,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     }
 
     override fun onItemClick(informationPokemon: InformationPokemon, pos: Int) {
-        if (informationPokemon.id != null) {
+        if (informationPokemon.id != null && informationPokemon.name != null) {
             val intent = Intent(this, DetailPokemonActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable(Utility.KEY_BUNDLE_INFORMATION_POKEMON, informationPokemon)
@@ -182,6 +180,9 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         when (v?.id) {
             R.id.img_search -> {
                 mInformationPokemonViewModel.searchAPokemon(edt_inputSearch.text.toString())
+            }
+            R.id.img_goToTopRv -> {
+                rv_listPokemon.layoutManager?.scrollToPosition(0)
             }
         }
     }

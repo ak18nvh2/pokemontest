@@ -128,6 +128,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 )
             )
         )
+        cv_Evolutions.cardElevation = 0F
         cv_Evolutions.setCardBackgroundColor(
             ColorStateList.valueOf(
                 ContextCompat.getColor(
@@ -142,6 +143,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 this.theme
             )
         )
+        cv_Moves.cardElevation = 0F
         cv_Moves.setCardBackgroundColor(
             ColorStateList.valueOf(
                 ContextCompat.getColor(
@@ -313,6 +315,8 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 fragmentTransaction.show(mListFragment[1])
                 fragmentTransaction.commit()
+
+                cv_Stats.cardElevation = 6F
                 cv_Stats.setCardBackgroundColor(
                     applicationContext.resources.getColor(
                         mPrimaryColor,
@@ -327,6 +331,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                         )
                     )
                 )
+                cv_Evolutions.cardElevation = 0F
                 cv_Evolutions.setCardBackgroundColor(
                     ColorStateList.valueOf(
                         ContextCompat.getColor(
@@ -341,6 +346,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                         this.theme
                     )
                 )
+                cv_Moves.cardElevation = 0F
                 cv_Moves.setCardBackgroundColor(
                     ColorStateList.valueOf(
                         ContextCompat.getColor(
@@ -363,6 +369,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 fragmentTransaction.show(mListFragment[2])
                 fragmentTransaction.commit()
+                cv_Evolutions.cardElevation = 6F
                 cv_Evolutions.setCardBackgroundColor(
                     applicationContext.resources.getColor(
                         mPrimaryColor,
@@ -377,6 +384,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                         )
                     )
                 )
+                cv_Stats.cardElevation = 0F
                 cv_Stats.setCardBackgroundColor(
                     ColorStateList.valueOf(
                         ContextCompat.getColor(
@@ -391,6 +399,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                         this.theme
                     )
                 )
+                cv_Moves.cardElevation = 0F
                 cv_Moves.setCardBackgroundColor(
                     ColorStateList.valueOf(
                         ContextCompat.getColor(
@@ -413,6 +422,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 fragmentTransaction.show(mListFragment[0])
                 fragmentTransaction.commit()
+                cv_Moves.cardElevation = 6F
                 cv_Moves.setCardBackgroundColor(
                     applicationContext.resources.getColor(
                         mPrimaryColor,
@@ -427,6 +437,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                         )
                     )
                 )
+                cv_Evolutions.cardElevation = 0F
                 cv_Evolutions.setCardBackgroundColor(
                     ColorStateList.valueOf(
                         ContextCompat.getColor(
@@ -441,6 +452,7 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                         this.theme
                     )
                 )
+                cv_Stats.cardElevation = 0f
                 cv_Stats.setCardBackgroundColor(
                     ColorStateList.valueOf(
                         ContextCompat.getColor(

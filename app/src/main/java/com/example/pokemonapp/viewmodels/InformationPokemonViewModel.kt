@@ -243,6 +243,7 @@ class InformationPokemonViewModel : ViewModel() {
             override fun onFailure(call: Call<InformationPokemon>, t: Throwable) {
                 aPokemon.value = null
             }
+
             override fun onResponse(
                 call: Call<InformationPokemon>,
                 response: Response<InformationPokemon>
@@ -267,13 +268,23 @@ class InformationPokemonViewModel : ViewModel() {
 
     fun searchAPokemon(input: String) {
         val informationSearch = input.toLowerCase().trim()
-        if (informationSearch == "") {
+        var i = 0
+        var check = 0
+        while (informationSearch[i] == '0') {
+            i++
+            if (i == informationSearch.length) {
+                check = 1
+                break
+            }
+        }
+        if (informationSearch == "" || check == 1) {
             notification.value = "Please type name or id of Pokemon!"
         } else {
             isSearching.value = true
+
             val call =
                 Call_API.getInformationAPokemon(
-                    informationSearch
+                    informationSearch.substring(i, informationSearch.length)
                 )
             getAPokemon(call)
         }

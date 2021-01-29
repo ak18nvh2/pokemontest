@@ -313,7 +313,6 @@ class StatsFragment() : Fragment() {
             pcRate.pieChartData = pieChartDataRate
         }
 
-
         //-------------------------sprites------------------------------------
         val arrayImg = ArrayList<ImageView>()
         arrayImg.add(t.findViewById(R.id.img_normal))

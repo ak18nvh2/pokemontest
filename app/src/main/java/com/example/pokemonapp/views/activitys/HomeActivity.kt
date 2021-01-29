@@ -84,7 +84,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         rv_listPokemon.adapter = mListPokemonAdapter
         rv_listPokemon.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (!recyclerView.canScrollVertically(1) && !mListPokemonAdapter.mIsLoadMore) {
+                if (mLinearLayoutManager.findLastVisibleItemPosition() - 4 == mArrayListInformationPokemon.lastIndex - 4 && !mListPokemonAdapter.mIsLoadMore) {
                     if (mKeyShowInformationPokemon == Utility.KEY_DISPLAY) {
                         if (mListPokemon.next != null) {
                             mInformationPokemonViewModel.getNextListPokemon(mListPokemon.next!!)

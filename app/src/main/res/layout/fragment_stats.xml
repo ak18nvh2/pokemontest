@@ -435,22 +435,33 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_breeding"></TextView>
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/gender"
-                app:layout_constraintBottom_toBottomOf="@id/pb_Gender"
-                app:layout_constraintLeft_toLeftOf="@id/pb_Gender"
-                app:layout_constraintRight_toRightOf="@id/pb_Gender"
-                app:layout_constraintTop_toTopOf="@id/pb_Gender"></ImageView>
+                android:id="@+id/img_male"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/male"
+                app:layout_constraintBottom_toBottomOf="@id/pc_Gender"
+                app:layout_constraintLeft_toLeftOf="@id/pc_Gender"
+                app:layout_constraintRight_toRightOf="@id/pc_Gender"
+                app:layout_constraintTop_toTopOf="@id/pc_Gender"></ImageView>
 
-            <ProgressBar
-                android:id="@+id/pb_Gender"
+            <ImageView
+                android:id="@+id/img_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/female"
+                app:layout_constraintBottom_toBottomOf="@id/pc_Gender"
+                app:layout_constraintLeft_toLeftOf="@id/pc_Gender"
+                app:layout_constraintRight_toRightOf="@id/pc_Gender"
+                app:layout_constraintTop_toTopOf="@id/pc_Gender"></ImageView>
+
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/pc_Gender"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:indeterminateOnly="false"
-                android:max="100"
-                android:progress="80"
-                android:progressDrawable="@drawable/progressbar_circle"
                 app:layout_constraintBottom_toBottomOf="@id/tv_percentFemale"
                 app:layout_constraintLeft_toRightOf="@id/tv_percentMale"
                 app:layout_constraintRight_toRightOf="parent"
@@ -463,9 +474,9 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="16dp"
                 android:text="12.5%"
-                android:textColor="#ce71e1"
+                android:textColor="@color/pinkGender"
                 app:layout_constraintLeft_toRightOf="@id/gl_rightOfHatchTime"
-                app:layout_constraintRight_toLeftOf="@id/pb_Gender"
+                app:layout_constraintRight_toLeftOf="@id/pc_Gender"
                 app:layout_constraintTop_toBottomOf="@id/tv_EggGroup"></TextView>
 
             <TextView
@@ -580,17 +591,13 @@
                 android:text="45%"
                 android:textColor="@color/dark_sky_blue"
                 app:layout_constraintLeft_toRightOf="@id/gl_rightOfHatchTime"
-                app:layout_constraintRight_toLeftOf="@id/pb_CaptureRate"
+                app:layout_constraintRight_toLeftOf="@id/pc_CaptureRate"
                 app:layout_constraintTop_toTopOf="@id/tv_habitatContent"></TextView>
 
-            <ProgressBar
-                android:id="@+id/pb_CaptureRate"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:indeterminateOnly="false"
-                android:max="100"
-                android:progress="60"
-                android:progressDrawable="@drawable/processbar_circle_capture_rate"
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/pc_CaptureRate"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_percentCaptureRate"
                 app:layout_constraintLeft_toRightOf="@id/tv_percentCaptureRate"
                 app:layout_constraintRight_toRightOf="parent"
@@ -599,11 +606,12 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/capture_rate_pokemon"
-                app:layout_constraintBottom_toBottomOf="@id/pb_CaptureRate"
-                app:layout_constraintLeft_toLeftOf="@id/pb_CaptureRate"
-                app:layout_constraintRight_toRightOf="@id/pb_CaptureRate"
-                app:layout_constraintTop_toTopOf="@id/pb_CaptureRate"></ImageView>
+                android:src="@drawable/pokeball"
+                android:id="@+id/img_pokemonBallRate"
+                app:layout_constraintBottom_toBottomOf="@id/pc_CaptureRate"
+                app:layout_constraintLeft_toLeftOf="@id/pc_CaptureRate"
+                app:layout_constraintRight_toRightOf="@id/pc_CaptureRate"
+                app:layout_constraintTop_toTopOf="@id/pc_CaptureRate"></ImageView>
 
             <!--            end capture-->
 

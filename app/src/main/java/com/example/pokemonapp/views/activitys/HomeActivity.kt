@@ -33,7 +33,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
     private var mKeyShowInformationPokemon = Utility.KEY_DISPLAY
     private lateinit var mDialog: MaterialDialog
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-    private lateinit var callGetAPokemon: Call<InformationPokemon>
+    private var callGetAPokemon: Call<InformationPokemon>? = null
     private lateinit var callGetListPokemon: Call<ListPokemon>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
         mDialog.window?.setDimAmount(0F)
         mDialog.setCancelable(false)
         mDialog.btn_Cancel.setOnClickListener() {
-            callGetAPokemon.cancel()
+            callGetAPokemon?.cancel()
             callGetListPokemon.cancel()
             mDialog.dismiss()
         }
@@ -124,7 +124,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
             } else if (it < mListPokemon.results?.size!!) {
                 callGetAPokemon =
                     Call_API.getInformationAPokemon(mListPokemon.results?.get(it)?.name!!)
-                mInformationPokemonViewModel.getAPokemon(callGetAPokemon)
+                mInformationPokemonViewModel.getAPokemon(callGetAPokemon!!)
             }
         })
 
@@ -195,7 +195,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
 
     override fun onRefresh() {
         callGetListPokemon.cancel()
-        callGetAPokemon.cancel()
+        callGetAPokemon?.cancel()
         closeKeyboard()
         mListPokemon = ListPokemon()
         mInformationPokemonViewModel.amountOfPokemon.value = -1

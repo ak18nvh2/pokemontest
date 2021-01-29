@@ -81,4 +81,6 @@
     <color name="colorDark">#5F606D</color>
     <color name="colorBug">#9DC130</color>
     <color name="colorIce">#7ED4C9</color>
+    <color name="pinkGender">#ce71e1</color>
+    <color name="bg_pc_rate">#e6e6e6</color>
 </resources>

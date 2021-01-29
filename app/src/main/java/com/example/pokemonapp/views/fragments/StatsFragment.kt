@@ -17,6 +17,9 @@ import com.example.pokemonapp.adapter.AbilitiesAdapter
 import com.example.pokemonapp.models.*
 import com.example.pokemonapp.viewmodels.InformationPokemonViewModel
 import com.squareup.picasso.Picasso
+import lecho.lib.hellocharts.model.PieChartData
+import lecho.lib.hellocharts.model.SliceValue
+import lecho.lib.hellocharts.view.PieChartView
 
 class StatsFragment() : Fragment() {
     private var mInformationPokemonForm = InformationPokemonForm()
@@ -203,20 +206,54 @@ class StatsFragment() : Fragment() {
         //--------breeding---------------------------------------------------------------
         val tvPercentMale = t.findViewById<TextView>(R.id.tv_percentMale)
         val tvPercentFemale = t.findViewById<TextView>(R.id.tv_percentFemale)
-        val pbGender = t.findViewById<ProgressBar>(R.id.pb_Gender)
+        val pcGender = t.findViewById<PieChartView>(R.id.pc_Gender)
         val tvStep = t.findViewById<TextView>(R.id.tv_Steps)
         val tvCycle = t.findViewById<TextView>(R.id.tv_Cycles)
         val tvEgg1 = t.findViewById<TextView>(R.id.tv_eggGroup1)
         val tvEgg2 = t.findViewById<TextView>(R.id.tv_eggGroup2)
+        val imgMale = t.findViewById<ImageView>(R.id.img_male)
+        val imgFemale = t.findViewById<ImageView>(R.id.img_female)
         val percentMale = (0..100).random()
         val steps = (0..5000).random()
         val cycles = (0..1000).random()
         val percentFemale = 100 - percentMale
         tvPercentFemale.text = "$percentFemale%"
         tvPercentMale.text = "$percentMale%"
-        pbGender.progress = percentMale
         tvStep.text = "$steps Steps"
         tvCycle.text = "$cycles Cycles"
+
+        val pieData: ArrayList<SliceValue> = ArrayList()
+        pieData.add(
+            SliceValue(
+                percentFemale.toFloat(), requireContext().resources.getColor(
+                    mPrimaryColor,
+                    requireContext().theme
+                )
+            )
+        )
+        imgFemale.setColorFilter(
+            requireContext().resources.getColor(
+                mPrimaryColor,
+                requireContext().theme
+            )
+        )
+        pieData.add(
+            SliceValue(
+                percentMale.toFloat(), requireContext().resources.getColor(
+                    R.color.pinkGender,
+                    requireContext().theme
+                )
+            )
+        )
+        imgMale.setColorFilter(
+            requireContext().resources.getColor(
+                R.color.pinkGender,
+                requireContext().theme
+            )
+        )
+        val pieChartData = PieChartData(pieData)
+        pieChartData.setHasCenterCircle(true).centerCircleScale = 0.85F
+        pcGender.pieChartData = pieChartData
 
         if (mInformationPokemonSpecies.eggGroups?.size != null) {
             if (mInformationPokemonSpecies.eggGroups?.size!! == 1) {
@@ -236,24 +273,45 @@ class StatsFragment() : Fragment() {
         val tvHabitatContent = t.findViewById<TextView>(R.id.tv_habitatContent)
         val tvGenerationContent = t.findViewById<TextView>(R.id.tv_GenerationContent)
         val tvRate = t.findViewById<TextView>(R.id.tv_percentCaptureRate)
-        val pbRate = t.findViewById<ProgressBar>(R.id.pb_CaptureRate)
-        if (mInformationPokemonSpecies.habitat?.name != null) {
-            tvHabitatContent.text = mInformationPokemonSpecies.habitat?.name?.capitalize()
+        val pcRate = t.findViewById<PieChartView>(R.id.pc_CaptureRate)
+        val imgRate = t.findViewById<ImageView>(R.id.img_pokemonBallRate)
+        mInformationPokemonSpecies.habitat?.name?.let {
+            tvHabitatContent.text = it.capitalize()
         }
-        if (mInformationPokemonSpecies.generation?.name != null) {
-            tvGenerationContent.text = mInformationPokemonSpecies.generation?.name?.capitalize()
+        mInformationPokemonSpecies.generation?.name?.let {
+            tvGenerationContent.text = it.capitalize()
         }
-        if (mInformationPokemonSpecies.captureRate != null) {
-            tvRate.text = "${mInformationPokemonSpecies.captureRate}%"
-            pbRate.progress = mInformationPokemonSpecies.captureRate!!
-        }
-
-        pbGender.indeterminateDrawable.setColorFilter(
+        imgRate.setColorFilter(
             requireContext().resources.getColor(
                 mPrimaryColor,
                 requireContext().theme
-            ), android.graphics.PorterDuff.Mode.MULTIPLY
+            )
         )
+        mInformationPokemonSpecies.captureRate?.let {
+            tvRate.text = "$it%"
+            val pieDataRate: ArrayList<SliceValue> = ArrayList()
+            pieDataRate.add(
+                SliceValue(
+                    it.toFloat(), requireContext().resources.getColor(
+                        mPrimaryColor,
+                        requireContext().theme
+                    )
+                )
+            )
+            if (it < 100) {
+                pieDataRate.add(
+                    SliceValue(
+                        100 - it.toFloat(), requireContext().resources.getColor(
+                            R.color.bg_pc_rate,
+                            requireContext().theme
+                        )
+                    )
+                )
+            }
+            val pieChartDataRate = PieChartData(pieDataRate)
+            pieChartDataRate.setHasCenterCircle(true).centerCircleScale = 0.85F
+            pcRate.pieChartData = pieChartDataRate
+        }
 
 
         //-------------------------sprites------------------------------------

@@ -17,6 +17,7 @@
         android:id="@+id/img_avt"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:src="@drawable/egg"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/gl_rightOfAvatar"
@@ -80,12 +81,10 @@
         android:id="@+id/tv_searchState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="13dp"
+        android:gravity="center"
         android:textColor="@color/text_color_name_pokemon"
         android:textSize="16dp"
         app:layout_constraintLeft_toRightOf="@id/gl_rightOfAvatar"
-        app:layout_constraintTop_toTopOf="@id/img_avt"
         app:layout_constraintRight_toRightOf="parent"
-        android:gravity="center"
-        ></TextView>
+        app:layout_constraintTop_toTopOf="@id/img_avt"></TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

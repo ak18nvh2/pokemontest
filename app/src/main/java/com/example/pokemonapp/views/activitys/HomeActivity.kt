@@ -160,7 +160,8 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
 
         mInformationPokemonViewModel.isSearching.observe(this, {
             mKeyShowInformationPokemon = Utility.KEY_SEARCH
-            dismissDialog()
+            lo_home.alpha = 0.2F
+            mDialog.show()
             closeKeyboard()
         })
     }

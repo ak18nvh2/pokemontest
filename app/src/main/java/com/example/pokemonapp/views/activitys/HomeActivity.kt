@@ -184,7 +184,7 @@ class HomeActivity : AppCompatActivity(), ListPokemonAdapter.IListPokemonWithAct
                 mInformationPokemonViewModel.searchAPokemon(edt_inputSearch.text.toString())
             }
             R.id.img_goToTopRv -> {
-                rv_listPokemon.layoutManager?.scrollToPosition(0)
+                rv_listPokemon.smoothScrollToPosition(0)
             }
             R.id.edt_inputSearch -> {
                 edt_inputSearch.isCursorVisible = true

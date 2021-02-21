@@ -1,275 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lo_detailPokemon"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_sky_blue"
     tools:context=".views.activitys.DetailPokemonActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_topOfAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1"></androidx.constraintlayout.widget.Guideline>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/ab_detailPokemon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_botOfAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.32"></androidx.constraintlayout.widget.Guideline>
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_sky_blue"
+            app:collapsedTitleGravity="center"
+            app:expandedTitleGravity="top|center"
+            app:expandedTitleMarginStart="90dp"
+            app:layout_collapseMode="parallax"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="Squirle">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_topOfCardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.26"></androidx.constraintlayout.widget.Guideline>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="220dp"
+                    android:background="@drawable/background_custom_two_top"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_nameOfPokemon"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Squirtle"
-        android:textColor="@color/white"
-        android:textSize="22dp"
-        app:layout_constraintBottom_toBottomOf="@id/btn_HideOrShowDetail"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_HideOrShowDetail"></TextView>
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_topOfName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.097"></androidx.constraintlayout.widget.Guideline>
 
-    <ImageView
-        android:id="@+id/btn_HideOrShowDetail"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/downarrow"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_botOfName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.19"></androidx.constraintlayout.widget.Guideline>
 
+                    <TextView
+                        android:id="@+id/tv_Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="60dp"
+                        android:text="Squirtle"
+                        android:textColor="#4f4f4f"
+                        android:textSize="36dp"
+                        app:layout_constraintBottom_toTopOf="@id/img_tag"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_topOfTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.19"></androidx.constraintlayout.widget.Guideline>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_botOfTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.275"></androidx.constraintlayout.widget.Guideline>
+
+                    <ImageView
+                        android:id="@+id/img_tag"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/tag_water"
+                        app:layout_constraintBottom_toTopOf="@id/tv_description"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_Name"></ImageView>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_topOfDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.305"></androidx.constraintlayout.widget.Guideline>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_botOfDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.44"></androidx.constraintlayout.widget.Guideline>
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingRight="16dp"
+                        android:text="Squirtle’s shell is not merely used for protection.
+The shell’s rounded shape and the grooves on its surface help minimize resistance in water, enabling this pokemon to swim at high speed."
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/img_tag"></TextView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/img_avatar"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="60dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/water"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
+                app:layout_collapseMode="pin">
+
+                <ImageView
+                    android:id="@+id/btn_backDetail"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_arrow_back_24"></ImageView>
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_information"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background_custom_four_corner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gl_topOfCardView">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_topOfName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.097"></androidx.constraintlayout.widget.Guideline>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_botOfName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.19"></androidx.constraintlayout.widget.Guideline>
-
-        <TextView
-            android:id="@+id/tv_Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingTop="60dp"
-            android:text="Squirtle"
-            android:textColor="#4f4f4f"
-            android:textSize="36dp"
-            app:layout_constraintBottom_toTopOf="@id/img_tag"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></TextView>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_topOfTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.19"></androidx.constraintlayout.widget.Guideline>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_botOfTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.275"></androidx.constraintlayout.widget.Guideline>
-
-        <ImageView
-            android:id="@+id/img_tag"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:src="@drawable/tag_water"
-            app:layout_constraintBottom_toTopOf="@id/tv_description"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_Name"></ImageView>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_topOfDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.305"></androidx.constraintlayout.widget.Guideline>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_botOfDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.44"></androidx.constraintlayout.widget.Guideline>
-
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:text="Squirtle’s shell is not merely used for protection.
-The shell’s rounded shape and the grooves on its surface help minimize resistance in water, enabling this pokemon to swim at high speed."
-            app:layout_constraintBottom_toTopOf="@+id/cl_tabBar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img_tag"></TextView>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_topOfTabBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.47"></androidx.constraintlayout.widget.Guideline>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_botOfTabBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.6"></androidx.constraintlayout.widget.Guideline>
+        android:id="@+id/cl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_tabBar"
-            android:layout_width="0dp"
-            android:layout_height="68dp"
-            android:layout_marginTop="22dp"
-            android:background="@drawable/background_custom_four_corner"
-            app:layout_constraintBottom_toTopOf="@id/fm_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_description">
+            android:id="@+id/cl_contentChild"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_custom_two_top"
+            android:paddingTop="20dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_Stats"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/dark_sky_blue"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/cv_Evolutions"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/ns_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tv_Stats"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="STATS"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"></TextView>
-            </androidx.cardview.widget.CardView>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_Evolutions"
-                android:layout_width="0dp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_tabBar"
+                        android:layout_width="0dp"
+                        android:layout_height="68dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_Stats"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardBackgroundColor="@color/dark_sky_blue"
+                            app:cardCornerRadius="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/cv_Evolutions"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_Stats"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="STATS"
+                                android:textColor="@color/white"
+                                android:textSize="16dp"></TextView>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_Evolutions"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardBackgroundColor="#fafafa"
+                            app:cardCornerRadius="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/cv_Stats"
+                            app:layout_constraintRight_toLeftOf="@id/cv_Moves"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_evolutions"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="EVOLUTIONS"
+                                android:textColor="#559edf"
+                                android:textSize="16dp"></TextView>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_Moves"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardBackgroundColor="#fafafa"
+                            app:cardCornerRadius="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/cv_Evolutions"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_moves"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="MOVES"
+                                android:textColor="#559edf"
+                                android:textSize="16dp"></TextView>
+                        </androidx.cardview.widget.CardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <FrameLayout
+                android:id="@+id/fm_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="#fafafa"
-                app:cardCornerRadius="20dp"
+                android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/cv_Stats"
-                app:layout_constraintRight_toLeftOf="@id/cv_Moves"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tv_evolutions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="EVOLUTIONS"
-                    android:textColor="#559edf"
-                    android:textSize="16dp"></TextView>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_Moves"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="#fafafa"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/cv_Evolutions"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tv_moves"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="MOVES"
-                    android:textColor="#559edf"
-                    android:textSize="16dp"></TextView>
-            </androidx.cardview.widget.CardView>
-
+                app:layout_constraintTop_toBottomOf="@+id/ns_content"></FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <FrameLayout
-            android:id="@+id/fm_content"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/cl_information"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_tabBar"></FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_topOfStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.73"></androidx.constraintlayout.widget.Guideline>
 
-
-    <ImageView
-        android:id="@+id/img_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:src="@drawable/pokeball"
-        app:layout_constraintBottom_toTopOf="@id/gl_botOfAvatar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gl_topOfAvatar"></ImageView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

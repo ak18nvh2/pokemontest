@@ -1,9 +1,11 @@
 package com.example.pokemonapp.views.activitys
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -18,9 +20,11 @@ import com.example.pokemonapp.viewmodels.*
 import com.example.pokemonapp.views.fragments.EvolutionsFragment
 import com.example.pokemonapp.views.fragments.MovesFragment
 import com.example.pokemonapp.views.fragments.StatsFragment
+import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_pokemon.*
 import kotlinx.android.synthetic.main.dialog_processbar.*
+import kotlin.math.abs
 
 class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -29,7 +33,6 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     private val mFragmentTransaction = mFragmentManager.beginTransaction()
     private var mArrayListMove = ArrayList<Move>()
     private var mInformationPokemon: InformationPokemon = InformationPokemon()
-    private val mDetailPokemonViewModel = DetailPokemonViewModel()
     private val mInformationPokemonViewModel = InformationPokemonViewModel()
     private var mInformationPokemonSpecies = InformationPokemonSpecies()
     private var mInformationPokemonForm = InformationPokemonForm()
@@ -45,13 +48,15 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_pokemon)
+
+
         initView()
-        registerLiveDataListenerOfDetailPokemonViewModel()
         registerLiveDataListenerOfEvolutionViewModel()
         registerLiveDataListenerOfInformationPokemonFormViewModel()
         registerLiveDataListenerOfInformationPokemonSpeciesViewModel()
         registerLiveDataListenerOfInformationPokemonViewModel()
     }
+
 
     private fun dismissDialog() {
         mDialog.dismiss()
@@ -83,31 +88,58 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
             .load(mInformationPokemon.sprites?.other?.officialArtwork?.frontDefault)
             .placeholder(R.drawable.egg)
             .into(img_avatar)
-
+//
         if (mInformationPokemon.types?.get(0)?.type?.name != null) {
             img_tag.setImageResource(Utility.nameToTag(mInformationPokemon.types?.get(0)?.type?.name!!))
             mPrimaryColor = Utility.nameToColor(mInformationPokemon.types?.get(0)?.type?.name!!)
         }
+        collapsing_toolbar_layout.setCollapsedTitleTextColor(Color.WHITE)
+        collapsing_toolbar_layout.setExpandedTitleColor(
+            resources.getColor(
+                R.color.transfer,
+                this.theme
+            )
+        )
+        collapsing_toolbar_layout.setContentScrimColor(
+            resources.getColor(
+                mPrimaryColor,
+                this.theme
+            )
+        )
         window.statusBarColor = ContextCompat.getColor(this, mPrimaryColor)
 
         setFirstStateColor()
         if (mInformationPokemon.name != null) {
-            tv_nameOfPokemon.text = mInformationPokemon.name?.capitalize()
+            collapsing_toolbar_layout.title = mInformationPokemon.name?.capitalize()
             tv_Name.text = mInformationPokemon.name?.capitalize()
         }
         mInformationPokemon.id?.let {
             this.mInformationPokemonViewModel.getAPokemonForm("$it")
             this.mInformationPokemonViewModel.getInformationPokemonSpecies("$it")
         }
-        tv_nameOfPokemon.visibility = View.INVISIBLE
-        btn_HideOrShowDetail.setOnClickListener(this)
+
+        btn_backDetail.setOnClickListener(this)
         cv_Moves.setOnClickListener(this)
         cv_Evolutions.setOnClickListener(this)
         cv_Stats.setOnClickListener(this)
+
+        ab_detailPokemon.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (abs(verticalOffset) - appBarLayout!!.totalScrollRange == 0) {
+                toolbar.elevation = 0F
+                cl_content.setBackgroundColor(
+                    applicationContext.resources.getColor(
+                        mPrimaryColor,
+                        this.theme
+                    )
+                )
+            } else {
+                cl_content.setBackgroundColor(resources.getColor(R.color.white_two,this.theme))
+            }
+        })
     }
 
     private fun setFirstStateColor() {
-        lo_detailPokemon.setBackgroundColor(
+        collapsing_toolbar_layout.setBackgroundColor(
             applicationContext.resources.getColor(
                 mPrimaryColor,
                 this.theme
@@ -158,28 +190,8 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
                 this.theme
             )
         )
-
     }
 
-    private fun registerLiveDataListenerOfDetailPokemonViewModel() {
-        mDetailPokemonViewModel.hideState.observe(this, {
-            img_avatar.visibility = View.GONE
-            img_tag.visibility = View.GONE
-            tv_Name.visibility = View.GONE
-            tv_description.visibility = View.GONE
-            tv_nameOfPokemon.visibility = View.VISIBLE
-            gl_topOfCardView.setGuidelinePercent(0.1F)
-        })
-
-        mDetailPokemonViewModel.showState.observe(this, {
-            img_avatar.visibility = View.VISIBLE
-            img_tag.visibility = View.VISIBLE
-            tv_Name.visibility = View.VISIBLE
-            tv_description.visibility = View.VISIBLE
-            tv_nameOfPokemon.visibility = View.GONE
-            gl_topOfCardView.setGuidelinePercent(0.26F)
-        })
-    }
 
     private fun registerLiveDataListenerOfInformationPokemonFormViewModel() {
 
@@ -305,8 +317,8 @@ class DetailPokemonActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btn_HideOrShowDetail -> {
-                mDetailPokemonViewModel.showOrHideInformation()
+            R.id.btn_backDetail -> {
+                this.finish()
             }
             R.id.cv_Stats -> {
                 val fragmentTransaction: FragmentTransaction = mFragmentManager.beginTransaction()

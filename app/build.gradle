@@ -53,4 +53,5 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 }

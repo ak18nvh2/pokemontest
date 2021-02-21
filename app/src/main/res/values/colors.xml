@@ -83,4 +83,5 @@
     <color name="colorIce">#7ED4C9</color>
     <color name="pinkGender">#ce71e1</color>
     <color name="bg_pc_rate">#e6e6e6</color>
+    <color name="transfer">#00000000</color>
 </resources>
